@@ -61,7 +61,7 @@ $header_args = array(
                         $class = "primary --light";
                         $title = $link['link']['title'];
                         echo "<div class='" . $layout . "__cta-link'>";
-                        button($title, $class, $url, $target);
+                        button($title, $url, $target);
                         echo "</div>";
                     } 
                 }

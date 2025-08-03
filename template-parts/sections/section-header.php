@@ -30,7 +30,7 @@ $variation = $args['variation'] ?? 'default';
                     $target = $link['link']['target'];
                     $title = $link['link']['title'];
                     echo "<div class='" . $layout . "__cta-link section-header__cta-link'>";
-                        button($title, "", $url, $target);
+                        button($title, $url, $target);
                     echo "</div>";
                 } 
             }

@@ -20,7 +20,7 @@ $cta = get_sub_field('cta');
             $class = "primary";
             $title = $link['link']['title'];
             echo "<div class='" . $layout . "__cta-link'>";
-                button($title, $class, $url, $target);
+                button($title, $url, $target);
             echo "</div>";
         } 
     }

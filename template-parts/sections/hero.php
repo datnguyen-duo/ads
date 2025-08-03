@@ -44,6 +44,6 @@ $header_args = array(
     <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
     <div class="<?php echo $layout . '__play-button'; ?>">
         <img src="<?php echo get_template_directory_uri(); ?>/assets/thumbnail__watch-video.png" alt="Watch Video" loading="lazy">
-        <p>▶ Watch Full Video</p>
+        <p>Watch Full Video</p>
     </div>
 </div>

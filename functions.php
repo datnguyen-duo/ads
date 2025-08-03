@@ -189,6 +189,3 @@ require_once('inc/login.php');
 require_once('inc/acf.php');
 require_once('inc/icons.php');
 require_once('inc/elements.php');
-require_once('inc/filter-posts.php');
-require_once('inc/load-more-posts.php');
-require_once('inc/search-posts.php');
