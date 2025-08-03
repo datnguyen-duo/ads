@@ -1,0 +1,43 @@
+@use "../variables" as *;
+
+.horizontal-gallery {
+  padding: 0;
+  overflow-x: hidden;
+  padding-top: 7%;
+
+  .page-container {
+    padding: 0;
+  }
+
+  &__container {
+    display: flex;
+    align-items: center;
+  }
+
+  &__media {
+    flex-shrink: 0;
+    width: 25%;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 70%;
+    }
+
+    &:not(:first-child) {
+      margin-left: -1%;
+    }
+
+    &:nth-child(odd) {
+      transform: rotate(-4deg);
+    }
+
+    &:nth-child(even) {
+      transform: rotate(4deg);
+    }
+
+    &-image {
+      aspect-ratio: var(--aspect-portrait);
+      object-fit: cover;
+      border-radius: var(--border-radius-sm);
+    }
+  }
+}

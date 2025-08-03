@@ -1,0 +1,9 @@
+.not-found {
+  text-align: center;
+  padding: var(--spacer-lg) var(--gutter) var(--spacer);
+
+  &__description {
+    margin: 2rem 0;
+    text-wrap: balance;
+  }
+}

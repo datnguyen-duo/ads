@@ -1,0 +1,31 @@
+/*!
+Theme Name: Africa Dream Safaris
+Theme URI: https://africadreamsafaris.com
+Author: Duo Studio
+Author URI: https://duo-studio.co/
+Version: 1.0.0
+*/
+
+// Global
+@use "reset";
+@use "global";
+@use "header";
+@use "footer";
+@use "posts";
+@use "forms";
+@use "editor";
+@use "fontawesome";
+
+// Sections
+@use "sections/hero";
+@use "sections/text-media";
+@use "sections/cta";
+@use "sections/rich-text";
+@use "sections/horizontal-gallery";
+@use "sections/trust-badges";
+@use "sections/experience-paths";
+@use "sections/testimonial-slider";
+@use "sections/process";
+@use "sections/previews";
+@use "sections/logo-grid";
+@use "sections/cta-marquee";

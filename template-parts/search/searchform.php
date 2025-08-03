@@ -1,0 +1,18 @@
+<?php
+defined( 'ABSPATH' ) || exit;
+?>
+<div class="<?php echo $layout . '__search'; ?> search">
+    <div class="<?php echo $layout . '__search-container'; ?> search-container">
+        <form method="get" class="<?php echo $layout . '__search-form'; ?> search-form" action="<?php echo esc_url( home_url( '/' ) ); ?>">
+            <label class="<?php echo $layout . '__search-label'; ?> search-label">
+                <span class="screen-reader-text"><?php echo _x( 'Search for:', 'label', 'textdomain' ); ?></span>
+                <input type="search" class="<?php echo $layout . '__search-field'; ?> search-field" placeholder="<?php echo esc_attr_x( 'Search', 'placeholder', 'textdomain' ); ?>" value="<?php echo get_search_query(); ?>" name="s" />
+            </label>
+            <button type="submit" class="<?php echo $layout . '__search-submit'; ?> search-submit"><?php icon_search(); ?></button>
+        </form>
+        <div class="<?php echo $layout . '__search-reset'; ?> search-reset">
+            <?php icon_close(); ?>
+        </div>
+    </div>
+    <p class="<?php echo $layout . '__search-response'; ?> search-response text__size-body--lg"></p>
+</div>

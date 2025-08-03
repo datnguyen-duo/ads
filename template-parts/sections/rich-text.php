@@ -1,0 +1,29 @@
+<?php 
+defined( 'ABSPATH' ) || exit;
+$layout = $args['layout'];
+$content = get_sub_field('content');
+$cta = get_sub_field('cta');
+?>
+
+<div class="<?php echo $layout . '__content'; ?> editor">
+    <?php if ($content): ?>
+        <?php echo $content; ?>
+    <?php endif; ?>
+</div>
+<?php if (!empty($cta)): ?>
+    <div class="<?php echo $layout . '__cta'; ?>">
+    <?php 
+    foreach($cta as $key => $link) { 
+        if (!empty($link['link']['url']) && !empty($link['link']['title'])) {
+            $url = $link['link']['url'];
+            $target = $link['link']['target'];
+            $class = "primary";
+            $title = $link['link']['title'];
+            echo "<div class='" . $layout . "__cta-link'>";
+                button($title, $class, $url, $target);
+            echo "</div>";
+        } 
+    }
+    ?>
+    </div>
+<?php endif; ?>

@@ -1,0 +1,50 @@
+@use "../variables" as *;
+
+.rich-text {
+  body:not(.home) & {
+    max-width: var(--content-width);
+    margin: 0 auto;
+    &:first-child {
+      margin-top: var(--spacer);
+    }
+  }
+
+  &__content {
+    > h1,
+    > h2,
+    > h3,
+    > h4,
+    > h5,
+    > h6,
+    > p {
+      color: var(--color-text);
+      &:not(:last-child) {
+        margin-bottom: 0.5rem;
+      }
+
+      body.home & {
+        &:first-of-type {
+          img {
+            @media screen and (max-width: $breakpoint-mobile) {
+              display: block;
+              margin: 2rem auto 0;
+            }
+          }
+        }
+
+        img {
+          display: inline;
+          vertical-align: middle;
+          @media screen and (max-width: $breakpoint-mobile) {
+            width: 24%;
+          }
+        }
+      }
+    }
+  }
+
+  &__cta {
+    text-align: center;
+    margin-top: 1rem;
+  }
+}

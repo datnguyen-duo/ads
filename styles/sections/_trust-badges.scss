@@ -1,0 +1,47 @@
+@use "../variables" as *;
+
+.trust-badges {
+  background-color: var(--color-neutral-3);
+  text-align: center;
+  padding-block: var(--spacer-sm);
+  margin-top: var(--spacer);
+  overflow-x: auto;
+  .page-container {
+    padding-inline: 0;
+  }
+
+  &__badges {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gutter);
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      display: flex;
+    }
+  }
+
+  &__badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 70%;
+      flex-shrink: 0;
+    }
+
+    &-graphic {
+      flex-shrink: 0;
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: var(--gap-sm);
+      width: 100%;
+    }
+  }
+}

@@ -1,0 +1,83 @@
+<?php
+defined('ABSPATH') || exit;
+
+add_action('wp_ajax_filter_posts', 'filter_posts');
+add_action('wp_ajax_nopriv_filter_posts', 'filter_posts');
+
+function filter_posts() {
+    ob_start();
+    // Always start at page 1 for filtering
+    $paged = 1;
+    $posts_per_page = isset($_POST['posts_per_page']) ? intval($_POST['posts_per_page']) : 10;
+    $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';
+    $filter_term = isset($_POST['filter_term']) ? sanitize_text_field($_POST['filter_term']) : '';
+    $term_id = isset($_POST['term_id']) ? sanitize_text_field($_POST['term_id']) : '';
+    $search_value = isset($_POST['search_value']) ? sanitize_text_field($_POST['search_value']) : '';
+    $variation = isset($_POST['variation']) ? sanitize_text_field($_POST['variation']) : '';
+    $settings = array(
+        'post_type' => $post_type,
+    );
+
+    set_query_var('settings', $settings);
+    set_query_var('variation', $variation);
+
+    $args = array(
+        'post_type' => $post_type,
+        'posts_per_page' => $posts_per_page,
+        'paged' => $paged,
+        'post_status' => 'publish',
+    );
+    
+    if ($term_id) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => $filter_term,
+                'field' => 'term_id',
+                'terms' => $term_id,
+            ),
+        );
+    }
+    
+    if ($search_value) {
+        $args['s'] = $search_value;
+    }
+    
+    $query = new WP_Query($args);
+    
+    if ($query->have_posts()) : ?>
+        <?php if ($variation == 'slider'): ?>
+            <div class="swiper-wrapper">
+        <?php endif; ?>
+        <?php while ($query->have_posts()) : $query->the_post(); ?>
+            <?php get_template_part('template-parts/content/content', 'card'); ?>
+        <?php endwhile; ?>
+        <?php if ($variation == 'slider'): ?>
+            </div>
+            <div class="swiper-buttons">
+                <div class="swiper-button-prev button --circle --ghost"><?php icon_caret(); ?></div>
+                <div class="swiper-button-next button --circle --ghost"><?php icon_caret(); ?></div>
+            </div>
+        <?php endif; ?>
+    <?php endif;
+    
+    // Simple check if there are more posts
+    $total_posts = $query->found_posts;
+    $posts_loaded = $posts_per_page;
+    $has_more_posts = ($total_posts > $posts_loaded);
+    
+    wp_reset_postdata();
+    
+    $posts_html = ob_get_clean();
+    
+    $response = array(
+        'posts_html' => $posts_html,
+        'has_more_posts' => $has_more_posts,
+        'next_page' => 2,
+        'total_posts' => $total_posts,
+        'current_page' => 1,
+        'has_pagination' => $has_pagination
+    );
+    
+    wp_send_json($response);
+    wp_die();
+}

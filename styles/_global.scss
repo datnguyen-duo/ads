@@ -1,0 +1,352 @@
+@use "variables" as *;
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+html {
+  position: relative;
+  height: 100%;
+  min-height: 100%;
+  -webkit-font-smoothing: antialiased;
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--menu-height);
+  @media screen and (max-width: $breakpoint-mobile) {
+    scroll-padding-top: calc(var(--menu-height) + var(--gap-sm));
+  }
+}
+
+body {
+  color: var(--color-text);
+  background-color: var(--color-neutral-4);
+  font-family: var(--font-secondary);
+  overflow-x: hidden;
+  &.loading {
+    overflow: hidden;
+    &::before {
+      content: "";
+      position: fixed;
+      z-index: 99999;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: var(--color-light);
+    }
+  }
+}
+
+main {
+  overflow-x: hidden;
+}
+
+ul {
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+}
+
+img,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+.media-container {
+  border: var(--gap-xs) solid var(--color-light);
+  display: flex;
+  overflow: hidden;
+}
+
+.page-container {
+  width: 100%;
+  max-width: 1920px;
+  margin: 0 auto;
+  padding: 0 2rem;
+
+  @media screen and (max-width: $breakpoint-mobile) {
+    padding: 0;
+  }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+button {
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+section {
+  padding: var(--spacer) var(--gutter);
+  position: relative;
+}
+
+.section-header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--gap);
+  text-wrap: balance;
+
+  @media screen and (max-width: $breakpoint-mobile) {
+    text-wrap: wrap;
+  }
+
+  &__heading {
+    em,
+    i {
+      color: var(--color-primary-1);
+    }
+  }
+}
+
+.swiper {
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  &-wrapper {
+    width: 100%;
+    display: flex;
+  }
+
+  &-slide {
+    flex-shrink: 0;
+    opacity: 0.3;
+    transition: opacity var(--transition-duration-ease-in-out);
+    margin-inline: var(--gap-sm);
+    @media screen and (max-width: $breakpoint-mobile) {
+      margin-inline: var(--gap-xxs);
+    }
+
+    &-active {
+      opacity: 1;
+    }
+  }
+
+  &-buttons {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--gap-sm);
+    width: 100%;
+  }
+
+  &-button {
+    &-prev {
+      transform: rotate(180deg);
+    }
+  }
+}
+
+.grecaptcha-badge {
+  display: none !important;
+}
+
+.noise {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 999;
+}
+
+.noise::after {
+  content: "";
+  position: absolute;
+  top: -10rem;
+  left: -10rem;
+  width: calc(100% + 20rem);
+  height: calc(100% + 20rem);
+  animation: noise 1s steps(2) infinite;
+  background-image: url("assets/noise.png");
+  background-position: 50%;
+  will-change: transform;
+}
+
+@keyframes noise {
+  0% {
+    transform: translate3d(0, 9rem, 0);
+  }
+  10% {
+    transform: translate3d(-1rem, -4rem, 0);
+  }
+  20% {
+    transform: translate3d(-8rem, 2rem, 0);
+  }
+  30% {
+    transform: translate3d(9rem, -9rem, 0);
+  }
+  40% {
+    transform: translate3d(-2rem, 7rem, 0);
+  }
+  50% {
+    transform: translate3d(-9rem, -4rem, 0);
+  }
+  60% {
+    transform: translate3d(2rem, 6rem, 0);
+  }
+  70% {
+    transform: translate3d(7rem, -8rem, 0);
+  }
+  80% {
+    transform: translate3d(-9rem, 1rem, 0);
+  }
+  90% {
+    transform: translate3d(6rem, -5rem, 0);
+  }
+  to {
+    transform: translate3d(-7rem, 0, 0);
+  }
+}
+
+/*	-----------------------------------------------------------------------------
+  SCROLL TRIGGER ANIMATIONS
+--------------------------------------------------------------------------------- */
+
+// Prevent flash of unstyled content for animated elements
+[data-animate-words],
+[data-animate-block],
+[data-animate-lines],
+[data-animate-image],
+[data-animate-fade],
+[data-animate-stagger] {
+  // Elements are hidden by default until JavaScript initializes them
+  // This prevents content from jumping when animations load
+}
+
+// Split text styling - natural flow with preserved inline elements
+.split-word {
+  // Use natural inline behavior to prevent text cutting
+  display: inline;
+
+  // Preserve inline elements like em, strong, etc.
+  // This is crucial for maintaining semantic HTML structure
+  em,
+  strong,
+  span,
+  a {
+    display: inline;
+  }
+}
+
+// Split line styling - minimal interference with natural flow
+.split-line {
+  // Keep natural block behavior for lines
+  display: block;
+  // No special line-height or overflow - let content flow naturally
+}
+
+// Split paragraph styling - maintain natural spacing
+.split-paragraph {
+  // Natural paragraph behavior
+  margin-bottom: 1em;
+
+  &:last-child {
+    margin-bottom: 0;
+  }
+}
+
+// Image animation styling
+[data-animate-image] {
+  // Ensure smooth clipping and scaling
+  overflow: hidden;
+
+  img {
+    // Allow scale transforms
+    transform-origin: center center;
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+}
+
+// Legacy support
+.split {
+  overflow: hidden;
+}
+
+// Animation state classes
+.animate-in {
+  // Applied when animation completes
+  // Can be used for CSS-only follow-up effects
+}
+
+// Loading state protection - hide elements until JS initializes
+.loading {
+  [data-animate-words],
+  [data-animate-block],
+  [data-animate-lines] {
+    // Hide text elements during initial load to prevent flash
+    opacity: 0;
+
+    // When JS is disabled, ensure text is still readable
+    .no-js & {
+      opacity: 1;
+    }
+  }
+
+  [data-animate-image],
+  [data-animate-fade],
+  [data-animate-stagger] {
+    opacity: 0;
+  }
+}
+
+// Accessibility: Respect reduced motion preferences
+@media (prefers-reduced-motion: reduce) {
+  [data-animate-words] {
+    // Disable blur and motion for word animations
+    .split-word {
+      opacity: 1 !important;
+      filter: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  [data-animate-block] {
+    // Disable blur and motion for block animations
+    opacity: 1 !important;
+    filter: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+
+  [data-animate-lines] {
+    // Disable motion for line animations
+    .split-line {
+      opacity: 1 !important;
+      transform: none !important;
+      animation: none !important;
+      transition: none !important;
+    }
+  }
+
+  [data-animate-image] {
+    // Disable clipping and scaling for reduced motion
+    clip-path: none !important;
+    transform: none !important;
+    animation: none !important;
+    transition: none !important;
+  }
+}

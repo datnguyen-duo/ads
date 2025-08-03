@@ -1,0 +1,1789 @@
+/* Africa Dream Safaris - Header Component Styles */
+/* All styles extracted from original base.css */
+
+/* Font Face Declarations */
+@font-face {
+  font-family: "FontAwesome";
+  src: url("assets/font-awesome-4.1.0/fonts/fontawesome-webfont862f.eot?v=4.1.0");
+  src: url("assets/font-awesome-4.1.0/fonts/fontawesome-webfontd41d.eot?#iefix&v=4.1.0")
+      format("embedded-opentype"),
+    url("assets/font-awesome-4.1.0/fonts/fontawesome-webfont862f.woff?v=4.1.0")
+      format("woff"),
+    url("assets/font-awesome-4.1.0/fonts/fontawesome-webfont862f.ttf?v=4.1.0")
+      format("truetype"),
+    url("assets/font-awesome-4.1.0/fonts/fontawesome-webfont862f.svg?v=4.1.0#fontawesomeregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("assets/fonts/roboto/roboto-regular-webfont.eot");
+  src: url("assets/fonts/roboto/roboto-regular-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto/roboto-regular-webfont.woff2") format("woff2"),
+    url("assets/fonts/roboto/roboto-regular-webfont.woff") format("woff"),
+    url("assets/fonts/roboto/roboto-regular-webfont.ttf") format("truetype"),
+    url("assets/fonts/roboto/roboto-regular-webfont.svg#robotoregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto";
+  src: url("assets/fonts/roboto/roboto-bold-webfont.eot");
+  src: url("assets/fonts/roboto/roboto-bold-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto/roboto-bold-webfont.woff2") format("woff2"),
+    url("assets/fonts/roboto/roboto-bold-webfont.woff") format("woff"),
+    url("assets/fonts/roboto/roboto-bold-webfont.ttf") format("truetype"),
+    url("assets/fonts/roboto/roboto-bold-webfont.svg#robotobold") format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto-condensed";
+  src: url("assets/fonts/roboto/robotocondensed-regular-webfont.eot");
+  src: url("assets/fonts/roboto/robotocondensed-regular-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto/robotocondensed-regular-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/roboto/robotocondensed-regular-webfont.woff")
+      format("woff"),
+    url("assets/fonts/roboto/robotocondensed-regular-webfont.ttf")
+      format("truetype"),
+    url("assets/fonts/roboto/robotocondensed-regular-webfont.svg#roboto_condensedregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto-condensed";
+  src: url("assets/fonts/roboto/robotocondensed-bold-webfont.eot");
+  src: url("assets/fonts/roboto/robotocondensed-bold-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto/robotocondensed-bold-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/roboto/robotocondensed-bold-webfont.woff") format("woff"),
+    url("assets/fonts/roboto/robotocondensed-bold-webfont.ttf")
+      format("truetype"),
+    url("assets/fonts/roboto/robotocondensed-bold-webfont.svg#roboto_condensedbold")
+      format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto-display";
+  src: url("assets/fonts/roboto-slab/robotoslab-regular-webfont.eot");
+  src: url("assets/fonts/roboto-slab/robotoslab-regular-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto-slab/robotoslab-regular-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/roboto-slab/robotoslab-regular-webfont.woff")
+      format("woff"),
+    url("assets/fonts/roboto-slab/robotoslab-regular-webfont.ttf")
+      format("truetype"),
+    url("assets/fonts/roboto-slab/robotoslab-regular-webfont.svg#roboto_slabregular")
+      format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto-display";
+  src: url("assets/fonts/roboto-slab/robotoslab-light-webfont.eot");
+  src: url("assets/fonts/roboto-slab/robotoslab-light-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto-slab/robotoslab-light-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/roboto-slab/robotoslab-light-webfont.woff") format("woff"),
+    url("assets/fonts/roboto-slab/robotoslab-light-webfont.ttf")
+      format("truetype"),
+    url("assets/fonts/roboto-slab/robotoslab-light-webfont.svg#roboto_slablight")
+      format("svg");
+  font-weight: 200;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "roboto-display";
+  src: url("assets/fonts/roboto-slab/robotoslab-bold-webfont.eot");
+  src: url("assets/fonts/roboto-slab/robotoslab-bold-webfontd41d.eot?#iefix")
+      format("embedded-opentype"),
+    url("assets/fonts/roboto-slab/robotoslab-bold-webfont.woff2")
+      format("woff2"),
+    url("assets/fonts/roboto-slab/robotoslab-bold-webfont.woff") format("woff"),
+    url("assets/fonts/roboto-slab/robotoslab-bold-webfont.ttf")
+      format("truetype"),
+    url("assets/fonts/roboto-slab/robotoslab-bold-webfont.svg#roboto_slabbold")
+      format("svg");
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Container Base */
+.container {
+  position: relative;
+  margin: 0 auto;
+  padding-left: 24px;
+  padding-right: 24px;
+  width: 1024px;
+  max-width: 1024px;
+}
+
+/* Container Clearfix */
+.container:before,
+.container:after {
+  content: " ";
+  display: table;
+}
+
+.container:after {
+  clear: both;
+}
+
+/* Container Navbar Margins */
+.container > .navbar-header,
+.container > .navbar-collapse {
+  margin-right: -12px;
+  margin-left: -12px;
+}
+
+@media (min-width: 1024px) {
+  .container > .navbar-header,
+  .container > .navbar-collapse {
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .navbar > .container .navbar-brand {
+    margin-left: -12px;
+  }
+}
+
+/* Base Navbar Styles */
+.navbar {
+  position: relative;
+  min-height: 50px;
+  margin-bottom: 20px;
+  border: 1px solid transparent;
+}
+
+@media (min-width: 1024px) {
+  .navbar {
+    border-radius: 4px;
+  }
+}
+
+.navbar-static-top {
+  z-index: 1000;
+  border-width: 0 0 1px;
+}
+
+@media (min-width: 1024px) {
+  .navbar-static-top {
+    border-radius: 0;
+  }
+}
+
+/* Base Navigation Styles */
+.nav {
+  margin-bottom: 0;
+  padding-left: 0;
+  list-style: none;
+}
+
+.nav:before,
+.nav:after {
+  content: " ";
+  display: table;
+}
+
+.nav:after {
+  clear: both;
+}
+
+.nav > li {
+  position: relative;
+  display: block;
+}
+
+.nav > li > a {
+  position: relative;
+  display: block;
+  padding: 10px 15px;
+}
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  text-decoration: none;
+  background-color: #eee;
+}
+
+.navbar-nav {
+  margin: 7.5px -12px;
+}
+
+.navbar-nav > li > a {
+  padding-top: 10px;
+  padding-bottom: 10px;
+  line-height: 20px;
+}
+
+/* Navbar Right */
+
+/* Collapse Styles */
+.collapse {
+  display: none;
+}
+
+.collapse.in {
+  display: block;
+}
+
+/* Collapsing Animation */
+.collapsing {
+  position: relative;
+  height: 0;
+  overflow: hidden;
+  -webkit-transition: height 0.35s ease;
+  -o-transition: height 0.35s ease;
+  transition: height 0.35s ease;
+}
+
+/* Navbar Collapse Base Styles */
+.navbar-collapse {
+  overflow-x: visible;
+  padding-right: 12px;
+  padding-left: 12px;
+  border-top: 1px solid transparent;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-overflow-scrolling: touch;
+}
+
+.navbar-collapse.in {
+  overflow-y: auto;
+}
+
+/* Navbar Collapse Max Height Constraints */
+.navbar-fixed-top .navbar-collapse,
+.navbar-fixed-bottom .navbar-collapse {
+  max-height: 340px;
+}
+
+@media (max-width: 480px) and (orientation: landscape) {
+  .navbar-fixed-top .navbar-collapse,
+  .navbar-fixed-bottom .navbar-collapse {
+    max-height: 200px;
+  }
+}
+
+/* Screen Reader Only */
+
+/* Dropdown Base Styles */
+.dropdown {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  display: none;
+  z-index: 1000;
+}
+
+.dropdown.open .dropdown-menu {
+  display: block;
+}
+
+/* List Styles */
+.list-unstyled {
+  padding-left: 0;
+  list-style: none;
+}
+
+.list-inline {
+  padding-left: 0;
+  list-style: none;
+  margin-left: -5px;
+}
+
+.list-inline > li {
+  display: inline-block;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+/* Header Main Styles */
+header {
+  display: block;
+  position: relative;
+  // position: fixed;
+  width: 100%;
+  height: 96px;
+  border-top: 35px solid #bfbcaa;
+  background-color: #5a5750;
+  top: 0;
+  z-index: 20000;
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  letter-spacing: 0.03em;
+  font-size: 14px;
+  line-height: 1.7em;
+  color: #677267;
+}
+
+header .navbar {
+  width: 100%;
+  position: absolute;
+  top: -35px;
+  left: 0;
+  padding: 0 24px;
+  min-height: 96px;
+  border: 0;
+  margin: 0;
+}
+
+header .navbar:before,
+header .navbar:after {
+  content: " ";
+  display: table;
+}
+
+header .navbar:after {
+  clear: both;
+}
+
+/* Navbar Header Clearfix */
+header .navbar .navbar-header:before,
+header .navbar .navbar-header:after {
+  content: " ";
+  display: table;
+}
+
+header .navbar .navbar-header:after {
+  clear: both;
+}
+
+/* Navbar Header */
+header .navbar .navbar-header {
+  width: 166px;
+  height: 96px;
+  background-color: #ebeae4;
+}
+
+header .navbar .navbar-header .navbar-brand {
+  width: 100%;
+  text-align: center;
+  margin: 29px 0 0 0;
+  padding: 0;
+}
+
+header .navbar .navbar-header .navbar-brand img {
+  width: 105px;
+}
+
+/* Base Navbar Brand Styles */
+.navbar-brand {
+  float: left;
+  padding: 15px 12px;
+  font-size: 18px;
+  line-height: 20px;
+  height: 50px;
+}
+
+.navbar-brand:hover,
+.navbar-brand:focus {
+  text-decoration: none;
+}
+
+/* Navbar Toggle (Hamburger Menu) */
+.navbar-toggle {
+  position: relative;
+  float: right;
+  margin-right: 12px;
+  padding: 9px 10px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  background-color: transparent;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+.navbar-toggle:focus {
+  outline: 0;
+}
+
+.navbar-toggle .icon-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
+  background-color: #888;
+}
+
+.navbar-toggle .icon-bar + .icon-bar {
+  margin-top: 4px;
+}
+
+/* Navbar Collapse */
+header .navbar .navbar-collapse {
+  width: 584px;
+  padding: 0;
+  float: left;
+  border: 0;
+  -moz-box-shadow: none;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+
+/* Primary Navigation */
+header .navbar #navbar-primary {
+  position: absolute;
+  top: 35px;
+  left: 190px;
+}
+
+header .navbar #navbar-primary li a {
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  height: 61px;
+  padding: 0 18px 0 17px;
+  color: #ebeae4;
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+  line-height: 61px;
+  // background-color: #5a5750;
+}
+
+header .navbar #navbar-primary li a span.valign-wrap {
+  display: table-cell;
+  vertical-align: middle;
+  height: 61px;
+  line-height: 1.1em;
+}
+
+header .navbar #navbar-primary li a:hover {
+  background-color: #fff;
+  color: #3f3d38;
+}
+
+header .navbar #navbar-primary.nav .open > a,
+header .navbar #navbar-primary.nav .open > a:hover,
+header .navbar #navbar-primary.nav .open > a:focus {
+  background-color: #3f3d38;
+  border: 0;
+}
+
+/* Dropdown Menus */
+header .navbar #navbar-primary .dropdown {
+  position: static;
+}
+
+header .navbar #navbar-primary .dropdown:hover .dropdown-menu {
+  display: block;
+}
+
+header .navbar #navbar-primary .dropdown.open .dropdown-menu {
+  display: block;
+}
+
+/* Dropdown Menu Callout Styles */
+header .navbar #navbar-primary .dropdown .dropdown-menu-callout {
+  width: 200px;
+  float: left;
+  border-right: 1px solid #ddd;
+  margin: 30px 25px;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-menu-callout h1 {
+  font-family: "roboto-display";
+  font-weight: 200;
+  font-style: normal;
+  font-size: 1.7em;
+  line-height: 1.3em;
+  text-transform: none;
+  margin: 15px 0 10px 0;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-menu-callout h2 {
+  font-family: "roboto-display";
+  font-weight: normal;
+  font-style: normal;
+  text-align: center;
+  margin: 18px 0 27px 0;
+  padding-right: 20px;
+  font-size: 22.4px;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-menu-callout .btn {
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  font-size: 0.9em;
+  height: auto;
+  line-height: 1.2em;
+  background-color: #7f9111;
+  color: #ebeae4;
+  padding: 12px 5px;
+  letter-spacing: 0.01em;
+  width: 180px;
+  margin: 0 0 20px 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-menu-callout
+  a.dropdown-callout-map {
+  display: block;
+  padding: 0;
+  width: 180px;
+  height: auto;
+  margin: 0 0 15px 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-menu-callout
+  a.dropdown-callout-map
+  img {
+  width: 100%;
+}
+
+/* Dropdown List Container Styles */
+header .navbar #navbar-primary .dropdown .dropdown-list-container {
+  padding: 25px 0 20px 25px;
+  background-color: #fff;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-list-group {
+  width: 180px;
+  float: left;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-list-group
+  ul {
+  float: left;
+  list-style: none;
+  padding: 0;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-list-container li {
+  float: left;
+  width: 100%;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-list-container li a,
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  li
+  .dropdown-list-anchor-wrap {
+  height: auto;
+  font-size: 1em;
+  line-height: 1.2em;
+  background-color: transparent;
+  padding: 10px 0;
+  margin: 0;
+  color: #677267;
+  text-align: left;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  li
+  .dropdown-list-anchor-wrap {
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  letter-spacing: 0.05em;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-list-container li a:hover {
+  color: #9ba49b;
+  cursor: pointer;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-region-header {
+  padding: 0 0 8px 0;
+  width: 90%;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1.2em;
+  line-height: 1.1em;
+  text-transform: uppercase;
+  text-align: left;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-region-header
+  span.extended-region-name {
+  display: block;
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.75em;
+  text-transform: none;
+  padding: 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-region-header.dropdown-region-header-lined {
+  border-top: 1px solid #ddd;
+  padding-top: 5px;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-region-subheader {
+  font-family: "roboto";
+  font-weight: bold;
+  font-style: normal;
+  text-transform: uppercase;
+  font-size: 0.8em;
+  line-height: 1em;
+  padding: 2px 0 8px 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-link-group
+  ul {
+  list-style: none;
+  padding: 0 0 16px 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-link-group
+  li
+  a {
+  display: block;
+  float: left;
+  clear: both;
+  margin: 0;
+  padding: 0 25px 5px 0;
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.8em;
+  text-transform: none;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown
+  .dropdown-list-container
+  .dropdown-link-group
+  li
+  a:hover {
+  cursor: pointer;
+}
+
+/* Dropdown Image Blocks Styles */
+header .navbar #navbar-primary .dropdown.dropdown-image-blocks .dropdown-menu {
+  padding: 40px 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section {
+  display: inline-block;
+  vertical-align: top;
+  width: 17%;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  a,
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  a:hover {
+  display: block;
+  width: 100%;
+  height: auto;
+  padding: 0 10px;
+  vertical-align: top;
+  background-color: #fff;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  .menu-img {
+  display: block;
+  position: relative;
+  width: 100%;
+  padding-bottom: 75%;
+  overflow: hidden;
+  background-color: #3f3d38;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  .menu-img
+  img {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  .menu-text {
+  display: block;
+  width: 100%;
+  margin: 20px auto 0 auto;
+  color: #6b7a0e;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1em;
+  line-height: 1.1em;
+  white-space: normal;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .dropdown-menu
+  .menu-section
+  .menu-text
+  span {
+  display: block;
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.75em;
+  text-transform: none;
+  padding: 2px 0 0 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks
+  .menu-section.first {
+  margin-left: 17%;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks.dropdown-image-blocks-2
+  .menu-section.first {
+  margin-left: 24%;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section {
+  width: 25%;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  .menu-img {
+  padding-bottom: 56.25%;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  .menu-img
+  .fa-play-circle {
+  position: absolute;
+  font-size: 2.8em;
+  top: 50%;
+  left: 50%;
+  margin-left: -20px;
+  margin-top: -25px;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  .menu-img
+  .fa-arrow-circle-right {
+  position: absolute;
+  font-size: 2.8em;
+  top: 50%;
+  left: 50%;
+  margin-left: -20px;
+  margin-top: -25px;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  a {
+  position: relative;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  a
+  .menu-img-overlay {
+  display: none;
+  width: 100%;
+  height: 100%;
+  background: rgba(103, 114, 103, 0.8);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  a:hover
+  .menu-img-overlay {
+  display: block;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-image-blocks-2
+  .dropdown-menu
+  .menu-section
+  a:hover
+  .menu-img
+  .fa {
+  color: #fff;
+}
+
+header .navbar #navbar-primary .dropdown .dropdown-menu {
+  position: absolute;
+  top: 61px;
+  left: -190px;
+  width: 976px;
+  border: 0;
+  border-radius: 0;
+  margin: 0;
+  padding: 0;
+  background-color: #fff;
+  -moz-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  font-size: 1em;
+  letter-spacing: 0.06em;
+  z-index: 10000;
+}
+
+/* Dropdown About Menu */
+header .navbar #navbar-primary .dropdown.dropdown-about .dropdown-menu {
+  padding: 40px 52px;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-about
+  .dropdown-menu
+  .menu-section {
+  display: inline-block;
+  width: 200px;
+  border-left: 1px solid #bfbcaa;
+  padding: 0 15px;
+  vertical-align: top;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-about
+  .dropdown-menu
+  .menu-section.first {
+  border: 0;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-about
+  .dropdown-menu
+  .menu-section
+  li
+  a {
+  display: block;
+  padding: 0 0 7px 0;
+  height: auto;
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 0.9em;
+  letter-spacing: 0;
+  line-height: 1.1em;
+  text-transform: none;
+  text-align: left;
+  background-color: #fff;
+  color: #6b7a0e;
+}
+
+header
+  .navbar
+  #navbar-primary
+  .dropdown.dropdown-about
+  .dropdown-menu
+  .menu-section
+  li.first
+  a {
+  max-width: 145px;
+  overflow: visible;
+  padding: 0 0 20px 0;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  font-size: 1.2em;
+  line-height: 1.2em;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: #5a5750;
+}
+
+/* Secondary Navigation */
+header .navbar #navbar-secondary {
+  position: absolute;
+  top: 0;
+  left: 190px;
+  padding-right: 52px;
+}
+
+header .navbar #navbar-secondary li a {
+  font-family: "roboto-display";
+  font-weight: 200;
+  font-style: normal;
+  height: 35px;
+  font-size: 0.9em;
+  padding: 9px 8px 6px 9px;
+  color: #3f3d38;
+  text-decoration: none;
+}
+
+header .navbar #navbar-secondary li a:hover,
+header .navbar #navbar-secondary li a:focus,
+header .navbar #navbar-secondary li a:active,
+header .navbar #navbar-secondary li a.active {
+  background-color: transparent;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+}
+
+/* Search Form */
+header .navbar #navbar-secondary #header-search-form {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  right: 0;
+  left: 93%;
+  height: 35px;
+  padding: 5px 0 0 0;
+  box-sizing: border-box;
+  -webkit-transition: left 0.8s ease-out;
+  transition: left 0.8s ease-out;
+}
+
+header .navbar #navbar-secondary #header-search-form.header-search-form-open {
+  left: 10px;
+}
+
+header .navbar #navbar-secondary #header-search-form .search-input-icon {
+  display: inline;
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 33px;
+  float: left;
+  position: absolute;
+  top: 0;
+  left: 0;
+  cursor: pointer;
+  background-color: #bfbcaa;
+  width: 25px;
+}
+
+header .navbar #navbar-secondary #header-search-form .search-input-icon svg {
+  width: 17px;
+  vertical-align: middle;
+  fill: #5a5750;
+}
+
+header .navbar #navbar-secondary #header-search-form .search-input-container {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 0 0 0 25px;
+  margin: 0;
+}
+
+header .navbar #navbar-secondary #header-search-form input[type="text"] {
+  box-sizing: border-box;
+  width: 100%;
+  line-height: 25px;
+  border: 0;
+  font-size: 1em;
+  padding: 0 5px;
+  outline: 0;
+  background-color: #bfbcaa;
+  color: #5a5750;
+}
+
+header
+  .navbar
+  #navbar-secondary
+  #header-search-form
+  input[type="text"]::-webkit-input-placeholder {
+  color: #5a5750;
+}
+
+header
+  .navbar
+  #navbar-secondary
+  #header-search-form
+  input[type="text"]:-ms-input-placeholder {
+  color: #5a5750;
+}
+
+header
+  .navbar
+  #navbar-secondary
+  #header-search-form
+  input[type="text"]::-moz-placeholder {
+  color: #5a5750;
+}
+
+header
+  .navbar
+  #navbar-secondary
+  #header-search-form
+  input[type="text"]:-moz-placeholder {
+  color: #5a5750;
+}
+
+header .navbar #navbar-secondary #header-search-form input[type="text"]:focus {
+  outline: 0;
+}
+
+/* Tablet Navigation */
+header .navbar #navbar-tablet {
+  display: none;
+  margin: 0;
+  padding: 0;
+}
+
+header .navbar #navbar-tablet li {
+  width: 50%;
+  float: left;
+  text-align: center;
+  border-left: 1px solid #837e74;
+  border-bottom: 1px solid #837e74;
+  margin-right: -2px;
+}
+
+header .navbar #navbar-tablet li a {
+  width: 100%;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: center;
+  color: #ebeae4;
+  font-size: 1.2em;
+  letter-spacing: 0.05em;
+  line-height: 61px;
+  background-color: #5a5750;
+}
+
+header .navbar #navbar-tablet li.navbar-link-secondary a {
+  background-color: #757168;
+  text-transform: none;
+}
+
+header .navbar #navbar-tablet #navbar-link-search-form form {
+  box-sizing: border-box;
+  height: 80px;
+  padding: 10px;
+  background-color: #757168;
+}
+
+header .navbar #navbar-tablet #navbar-link-search-form .search-input-icon {
+  -webkit-appearance: none;
+  background-color: transparent;
+  border: 0;
+  outline: 0;
+  margin: 0;
+  padding: 0;
+  line-height: 33px;
+  position: absolute;
+  top: 29px;
+  right: 15px;
+  width: 20px;
+  cursor: pointer;
+}
+
+header .navbar #navbar-tablet #navbar-link-search-form .search-input-icon svg {
+  fill: #ebeae4;
+}
+
+header .navbar #navbar-tablet #navbar-link-search-form .search-input-container {
+  position: absolute;
+  top: 24px;
+  left: 15px;
+  right: 14px;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input {
+  width: 100%;
+  outline: 0;
+  border: 0;
+  line-height: 28px;
+  padding: 2px 8px;
+  background-color: #757168;
+  color: #ebeae4;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  border-bottom: 2px solid #837e74;
+  border-radius: 0;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input::-webkit-input-placeholder {
+  color: #ebeae4;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input:-ms-input-placeholder {
+  color: #ebeae4;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input::-moz-placeholder {
+  color: #ebeae4;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input:-moz-placeholder {
+  color: #ebeae4;
+}
+
+header
+  .navbar
+  #navbar-tablet
+  #navbar-link-search-form
+  .search-input-container
+  input:focus {
+  outline: 0;
+}
+
+/* Navbar Buttons */
+.navbar-buttons {
+  position: absolute;
+  z-index: 200;
+  top: 0;
+  right: 0;
+  margin: 0;
+}
+
+.navbar-buttons.navbar-right:last-child {
+  margin-right: 0;
+}
+
+.navbar-buttons.sticky-ctas,
+.navbar-buttons.sticky-ctas:last-child {
+  position: relative;
+  top: auto;
+  right: auto;
+  left: auto;
+  margin: 0;
+  margin-right: 0;
+}
+
+.navbar-buttons li {
+  display: table;
+  width: 100%;
+}
+
+.navbar-buttons li.navbar-button-mobile {
+  display: table;
+}
+
+.navbar-buttons li.navbar-button-desktop {
+  display: none;
+}
+
+.navbar-buttons li a {
+  position: relative;
+  display: table-cell;
+  vertical-align: middle;
+  background-color: #6b7a0e;
+  color: #ebeae4;
+  font-family: "roboto-condensed";
+  font-weight: bold;
+  font-style: normal;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9em;
+  height: 48px;
+  line-height: 1.2em;
+  padding: 0 10px;
+  margin: 0;
+  white-space: nowrap;
+}
+
+.navbar-buttons li a b {
+  font-weight: inherit;
+  display: none;
+}
+
+.navbar-buttons li a:hover {
+  background-color: #93a813;
+}
+
+.navbar-buttons li a .fa {
+  margin: 0 3px 0 0;
+}
+
+.navbar-buttons .btn-create-your-own {
+  background-color: #c16756;
+}
+
+.navbar-buttons .btn-create-your-own:hover {
+  background-color: #c87869;
+}
+
+.navbar-buttons .btn-create-your-own .fa,
+.navbar-buttons .btn-contact-us .fa {
+  margin-left: 5px;
+}
+
+.navbar-buttons .btn-free-planning-kit,
+.navbar-buttons .btn-itinerary-contact,
+.navbar-buttons .btn-itinerary-get-quote {
+  background-color: #c16756;
+}
+
+.navbar-buttons .btn-free-planning-kit:hover,
+.navbar-buttons .btn-itinerary-contact:hover,
+.navbar-buttons .btn-itinerary-get-quote:hover {
+  background-color: #c87869;
+}
+
+.navbar-buttons .btn-itinerary-get-quote img {
+  width: 25px;
+  position: absolute;
+  top: 33px;
+  right: 16px;
+}
+
+/* Mobile Navigation Submenu */
+#nav-submenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 50000;
+  background-color: rgba(102, 114, 102, 0.95);
+  color: #fff;
+  overflow: scroll;
+  -webkit-overflow-scrolling: touch;
+  font-family: "roboto-display";
+  font-weight: bold;
+  font-style: normal;
+}
+
+#nav-submenu #nav-submenu-content {
+  position: static;
+  padding: 31px 0 50px 0;
+}
+
+#nav-submenu #nav-submenu-close {
+  position: absolute;
+  top: 0;
+  right: 32px;
+  font-size: 1.6em;
+  cursor: pointer;
+}
+
+#nav-submenu li a {
+  text-decoration: none;
+}
+
+#nav-submenu .nav-submenu-name {
+  font-size: 1.3em;
+  letter-spacing: 0.05em;
+  line-height: 30px;
+  text-transform: uppercase;
+}
+
+#nav-submenu .nav-submenu-header {
+  font-size: 1.1em;
+  letter-spacing: 0.05em;
+  line-height: 30px;
+  text-transform: uppercase;
+  padding: 20px 0 0 0;
+}
+
+#nav-submenu .nav-submenu-link {
+  font-family: "roboto";
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1em;
+  line-height: 24px;
+  text-decoration: none;
+}
+
+#nav-submenu .nav-submenu-buttons .btn {
+  width: 100%;
+  margin: 10px 10px 0 0;
+  font-size: 0.85em;
+}
+
+body.nav-submenu-open {
+  position: fixed;
+  overflow: hidden;
+}
+
+/* Nav-submenu responsive breakpoints */
+@media (min-width: 375px) {
+  #nav-submenu .nav-submenu-buttons .btn {
+    width: 45%;
+    max-width: 200px;
+    margin: 10px 10px 0 0;
+    font-size: 0.85em;
+  }
+}
+
+@media (min-width: 768px) {
+  #nav-submenu .nav-submenu-buttons .btn {
+    font-size: 0.9em;
+  }
+}
+
+/* Responsive Breakpoints */
+@media (min-width: 400px) {
+  header .navbar .navbar-header .navbar-brand img {
+    width: 130px;
+  }
+
+  .navbar-buttons li a {
+    padding: 0 20px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .navbar-toggle {
+    display: none;
+  }
+
+  .navbar-header {
+    float: left;
+  }
+
+  .navbar-nav {
+    float: left;
+    margin: 0;
+  }
+
+  .navbar-nav > li {
+    float: left;
+  }
+
+  .navbar-nav > li > a {
+    padding-top: 15px;
+    padding-bottom: 15px;
+  }
+
+  .navbar-nav.navbar-right:last-child {
+    margin-right: -12px;
+  }
+
+  header .navbar #navbar-primary {
+    display: block;
+  }
+
+  header .navbar #navbar-secondary {
+    display: block;
+  }
+
+  header .navbar #navbar-tablet {
+    display: none;
+  }
+
+  /* Desktop navbar-collapse overrides */
+  .navbar-collapse {
+    width: auto;
+    border-top: 0;
+    box-shadow: none;
+  }
+
+  .navbar-collapse.collapse {
+    display: block !important;
+    height: auto !important;
+    padding-bottom: 0;
+    overflow: visible !important;
+  }
+
+  .navbar-collapse.in {
+    overflow-y: visible;
+  }
+
+  /* Header-specific navbar-collapse overrides */
+  header .navbar .navbar-collapse {
+    width: 584px;
+    border-top: 0;
+    box-shadow: none;
+    float: left;
+    padding: 0;
+  }
+
+  /* First 1024px navbar-buttons breakpoint */
+  .navbar-buttons li a {
+    font-size: 1.3em;
+    height: 80px;
+    white-space: normal;
+    padding: 0 10px;
+  }
+
+  .navbar-buttons .btn-create-your-own {
+    padding: 0 23px;
+  }
+
+  .navbar-buttons li a b {
+    display: inline;
+  }
+}
+
+/* Second 1024px navbar-buttons breakpoint */
+@media (min-width: 1024px) {
+  .navbar-buttons {
+    position: relative;
+  }
+
+  .navbar-buttons.sticky-ctas,
+  .navbar-buttons.sticky-ctas:last-child {
+    position: fixed;
+    top: 0;
+    right: 50%;
+    margin: 0;
+    margin-right: -488px;
+    z-index: 10000;
+  }
+
+  .navbar-buttons li {
+    width: 50%;
+    float: right;
+  }
+
+  .navbar-buttons li.navbar-button-mobile {
+    display: none;
+  }
+
+  .navbar-buttons li.navbar-button-desktop {
+    display: table;
+  }
+
+  .navbar-buttons li a {
+    padding: 0 !important;
+    width: 113px !important;
+    height: 96px;
+    text-align: left;
+    font-size: 1.2em;
+  }
+
+  .navbar-buttons li a span {
+    display: block;
+    padding: 0 15px;
+    width: 113px;
+  }
+
+  .navbar-buttons li a .fa {
+    margin: 0;
+  }
+
+  .navbar-buttons .btn-start-new-itinerary .fa {
+    position: absolute;
+    top: 21px;
+    right: 27px;
+    font-size: 0.95em;
+  }
+
+  .navbar-buttons .btn-itinerary-contact .fa {
+    position: absolute;
+    top: 49px;
+    right: 54px;
+  }
+
+  .navbar-buttons .btn-create-your-own .fa,
+  .navbar-buttons .btn-contact-us .fa {
+    position: absolute;
+    top: 40px;
+    right: 14px;
+    -webkit-transition: right 0.5s;
+    transition: right 0.5s;
+  }
+
+  .navbar-buttons .btn-create-your-own:hover .fa,
+  .navbar-buttons .btn-contact-us:hover .fa {
+    right: 12px;
+  }
+}
+
+/* Mobile Navbar Nav Dropdown Menu */
+@media (max-width: 1023px) {
+  .navbar-nav .open .dropdown-menu {
+    position: static;
+    float: none;
+    width: auto;
+    margin-top: 0;
+    background-color: transparent;
+    border: 0;
+    box-shadow: none;
+  }
+}
+
+/* Mobile and Tablet Responsive Styles */
+@media (max-width: 1023px) {
+  header {
+    height: auto;
+    border-top: 0;
+  }
+
+  header .container {
+    padding: 0;
+  }
+
+  header .navbar {
+    position: relative;
+    top: 0;
+    left: 0;
+    padding: 0;
+    min-height: 96px;
+  }
+
+  header .navbar .navbar-header {
+    width: 100%;
+    text-align: center;
+  }
+
+  header .navbar .navbar-header .navbar-brand {
+    display: block;
+    position: relative;
+    float: none;
+    width: 180px;
+    margin: 24px auto 0 auto;
+  }
+
+  header .navbar .navbar-header .navbar-toggle {
+    position: absolute;
+    top: 25px;
+    left: 16px;
+    z-index: 500;
+    margin: 0;
+    padding: 9px 10px;
+    display: block;
+  }
+
+  header .navbar .navbar-header .navbar-toggle .icon-bar {
+    background-color: #3f3d38;
+    width: 30px;
+    height: 3px;
+  }
+
+  header .navbar .navbar-collapse {
+    width: 100%;
+    padding: 0;
+    float: none;
+  }
+
+  header .navbar #navbar-primary {
+    display: none;
+  }
+
+  header .navbar #navbar-secondary {
+    display: none;
+  }
+
+  header .navbar #navbar-tablet {
+    display: block;
+  }
+
+  .container {
+    width: 100%;
+  }
+}
+
+@media (max-width: 767px) {
+  header .navbar #navbar-tablet li a {
+    line-height: 30px;
+  }
+
+  /* Single column layout on small screens */
+  header .navbar #navbar-tablet li {
+    width: 100%;
+    border-right: 0;
+    margin-right: 0;
+  }
+}
+
+/* Tablet Landscape Specific */
+.tablet.landscape header .navbar #navbar-primary li a {
+  padding: 0 17px 0 17px;
+}
+
+.tablet.landscape header .navbar #navbar-secondary li a {
+  padding: 9px 11px 6px 13px;
+}
+
+/* Navbar Float and Left/Right Controls */
+@media (min-width: 1024px) {
+  .navbar-left {
+    float: left !important;
+  }
+
+  .navbar-right {
+    float: right !important;
+  }
+
+  .navbar-right .dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+
+  .navbar-right .dropdown-menu-left {
+    left: 0;
+    right: auto;
+  }
+}

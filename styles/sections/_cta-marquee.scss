@@ -1,0 +1,58 @@
+.cta-marquee {
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-primary-1);
+  color: var(--color-light);
+  transition: background-color var(--transition-duration-ease-in-out);
+
+  &:hover {
+    background-color: var(--color-primary-2);
+  }
+
+  .page-container {
+    padding: 0;
+    max-width: none;
+  }
+
+  &__container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__track {
+    display: flex;
+    will-change: transform;
+    // Performance optimizations
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    white-space: nowrap;
+    padding: var(--spacer-sm) 0;
+    text-decoration: none;
+    color: inherit;
+    flex-shrink: 0;
+
+    // Add spacing between repeated items
+    &::after {
+      content: "•";
+      margin: 0 0.75rem;
+      opacity: 0.5;
+      font-size: 0.8em;
+    }
+
+    em,
+    i {
+      margin-inline: 0.1em;
+      font-style: italic;
+    }
+  }
+}

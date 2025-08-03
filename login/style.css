@@ -1,0 +1,10 @@
+body.login {
+  background-color: #ffffff;
+}
+
+.login h1 a {
+  background: url("../assets/Africa-Dream-Safaris__logo2x.png") 50% 50% /
+    contain no-repeat;
+  width: 320px;
+  height: 50px;
+}
