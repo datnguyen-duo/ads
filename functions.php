@@ -68,16 +68,57 @@ function remove_menus_and_submenus(){
 add_action( 'admin_menu', 'remove_menus_and_submenus' );
 
 function theme_upload_mimes($mimes) {
-    $mimes['woff'] = 'application/font-woff';
-    $mimes['woff2'] = 'application/font-woff2';
-    $mimes['otf'] = 'application/x-font-opentype';
-    $mimes['ttf'] = 'application/x-font-truetype';
+    // Add font file types with multiple accepted MIME types
+    $mimes['woff'] = 'font/woff|application/font-woff|application/x-font-woff';
+    $mimes['woff2'] = 'font/woff2|application/font-woff2';
+    $mimes['otf'] = 'font/otf|application/x-font-opentype|font/opentype';
+    $mimes['ttf'] = 'font/ttf|application/x-font-truetype|font/truetype';
+    $mimes['eot'] = 'application/vnd.ms-fontobject';
+    
     return $mimes;
 }
 add_filter('upload_mimes', 'theme_upload_mimes');
 
+function theme_check_filetype_and_ext($data, $file, $filename, $mimes) {
+    $filetype = wp_check_filetype($filename, $mimes);
+    
+    if (empty($data['ext']) && empty($data['type'])) {
+        $wp_file_type = wp_check_filetype($filename);
+        
+        if (isset($wp_file_type['ext']) && in_array($wp_file_type['ext'], ['woff', 'woff2', 'otf', 'ttf', 'eot'])) {
+            $data['ext'] = $wp_file_type['ext'];
+            $data['type'] = $wp_file_type['type'];
+        }
+    }
+    
+    return $data;
+}
+add_filter('wp_check_filetype_and_ext', 'theme_check_filetype_and_ext', 10, 4);
+
+function theme_allow_font_uploads($types) {
+    $types['woff'] = 'font/woff';
+    $types['woff2'] = 'font/woff2';
+    $types['otf'] = 'font/otf';
+    $types['ttf'] = 'font/ttf';
+    $types['eot'] = 'application/vnd.ms-fontobject';
+    
+    return $types;
+}
+add_filter('upload_mimes', 'theme_allow_font_uploads');
+
+function theme_increase_upload_size_for_fonts($size) {
+    if (isset($_FILES) && !empty($_FILES)) {
+        foreach ($_FILES as $file) {
+            if (isset($file['name']) && preg_match('/\.(woff2?|ttf|otf|eot)$/i', $file['name'])) {
+                return max($size, 10 * 1024 * 1024); 
+            }
+        }
+    }
+    return $size;
+}
+add_filter('upload_size_limit', 'theme_increase_upload_size_for_fonts');
+
 function theme_scripts() {
-	// Only load frontend scripts on frontend (NOT in admin)
 	if (is_admin()) {
 		return;
 	}

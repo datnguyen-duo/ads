@@ -32,6 +32,65 @@ const deviceInfo = {
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
 /*	-----------------------------------------------------------------------------
+  GLOBAL SCROLLTRIGGER RESIZE HANDLER
+--------------------------------------------------------------------------------- */
+
+// Global registry for components with custom resize handlers
+window.ScrollTriggerComponents = {
+  customResizeHandlers: new Set(),
+
+  // Register a component that handles its own resize
+  registerCustomHandler: function (name) {
+    this.customResizeHandlers.add(name);
+  },
+
+  // Check if a component has custom resize handling
+  hasCustomHandler: function (name) {
+    return this.customResizeHandlers.has(name);
+  },
+};
+
+// Global debounced resize handler for ScrollTrigger refresh
+(function () {
+  let resizeTimeout;
+
+  // Debounce function for resize events
+  function debounce(func, delay) {
+    return function (...args) {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => func.apply(this, args), delay);
+    };
+  }
+
+  // Handle window resize with ScrollTrigger refresh
+  function handleGlobalResize() {
+    // Use requestAnimationFrame for optimal performance
+    requestAnimationFrame(() => {
+      // Only refresh ScrollTriggers that don't have custom handlers
+      // Custom handlers will manage their own ScrollTriggers
+      ScrollTrigger.refresh();
+
+      // Dispatch custom event for components that need special resize handling
+      window.dispatchEvent(new CustomEvent("scrolltrigger:resize"));
+    });
+  }
+
+  // Create debounced resize handler with 250ms delay (industry standard)
+  const debouncedResize = debounce(handleGlobalResize, 250);
+
+  // Add resize listener
+  window.addEventListener("resize", debouncedResize);
+
+  // Optional: Handle orientation change for mobile devices
+  window.addEventListener("orientationchange", () => {
+    // Slight delay for orientation change to complete
+    setTimeout(() => {
+      debouncedResize();
+    }, 100);
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
   GLOBAL FUNCTIONS
 --------------------------------------------------------------------------------- */
 
@@ -271,6 +330,42 @@ let lenis;
     const cta = section.querySelector(".hero__cta");
     const playButton = section.querySelector(".hero__play-button");
 
+    // Store reference to hero scroll trigger for resize handling
+    let heroScrollTrigger;
+
+    // Function to create hero scroll trigger
+    function createHeroScrollTrigger() {
+      // Kill existing trigger if it exists
+      if (heroScrollTrigger) {
+        heroScrollTrigger.kill();
+      }
+
+      // Create timeline for scroll animations
+      const scrollTimeline = gsap.timeline();
+      scrollTimeline
+        .to(background, {
+          scale: 1.5,
+        })
+        .to(
+          section,
+          {
+            filter: "blur(10px)",
+            yPercent: 25,
+          },
+          0
+        ); // Start at the same time (0 position)
+
+      heroScrollTrigger = ScrollTrigger.create({
+        trigger: section,
+        scrub: true,
+        start: () => {
+          const navbar = document.querySelector(".navbar");
+          return `top ${navbar.offsetHeight}px`;
+        },
+        animation: scrollTimeline,
+      });
+    }
+
     const splitWords = new SplitText(heading, {
       type: "words",
       wordsClass: "split-word",
@@ -323,31 +418,9 @@ let lenis;
 
       var tl = gsap.timeline({
         onComplete: () => {
-          // Create timeline for multiple animations
+          // Start lenis and create hero scroll trigger
           lenis.start();
-          const scrollTimeline = gsap.timeline();
-          scrollTimeline
-            .to(background, {
-              scale: 1.5,
-            })
-            .to(
-              section,
-              {
-                filter: "blur(10px)",
-                yPercent: 25,
-              },
-              0
-            ); // Start at the same time (0 position)
-
-          ScrollTrigger.create({
-            trigger: section,
-            scrub: true,
-            start: () => {
-              const navbar = document.querySelector(".navbar");
-              return `top ${navbar.offsetHeight}px`;
-            },
-            animation: scrollTimeline,
-          });
+          createHeroScrollTrigger();
         },
       });
       preloadImages.forEach((image, index) => {
@@ -463,6 +536,13 @@ let lenis;
         });
       });
     }
+
+    // Add resize handler for hero scroll trigger
+    window.addEventListener("scrolltrigger:resize", () => {
+      if (heroScrollTrigger) {
+        createHeroScrollTrigger();
+      }
+    });
   });
 })();
 
@@ -471,6 +551,9 @@ let lenis;
 --------------------------------------------------------------------------------- */
 
 (function () {
+  // Register horizontal gallery as having custom resize handling
+  window.ScrollTriggerComponents.registerCustomHandler("horizontal-gallery");
+
   window.addEventListener("load", () => {
     const section = document.querySelector(".horizontal-gallery");
 
@@ -478,9 +561,32 @@ let lenis;
 
     const container = section.querySelector(".horizontal-gallery__container");
     const images = section.querySelectorAll(".horizontal-gallery__media");
+    const background = section.querySelector(
+      ".horizontal-gallery__background-image"
+    );
 
     let horizontalScrollTrigger;
     let resizeTimeout;
+
+    if (background) {
+      gsap.set(background, {
+        opacity: 0,
+        xPercent: 100,
+      });
+
+      ScrollTrigger.create({
+        trigger: background,
+        start: "top 60%",
+        onEnter: () => {
+          gsap.to(background, {
+            opacity: 1,
+            xPercent: 0,
+            duration: 0.6,
+            ease: easeOut,
+          });
+        },
+      });
+    }
 
     // Calculate dimensions
     function calculateDimensions() {
@@ -617,7 +723,7 @@ let lenis;
       backgrounds.forEach((background, index) => {
         gsap.set(background, {
           opacity: 0,
-          x: index % 2 === 0 ? "-100%" : "100%",
+          xPercent: index % 2 === 0 ? -100 : 100,
         });
 
         ScrollTrigger.create({
@@ -626,7 +732,7 @@ let lenis;
           onEnter: () => {
             gsap.to(background, {
               opacity: 1,
-              x: 0,
+              xPercent: 0,
               duration: 0.6,
               ease: easeOut,
             });
@@ -836,6 +942,9 @@ let lenis;
 --------------------------------------------------------------------------------- */
 
 (function () {
+  // Register CTA marquee as having custom resize handling
+  window.ScrollTriggerComponents.registerCustomHandler("cta-marquee");
+
   let marqueeAnimation;
   let resizeTimeout;
 

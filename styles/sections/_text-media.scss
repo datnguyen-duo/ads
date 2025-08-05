@@ -5,21 +5,20 @@
   .page-container {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "header header" "image content";
-    max-width: var(--container-width);
+    grid-template-areas: "header header" "media content";
     gap: var(--gutter-lg);
 
     @media screen and (max-width: $breakpoint-mobile) {
       grid-template-columns: 1fr;
-      grid-template-areas: "header" "image" "content";
+      grid-template-areas: "header" "media" "content";
     }
   }
 
   &.--text-left {
     .page-container {
-      grid-template-areas: "header header" "content image";
+      grid-template-areas: "header header" "content media";
       @media screen and (max-width: $breakpoint-mobile) {
-        grid-template-areas: "header" "content" "image";
+        grid-template-areas: "header" "content" "media";
       }
     }
   }
@@ -28,12 +27,18 @@
     grid-area: header;
   }
 
-  &__image {
-    grid-area: image;
-    aspect-ratio: var(--aspect-square);
+  &__media {
+    grid-area: media;
     overflow: hidden;
     border-radius: var(--border-radius-sm);
     object-fit: cover;
+
+    img,
+    video {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
   }
 
   &__content {
