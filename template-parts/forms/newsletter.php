@@ -1,32 +1,1 @@
-
-<?php 
-defined( 'ABSPATH' ) || exit;
-$newsletter = get_field('newsletter', 'option');
-$variation = $newsletter['variation'];
-$pre_heading = $newsletter['pre_heading'];
-$heading = $newsletter['heading'];
-$description = $newsletter['description'];
-$image = $newsletter['image'];
-?>
-
-<div class="newsletter <?php echo $variation; ?>">
-    <div class="newsletter__content">
-        <?php if ($pre_heading): ?>
-            <p class="newsletter__pre-heading text__size-5"><?php echo $pre_heading; ?></p>
-        <?php endif; ?>
-        <?php if ($heading): ?>
-            <p class="newsletter__heading text__size-1"><?php echo $heading; ?></p>
-        <?php endif; ?>
-        <?php if ($description): ?>
-            <p class="newsletter__description text__size-4"><?php echo $description; ?></p>
-        <?php endif; ?>
-        <div class="newsletter__form">
-            <?php echo do_shortcode('[convertkit_form form="959622"]'); ?>
-        </div>
-    </div>
-    <?php if ($image): ?>
-        <div class="newsletter__image">
-            <?php image($image['ID'], 'full', '', $image['alt']); ?>
-        </div>
-    <?php endif; ?>
-</div>
+<?php defined( 'ABSPATH' ) || exit;$newsletter = get_field('newsletter', 'option');$variation = $newsletter['variation'];$pre_heading = $newsletter['pre_heading'];$heading = $newsletter['heading'];$description = $newsletter['description'];$image = $newsletter['image'];?><div class="newsletter <?php echo $variation; ?>">    <div class="newsletter__content">        <?php if ($pre_heading): ?>            <p class="newsletter__pre-heading text__size-5"><?php echo $pre_heading; ?></p>        <?php endif; ?>        <?php if ($heading): ?>            <p class="newsletter__heading text__size-1"><?php echo $heading; ?></p>        <?php endif; ?>        <?php if ($description): ?>            <p class="newsletter__description text__size-4"><?php echo $description; ?></p>        <?php endif; ?>        <div class="newsletter__form">            <?php echo do_shortcode('[convertkit_form form="959622"]'); ?>        </div>    </div>    <?php if ($image): ?>        <div class="newsletter__image">            <?php image($image['ID'], 'full', '', $image['alt']); ?>        </div>    <?php endif; ?></div>

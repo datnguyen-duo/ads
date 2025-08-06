@@ -1,19 +1,1 @@
-<?php
-defined( 'ABSPATH' ) || exit; 
-?>
-<div class="entry__header">
-    <?php if (has_post_thumbnail()) : ?>
-        <div class="entry__thumbnail">
-            <?php image(get_post_thumbnail_id(), 'full', 'entry__thumbnail-image', get_the_title()); ?>
-        </div>
-    <?php endif; ?>
-    <div class="entry__header-content">
-        <h1 class="entry__title text__size-3"><?php the_title(); ?></h1>
-        <div class="entry__header-grid">
-            <p class="entry__date text__size-body--lg"><?php echo get_the_date('m.d.Y'); ?></p>
-            <p class="entry__share-on text__size-body--lg">Share On</p>
-            <p class="entry__categories text__size-body--lg"><?php echo (get_the_category_list() ? get_the_category_list(', ') : '')?></p>
-            <?php get_template_part('template-parts/content/entry-share'); ?>
-        </div>
-    </div>
-</div> 
+<?phpdefined( 'ABSPATH' ) || exit; ?><div class="entry__header">    <?php if (has_post_thumbnail()) : ?>        <div class="entry__thumbnail">            <?php image(get_post_thumbnail_id(), 'full', 'entry__thumbnail-image', get_the_title()); ?>        </div>    <?php endif; ?>    <div class="entry__header-content">        <h1 class="entry__title text__size-3"><?php the_title(); ?></h1>        <div class="entry__header-grid">            <p class="entry__date text__size-body--lg"><?php echo get_the_date('m.d.Y'); ?></p>            <p class="entry__share-on text__size-body--lg">Share On</p>            <p class="entry__categories text__size-body--lg"><?php echo (get_the_category_list() ? get_the_category_list(', ') : '')?></p>            <?php get_template_part('template-parts/content/entry-share'); ?>        </div>    </div></div>

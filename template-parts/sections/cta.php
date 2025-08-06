@@ -1,26 +1,1 @@
-<?php 
-defined( 'ABSPATH' ) || exit; 
-$layout = $args['layout'];
-$background_file = get_sub_field('background_file');
-$header_args = array(
-    'layout' => $layout,
-    'pre_heading' => get_sub_field('pre_heading'),
-    'heading' => get_sub_field('heading'),
-    'description' => get_sub_field('description'),
-    'cta' => get_sub_field('cta'),
-);
-?>
-<?php if ($background_file): ?>
-    <div class="<?php echo $layout . '__file'; ?>">
-        <?php 
-        if (!empty($background_file)):
-            if ($background_file['type'] == 'video'): 
-                video($background_file['url'], $background_file['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');
-            elseif ($background_file['type'] == 'image'):
-                image($background_file['ID'], 'full', $layout . '__file', $background_file['alt'] ? $background_file['alt'] : 'CTA Image');
-            endif; 
-        endif;
-        ?>
-    </div>
-<?php endif; ?>
-<?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
+<?php defined( 'ABSPATH' ) || exit; $layout = $args['layout'];$background_file = get_sub_field('background_file');$header_args = array(    'layout' => $layout,    'pre_heading' => get_sub_field('pre_heading'),    'heading' => get_sub_field('heading'),    'description' => get_sub_field('description'),    'cta' => get_sub_field('cta'),);?><?php if ($background_file): ?>    <div class="<?php echo $layout . '__file'; ?>">        <?php         if (!empty($background_file)):            if ($background_file['type'] == 'video'):                 video($background_file['url'], $background_file['mime_type'], $layout . '__file', 'autoplay muted loop playsinline');            elseif ($background_file['type'] == 'image'):                image($background_file['ID'], 'full', $layout . '__file', $background_file['alt'] ? $background_file['alt'] : 'CTA Image');            endif;         endif;        ?>    </div><?php endif; ?><?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>

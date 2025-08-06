@@ -1,60 +1,1 @@
-@use "../variables" as *;
-
-.text-media {
-  background-color: var(--color-neutral-4);
-  .page-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-areas: "header header" "media content";
-    gap: var(--gutter-lg);
-
-    @media screen and (max-width: $breakpoint-mobile) {
-      grid-template-columns: 1fr;
-      grid-template-areas: "header" "media" "content";
-    }
-  }
-
-  &.--text-left {
-    .page-container {
-      grid-template-areas: "header header" "content media";
-      @media screen and (max-width: $breakpoint-mobile) {
-        grid-template-areas: "header" "content" "media";
-      }
-    }
-  }
-
-  &__header {
-    grid-area: header;
-  }
-
-  &__media {
-    grid-area: media;
-    overflow: hidden;
-    border-radius: var(--border-radius-sm);
-    object-fit: cover;
-
-    img,
-    video {
-      height: 100%;
-      width: 100%;
-      object-fit: cover;
-    }
-  }
-
-  &__content {
-    grid-area: content;
-    display: flex;
-    flex-direction: column;
-    gap: var(--gap-sm);
-    align-items: flex-start;
-
-    &-description {
-      p {
-        @extend .text__size-body--lg;
-        &:not(:last-child) {
-          margin-bottom: var(--gap-sm);
-        }
-      }
-    }
-  }
-}
+@use "../variables" as *;.text-media {  background-color: var(--color-neutral-4);  .page-container {    display: grid;    grid-template-columns: 1fr 1fr;    grid-template-areas: "header header" "media content";    gap: var(--gutter-lg);    @media screen and (max-width: $breakpoint-mobile) {      grid-template-columns: 1fr;      grid-template-areas: "header" "media" "content";    }  }  &.--text-left {    .page-container {      grid-template-areas: "header header" "content media";      @media screen and (max-width: $breakpoint-mobile) {        grid-template-areas: "header" "content" "media";      }    }  }  &__header {    grid-area: header;  }  &__media {    grid-area: media;    overflow: hidden;    border-radius: var(--border-radius-sm);    object-fit: cover;    img,    video {      height: 100%;      width: 100%;      object-fit: cover;    }  }  &__content {    grid-area: content;    display: flex;    flex-direction: column;    gap: var(--gap-sm);    align-items: flex-start;    &-description {      p {        @extend .text__size-body--lg;        &:not(:last-child) {          margin-bottom: var(--gap-sm);        }      }    }  }}

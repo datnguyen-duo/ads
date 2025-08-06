@@ -3,10 +3,9 @@ Theme Name: Africa Dream Safaris
 Theme URI: https://africadreamsafaris.com
 Author: Duo Studio
 Author URI: https://duo-studio.co/
-Version: 1.0.1
+Version: 1.0.4
 */
 
-// Global
 @use "reset";
 @use "global";
 @use "header";
@@ -15,8 +14,6 @@ Version: 1.0.1
 @use "forms";
 @use "editor";
 @use "fontawesome";
-
-// Sections
 @use "sections/hero";
 @use "sections/text-media";
 @use "sections/cta";
@@ -29,3 +26,4 @@ Version: 1.0.1
 @use "sections/previews";
 @use "sections/logo-grid";
 @use "sections/cta-marquee";
+@use "sections/video-modal";

@@ -1,9 +1,1 @@
-@use "../variables" as *;
-
-.cta {
-  padding-bottom: 0;
-  &__header {
-    text-align: center;
-    margin: 0 auto;
-  }
-}
+@use "../variables" as *;.cta {  padding-bottom: 0;  &__header {    text-align: center;    margin: 0 auto;  }}

@@ -1,16 +1,1 @@
-<?php
-defined( 'ABSPATH' ) || exit;
-$copyright = get_field('copyright', 'option');
-$disclaimer = get_field('disclaimer', 'option');
-?>
-
-<div class="copyright">
-    <p class="copyright__text">
-        &copy;<?php echo date('Y'); ?> <?php echo $copyright ? $copyright : get_bloginfo('name') . ' All rights reserved.'; ?>
-    </p>
-    <?php if ($disclaimer): ?>
-        <p class="copyright__disclaimer">
-            <?php echo $disclaimer; ?>
-        </p>
-    <?php endif; ?>
-</div>
+<?phpdefined( 'ABSPATH' ) || exit;$copyright = get_field('copyright', 'option');$disclaimer = get_field('disclaimer', 'option');?><div class="copyright">    <p class="copyright__text">        &copy;<?php echo date('Y'); ?> <?php echo $copyright ? $copyright : get_bloginfo('name') . ' All rights reserved.'; ?>    </p>    <?php if ($disclaimer): ?>        <p class="copyright__disclaimer">            <?php echo $disclaimer; ?>        </p>    <?php endif; ?></div>

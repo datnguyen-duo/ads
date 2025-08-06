@@ -1,50 +1,1 @@
-<?php 
-defined( 'ABSPATH' ) || exit; 
-$layout = $args['layout'];
-$pre_heading = get_sub_field('pre_heading');
-$heading = get_sub_field('heading');
-$description = get_sub_field('description');
-$cta = get_sub_field('cta');
-$media = get_sub_field('media');
-
-$header_args = array(
-    'layout' => $layout,
-    'pre_heading' => $pre_heading,
-    'heading' => $heading,
-    'description' => $description,
-    'cta' => $cta,
-); ?>
-
-<div class="<?php echo $layout . '__line'; ?>"></div>
-
-<div class="<?php echo $layout . '__background'; ?>">
-    <img class="<?php echo $layout . '__background-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/previews__background-1.svg" alt="Process Background" loading="lazy">
-    <img class="<?php echo $layout . '__background-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/previews__background-2.svg" alt="Process Background" loading="lazy">
-</div>
-
-<?php if ($media): ?>
-    <div class="<?php echo $layout . '__media'; ?>">
-        <?php foreach ($media as $item): 
-            $link = $item['link'];
-            $file = $item['file'];
-            ?>
-            <a class="<?php echo $layout . '__media-item'; ?>" href="<?php echo $link['url']; ?>" target="<?php echo $link['target']; ?>">
-                <div class="<?php echo $layout . '__media-item-inner media-container'; ?>">
-                    <?php if ($file): 
-                        $type = $file['type'];
-                        if ($type === 'image'): ?>
-                            <img class="<?php echo $layout . '__media-item-image'; ?>" src="<?php echo $file['url']; ?>" alt="<?php echo $file['title']; ?>" loading="lazy">
-                        <?php elseif ($type === 'video'): ?>
-                            <video class="<?php echo $layout . '__media-item-video'; ?>" src="<?php echo $file['url']; ?>" alt="<?php echo $file['title']; ?>"></video>
-                        <?php endif; ?>
-                    <?php endif; ?>
-                    <p class="<?php echo $layout . '__media-item-text'; ?>">
-                        <?php echo $link['title']; ?>
-                    </p>
-                </div>
-            </a>
-        <?php endforeach; ?>
-    </div>
-<?php endif; ?>
-
-<?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
+<?php defined( 'ABSPATH' ) || exit; $layout = $args['layout'];$pre_heading = get_sub_field('pre_heading');$heading = get_sub_field('heading');$description = get_sub_field('description');$cta = get_sub_field('cta');$media = get_sub_field('media');$header_args = array(    'layout' => $layout,    'pre_heading' => $pre_heading,    'heading' => $heading,    'description' => $description,    'cta' => $cta,); ?><div class="<?php echo $layout . '__line'; ?>"></div><div class="<?php echo $layout . '__background'; ?>">    <img class="<?php echo $layout . '__background-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/previews__background-1.svg" alt="Process Background" loading="lazy">    <img class="<?php echo $layout . '__background-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/previews__background-2.svg" alt="Process Background" loading="lazy"></div><?php if ($media): ?>    <div class="<?php echo $layout . '__media'; ?>">        <?php foreach ($media as $index => $item): ?>            <?php             $poster_image = $item['poster_image'];            $embed = $item['embed'];            $caption = $item['caption'];            $embed_src = '';            if ($embed) {                preg_match('/src="([^"]+)"/', $embed, $matches);                $embed_src = $matches[1] ?? '';                if ($embed_src && strpos($embed_src, 'autoplay=') === false) {                    $separator = strpos($embed_src, '?') !== false ? '&' : '?';                    $embed_src .= $separator . 'autoplay=1';                }            }            ?>            <div class="<?php echo $layout . '__media-item'; ?>"                  data-embed-src="<?php echo esc_attr($embed_src); ?>"                 data-caption="<?php echo esc_attr($caption); ?>"                 data-video-index="<?php echo $index; ?>">                <div class="<?php echo $layout . '__media-item-inner media-container'; ?>">                    <?php if ($poster_image): ?>                        <?php image($poster_image['ID'], 'full', $layout . '__media-item-image'); ?>                    <?php endif; ?>                    <?php if ($caption): ?>                        <p class="<?php echo $layout . '__media-item-caption'; ?>">                            <?php echo $caption; ?>                        </p>                    <?php endif; ?>                </div>            </div>        <?php endforeach; ?>    </div><?php endif; ?><?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>

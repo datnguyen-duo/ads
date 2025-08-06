@@ -1,34 +1,1 @@
-@use "../variables" as *;
-
-.logo-grid {
-  background-color: var(--color-neutral-3);
-  &__grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: var(--gap);
-
-    @media screen and (max-width: $breakpoint-mobile) {
-      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-    }
-
-    &-item {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      max-height: 7vw;
-      max-width: 15vw;
-      margin-inline: auto;
-
-      @media screen and (max-width: $breakpoint-mobile) {
-        max-height: 20vw;
-        max-width: 40vw;
-      }
-
-      &-image {
-        max-height: 100%;
-        max-width: 100%;
-        object-fit: contain;
-      }
-    }
-  }
-}
+@use "../variables" as *;.logo-grid {  background-color: var(--color-neutral-3);  &__grid {    display: grid;    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));    gap: var(--gap);    @media screen and (max-width: $breakpoint-mobile) {      grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));    }    &-item {      display: flex;      align-items: center;      justify-content: center;      max-height: 7vw;      max-width: 15vw;      margin-inline: auto;      @media screen and (max-width: $breakpoint-mobile) {        max-height: 16vw;        max-width: 36vw;      }      &-image {        max-height: 100%;        max-width: 100%;        object-fit: contain;      }    }  }}

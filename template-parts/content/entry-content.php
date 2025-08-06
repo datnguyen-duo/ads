@@ -1,7 +1,1 @@
-<?php
-defined( 'ABSPATH' ) || exit; 
-$post_type = get_post_type();
-?>
-<article class="entry__article editor">
-    <?php the_content(); ?>
-</article>
+<?phpdefined( 'ABSPATH' ) || exit; $post_type = get_post_type();?><article class="entry__article editor">    <?php the_content(); ?></article>

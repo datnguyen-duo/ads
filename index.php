@@ -9,7 +9,6 @@ get_header();
 			<?php if (get_the_archive_description()) : ?>
 				<div class="archive__description"><?php the_archive_description(); ?></div>
 			<?php endif; ?>
-
 		</div>
 		<?php get_template_part( 'template-parts/content/content', 'archive' ); ?>
 	</div>

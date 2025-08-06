@@ -21,10 +21,9 @@ $body_classes = "loading";
 	} ?>
 	<meta charset="<?php bloginfo( 'charset' ); ?>">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="profile" href="https://gmpg.org/xfn/11">
+	<link rel="profile" href="https:
 	<?php wp_head(); ?>
 </head>
-
 <body <?php body_class($body_classes); ?>>
 <?php wp_body_open(); ?>
 <?php if ($scripts) {
@@ -40,7 +39,6 @@ $body_classes = "loading";
       <div class="container">
         <div class="navbar">
           <a name="main"></a>
-
           <div class="navbar-header">
             <button
               type="button"
@@ -53,50 +51,47 @@ $body_classes = "loading";
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="index.html#main"
+            <a class="navbar-brand" href="/#main"
               ><img src="<?php echo $logo['url']; ?>" alt="<?php echo $logo['alt']; ?>"
             /></a>
-
-            <a href="index.html" style="display: none"
+            <a href="/" style="display: none"
               ><img
                 src="<?php echo $logo_secondary['url']; ?>"
                 width="155"
                 alt="Africa Dream Safaris"
             /></a>
           </div>
-
           <ul class="nav navbar-nav navbar-right navbar-buttons">
             <li>
-              <a class="btn-contact-us" href="contact.html"
+              <a class="btn-contact-us" href="/contact"
                 ><span>Contact Us</span><i class="fa fa-caret-right"></i
               ></a>
             </li>
             <li>
               <a
                 class="btn-create-your-own"
-                href="create-your-own-itinerary.html"
+                href="/create-your-own-itinerary"
                 ><span>Choose Your<br />Safari</span
                 ><i class="fa fa-caret-right"></i
               ></a>
             </li>
           </ul>
-
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav" id="navbar-tablet">
               <li>
                 <a
                   class="nav-has-submenu"
                   data-submenu-name="about"
-                  href="company-overview/letter-from-the-founder.html"
+                  href="/company-overview/letter-from-the-founder"
                   >About</a
                 >
               </li>
-              <li><a href="guest-reviews.html">Guest Reviews</a></li>
+              <li><a href="/guest-reviews">Guest Reviews</a></li>
               <li>
                 <a
                   class="nav-has-submenu"
                   data-submenu-name="regions"
-                  href="maps/tanzania.html"
+                  href="/maps/tanzania"
                   >Regions</a
                 >
               </li>
@@ -104,45 +99,44 @@ $body_classes = "loading";
                 <a
                   class="nav-has-submenu"
                   data-submenu-name="lodging"
-                  href="lodging.html"
+                  href="/lodging"
                   >Lodging</a
                 >
               </li>
-              <li><a href="media/videos.html">Galleries</a></li>
+              <li><a href="/media/videos">Galleries</a></li>
               <li>
                 <a
                   class=""
-                  href="http://blog.africadreamsafaris.com/"
+                  href="http:
                   target="_blank"
                   >Blog</a
                 >
               </li>
               <li class="navbar-link-secondary">
-                <a class="" href="awards-and-press.html">Awards</a>
+                <a class="" href="/awards-and-press">Awards</a>
               </li>
               <li class="navbar-link-secondary">
                 <a
                   data-submenu-name="local-partnerships"
                   class="nav-has-submenu"
-                  href="community.html"
+                  href="/community"
                   >Local Partnerships</a
                 >
               </li>
               <li class="navbar-link-secondary">
-                <a class="" href="faq.html">FAQ</a>
+                <a class="" href="/faq">FAQ</a>
               </li>
               <li class="navbar-link-secondary">
-                <a class="" href="maps/tanzania.html">Maps</a>
+                <a class="" href="/maps/tanzania">Maps</a>
               </li>
               <li class="navbar-link-secondary">
-                <a href="safari-details/photographic-ambassador.html"
+                <a href="/safari-details/photographic-ambassador"
                   >Expert Photo Tips</a
                 >
               </li>
-
               <li class="navbar-link-secondary" id="navbar-link-search-form">
                 <form
-                  action="https://www.africadreamsafaris.com/search"
+                  action="/search"
                   method="get"
                 >
                   <div class="search-input-container">
@@ -151,7 +145,7 @@ $body_classes = "loading";
                   <button type="submit" class="search-input-icon">
                     <svg viewBox="0 0 15.8 15.8">
                       <use
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:xlink="http:
                         xlink:href="#icon-search"
                       ></use>
                     </svg>
@@ -159,13 +153,11 @@ $body_classes = "loading";
                 </form>
               </li>
             </ul>
-
             <ul class="nav navbar-nav" id="navbar-primary">
               <li class="dropdown dropdown-about">
-                <a href="company-overview/letter-from-the-founder.html"
+                <a href="/company-overview/letter-from-the-founder"
                   ><span class="valign-wrap">About</span></a
                 >
-
                 <div class="dropdown-menu">
                   <ul class="list-unstyled">
                     <li class="menu-section first">
@@ -173,41 +165,41 @@ $body_classes = "loading";
                         <li class="first"><a>Company Overview</a></li>
                         <li>
                           <a
-                            href="company-overview/letter-from-the-founder.html"
+                            href="/company-overview/letter-from-the-founder"
                             >Letter from the Founder</a
                           >
                         </li>
                         <li>
-                          <a href="company-overview/why-were-different.html"
+                          <a href="/company-overview/why-were-different"
                             >Why We're Different</a
                           >
                         </li>
                         <li>
-                          <a href="company-overview/tanzania-specialists.html"
+                          <a href="/company-overview/tanzania-specialists"
                             >We Specialize in Tanzania</a
                           >
                         </li>
                         <li>
                           <a
-                            href="company-overview/meet-our-safari-experts.html"
+                            href="/company-overview/meet-our-safari-experts"
                             >Meet Our Safari Experts</a
                           >
                         </li>
                         <li>
                           <a
-                            href="company-overview/private-safari-advantage.html"
+                            href="/company-overview/private-safari-advantage"
                             >Private Safari Advantage</a
                           >
                         </li>
                         <li>
                           <a
-                            href="company-overview/personalized-itineraries.html"
+                            href="/company-overview/personalized-itineraries"
                             >Personalized Itineraries</a
                           >
                         </li>
                         <li>
                           <a
-                            href="company-overview/wildlife-viewing-maximized.html"
+                            href="/company-overview/wildlife-viewing-maximized"
                             >Wildlife Viewing Maximized</a
                           >
                         </li>
@@ -217,37 +209,37 @@ $body_classes = "loading";
                       <ul class="list-unstyled">
                         <li class="first"><a>Safari Details</a></li>
                         <li>
-                          <a href="safari-details/driver-guides.html"
+                          <a href="/safari-details/driver-guides"
                             >Driver Guides</a
                           >
                         </li>
                         <li>
-                          <a href="safari-details/vehicle-specifications.html"
+                          <a href="/safari-details/vehicle-specifications"
                             >Vehicle Specifications</a
                           >
                         </li>
                         <li>
-                          <a href="safari-details/seasonal-highlights.html"
+                          <a href="/safari-details/seasonal-highlights"
                             >Seasonal Highlights</a
                           >
                         </li>
                         <li>
                           <a
-                            href="safari-details/inclusions-and-exclusions.html"
+                            href="/safari-details/inclusions-and-exclusions"
                             >Inclusions & Exclusions</a
                           >
                         </li>
                         <li>
                           <a
-                            href="safari-details/itinerary-design-and-recommendations.html"
+                            href="/safari-details/itinerary-design-and-recommendations"
                             >Itinerary Design & Recommendations
                           </a>
                         </li>
                         <li>
-                          <a href="safari-details/safety.html">Safari Safety</a>
+                          <a href="/safari-details/safety">Safari Safety</a>
                         </li>
                         <li>
-                          <a href="safari-details/photographic-ambassador.html"
+                          <a href="/safari-details/photographic-ambassador"
                             >Our Photographic Ambassador</a
                           >
                         </li>
@@ -257,44 +249,44 @@ $body_classes = "loading";
                       <ul class="list-unstyled">
                         <li class="first"><a>Trip Enhancements</a></li>
                         <li>
-                          <a href="trip-enhancements/cultural-tour.html"
+                          <a href="/trip-enhancements/cultural-tour"
                             >Cultural Tour</a
                           >
                         </li>
                         <li>
-                          <a href="trip-enhancements/balloon-safari.html"
+                          <a href="/trip-enhancements/balloon-safari"
                             >Balloon Safari</a
                           >
                         </li>
                         <li>
-                          <a href="trip-enhancements/arusha-layover.html"
+                          <a href="/trip-enhancements/arusha-layover"
                             >Arusha Layover</a
                           >
                         </li>
                         <li>
-                          <a href="trip-enhancements/walking-safari.html"
+                          <a href="/trip-enhancements/walking-safari"
                             >Walking Safari</a
                           >
                         </li>
                         <li>
-                          <a href="trip-enhancements/night-game-drive.html"
+                          <a href="/trip-enhancements/night-game-drive"
                             >Night Game Drive</a
                           >
                         </li>
                         <li>
                           <a
-                            href="trip-enhancements/junior-game-ranger-challenge.html"
+                            href="/trip-enhancements/junior-game-ranger-challenge"
                             >Junior Game Ranger</a
                           >
                         </li>
                         <li>
-                          <a href="trip-enhancements/charitable-visits.html"
+                          <a href="/trip-enhancements/charitable-visits"
                             >Charitable Visits</a
                           >
                         </li>
                         <li>
                           <a
-                            href="trip-enhancements/serengeti-lion-project.html"
+                            href="/trip-enhancements/serengeti-lion-project"
                             >Serengeti Lion Project</a
                           >
                         </li>
@@ -304,25 +296,25 @@ $body_classes = "loading";
                       <ul class="list-unstyled">
                         <li class="first"><a>Booking And Flights</a></li>
                         <li>
-                          <a href="booking-and-flights/booking-security.html"
+                          <a href="/booking-and-flights/booking-security"
                             >Booking Security</a
                           >
                         </li>
                         <li>
                           <a
-                            href="booking-and-flights/flexible-travel-and-payment.html"
+                            href="/booking-and-flights/flexible-travel-and-payment"
                             >Flexible Travel & Payment</a
                           >
                         </li>
                         <li>
                           <a
-                            href="booking-and-flights/booking-terms-and-conditions.html"
+                            href="/booking-and-flights/booking-terms-and-conditions"
                             >Booking Terms & Conditions</a
                           >
                         </li>
                         <li>
                           <a
-                            href="booking-and-flights/international-flight-routing.html"
+                            href="/booking-and-flights/international-flight-routing"
                             >International Flight Routing</a
                           >
                         </li>
@@ -331,16 +323,14 @@ $body_classes = "loading";
                   </ul>
                 </div>
               </li>
-
               <li class="dropdown dropdown-image-blocks">
-                <a href="guest-reviews.html"
+                <a href="/guest-reviews"
                   ><span class="valign-wrap">Guest<br />Reviews</span></a
                 >
-
                 <div class="dropdown-menu">
                   <ul class="list-unstyled">
                     <li class="menu-section first">
-                      <a href="guest-reviews.html#family-vacations">
+                      <a href="/guest-reviews#family-vacations">
                         <span class="menu-img"
                           ><img
                             src="<?php echo $themeurl; ?>/assets/archive/guestreviews-familyvacations-thumb.jpg"
@@ -348,9 +338,8 @@ $body_classes = "loading";
                         <span class="menu-text">Family Vacations</span>
                       </a>
                     </li>
-
                     <li class="menu-section">
-                      <a href="guest-reviews.html#romantic-getaways">
+                      <a href="/guest-reviews#romantic-getaways">
                         <span class="menu-img"
                           ><img
                             src="<?php echo $themeurl; ?>/assets/archive/guestreviews-romanticgetaways-thumb.jpg"
@@ -358,9 +347,8 @@ $body_classes = "loading";
                         <span class="menu-text">Romantic Getaways</span>
                       </a>
                     </li>
-
                     <li class="menu-section">
-                      <a href="guest-reviews.html#photo-safaris">
+                      <a href="/guest-reviews#photo-safaris">
                         <span class="menu-img"
                           ><img
                             src="<?php echo $themeurl; ?>/assets/archive/guestreviews-photosafaris-thumb.jpg"
@@ -368,9 +356,8 @@ $body_classes = "loading";
                         <span class="menu-text">Photo Safaris</span>
                       </a>
                     </li>
-
                     <li class="menu-section">
-                      <a href="guest-reviews.html#bucket-list">
+                      <a href="/guest-reviews#bucket-list">
                         <span class="menu-img"
                           ><img
                             src="<?php echo $themeurl; ?>/assets/archive/guestreviews-bucketlist-thumb.jpg"
@@ -381,31 +368,27 @@ $body_classes = "loading";
                   </ul>
                 </div>
               </li>
-
               <li class="dropdown" id="menu-dropdown-regions">
-                <a href="maps/tanzania.html"
+                <a href="/maps/tanzania"
                   ><span class="valign-wrap">Regions</span></a
                 >
-
                 <div class="dropdown-menu">
                   <div class="dropdown-menu-callout">
                     <h1>Select a region or sub-region to learn more.</h1>
                     <h2>- OR -</h2>
-
-                    <a class="dropdown-callout-map" href="maps/tanzania.html"
+                    <a class="dropdown-callout-map" href="/maps/tanzania"
                       ><img
                         src="<?php echo $themeurl; ?>/assets/archive/scale-map-tanzania.gif"
                     /></a>
-                    <a class="btn btn-primary" href="maps/tanzania.html"
+                    <a class="btn btn-primary" href="/maps/tanzania"
                       >Search by Map <i class="fa fa-chevron-right"></i
                     ></a>
                   </div>
-
                   <div class="dropdown-list-container">
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-header">
-                          <a href="serengeti-national-park.html"
+                          <a href="/serengeti-national-park"
                             >Serengeti
                             <span class="extended-region-name"
                               >National Park</span
@@ -413,137 +396,128 @@ $body_classes = "loading";
                           >
                         </li>
                         <li class="dropdown-region-subheader">
-                          <a href="north-serengeti.html">North Serengeti</a>
+                          <a href="/north-serengeti">North Serengeti</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
-                            <li><a href="lobo-valley.html">Lobo Valley</a></li>
+                            <li><a href="/lobo-valley">Lobo Valley</a></li>
                             <li>
-                              <a href="upper-grumeti-woodlands.html"
+                              <a href="/upper-grumeti-woodlands"
                                 >Upper Grumeti Woodlands</a
                               >
                             </li>
-                            <li><a href="mara-river.html">Mara River</a></li>
+                            <li><a href="/mara-river">Mara River</a></li>
                             <li>
-                              <a href="lamai-triangle.html">Lamai Triangle</a>
+                              <a href="/lamai-triangle">Lamai Triangle</a>
                             </li>
-                            <li><a href="wogakuria.html">Wogakuria</a></li>
+                            <li><a href="/wogakuria">Wogakuria</a></li>
                             <li>
-                              <a href="bologonja-springs.html"
+                              <a href="/bologonja-springs"
                                 >Bologonja Springs</a
                               >
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
-                          <a href="west-serengeti.html">West Serengeti</a>
+                          <a href="/west-serengeti">West Serengeti</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="ruwana-plains.html">Ruwana Plains</a>
+                              <a href="/ruwana-plains">Ruwana Plains</a>
                             </li>
                             <li>
-                              <a href="lower-grumeti-woodlands.html"
+                              <a href="/lower-grumeti-woodlands"
                                 >Lower Grumeti Woodlands</a
                               >
                             </li>
                             <li>
-                              <a href="mbalageti-river-valley.html"
+                              <a href="/mbalageti-river-valley"
                                 >Mbalageti River Valley</a
                               >
                             </li>
                             <li>
-                              <a href="musabi-plains.html">Musabi Plains</a>
+                              <a href="/musabi-plains">Musabi Plains</a>
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
-                          <a href="east-serengeti.html">East Serengeti</a>
+                          <a href="/east-serengeti">East Serengeti</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="sametu-marsh-and-kopjes.html"
+                              <a href="/sametu-marsh-and-kopjes"
                                 >Sametu Marsh and Kopjes</a
                               >
                             </li>
-                            <li><a href="naabi-hill.html">Naabi Hill</a></li>
-                            <li><a href="gol-kopjes.html">Gol Kopjes</a></li>
+                            <li><a href="/naabi-hill">Naabi Hill</a></li>
+                            <li><a href="/gol-kopjes">Gol Kopjes</a></li>
                             <li>
-                              <a href="barfafu-gorge-and-kopjes.html"
+                              <a href="/barfafu-gorge-and-kopjes"
                                 >Barfafu Gorge and Kopjes</a
                               >
                             </li>
                             <li>
-                              <a href="lemuta-hill-and-waterhole.html"
+                              <a href="/lemuta-hill-and-waterhole"
                                 >Lemuta Hill and Waterhole</a
                               >
                             </li>
-                            <li><a href="lake-natron.html">Lake Natron</a></li>
+                            <li><a href="/lake-natron">Lake Natron</a></li>
                           </ul>
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-subheader">
-                          <a href="south-serengeti.html">South Serengeti</a>
+                          <a href="/south-serengeti">South Serengeti</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="the-triangle.html">The Triangle</a>
+                              <a href="/the-triangle">The Triangle</a>
                             </li>
                             <li>
-                              <a href="hidden-valley.html">Hidden Valley</a>
+                              <a href="/hidden-valley">Hidden Valley</a>
                             </li>
-                            <li><a href="lake-ndutu.html">Lake Ndutu</a></li>
+                            <li><a href="/lake-ndutu">Lake Ndutu</a></li>
                             <li>
-                              <a href="kusini-plains.html">Kusini Plains</a>
-                            </li>
-                            <li>
-                              <a href="olduvai-gorge.html">Olduvai Gorge</a>
+                              <a href="/kusini-plains">Kusini Plains</a>
                             </li>
                             <li>
-                              <a href="matiti-plains.html">Matiti Plains</a>
+                              <a href="/olduvai-gorge">Olduvai Gorge</a>
+                            </li>
+                            <li>
+                              <a href="/matiti-plains">Matiti Plains</a>
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
-                          <a href="central-serengeti.html">Central Serengeti</a>
+                          <a href="/central-serengeti">Central Serengeti</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="seronera-valley.html">Seronera Valley</a>
+                              <a href="/seronera-valley">Seronera Valley</a>
                             </li>
                             <li>
-                              <a href="seronera-river.html">Seronera River</a>
+                              <a href="/seronera-river">Seronera River</a>
                             </li>
-                            <li><a href="retina-pool.html">Retina Pool</a></li>
-                            <li><a href="moru-kopjes.html">Moru Kopjes</a></li>
+                            <li><a href="/retina-pool">Retina Pool</a></li>
+                            <li><a href="/moru-kopjes">Moru Kopjes</a></li>
                             <li>
-                              <a href="maasai-kopjes.html">Maasai Kopjes</a>
+                              <a href="/maasai-kopjes">Maasai Kopjes</a>
                             </li>
-                            <li><a href="makoma-hill.html">Makoma Hill</a></li>
+                            <li><a href="/makoma-hill">Makoma Hill</a></li>
                             <li>
-                              <a href="turners-spring.html">Turners Spring</a>
-                            </li>
-                            <li>
-                              <a href="simba-kopjes.html">Simba Kopjes</a>
+                              <a href="/turners-spring">Turners Spring</a>
                             </li>
                             <li>
-                              <a href="long-grass-plains.html"
+                              <a href="/simba-kopjes">Simba Kopjes</a>
+                            </li>
+                            <li>
+                              <a href="/long-grass-plains"
                                 >Long Grass Plains</a
                               >
                             </li>
@@ -551,69 +525,65 @@ $body_classes = "loading";
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-header">
-                          <a href="lake-manyara.html"
+                          <a href="/lake-manyara"
                             >Lake Manyara
                             <span class="extended-region-name"
                               >National Park</span
                             ></a
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="ground-water-forest.html"
+                              <a href="/ground-water-forest"
                                 >Ground Water Forest</a
                               >
                             </li>
                             <li>
-                              <a href="acacia-woodlands.html"
+                              <a href="/acacia-woodlands"
                                 >Acacia Woodlands</a
                               >
                             </li>
-                            <li><a href="floodplains.html">Floodplains</a></li>
+                            <li><a href="/floodplains">Floodplains</a></li>
                             <li>
-                              <a href="lake-manyara.html">Lake Manyara</a>
+                              <a href="/lake-manyara">Lake Manyara</a>
                             </li>
                           </ul>
                         </li>
-
                         <li
                           class="dropdown-region-header dropdown-region-header-lined"
                         >
-                          <a href="ngorongoro-conservation-area.html"
+                          <a href="/ngorongoro-conservation-area"
                             >Ngorongoro
                             <span class="extended-region-name"
                               >Conservation Area</span
                             ></a
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
-                            <li><a href="lake-magadi.html">Lake Magadi</a></li>
+                            <li><a href="/lake-magadi">Lake Magadi</a></li>
                             <li>
-                              <a href="central-plains.html">Central Plains</a>
+                              <a href="/central-plains">Central Plains</a>
                             </li>
                             <li>
-                              <a href="lerai-forest.html">Lerai Forest</a>
+                              <a href="/lerai-forest">Lerai Forest</a>
                             </li>
-                            <li><a href="rumbe-hills.html">Rumbe Hills</a></li>
+                            <li><a href="/rumbe-hills">Rumbe Hills</a></li>
                             <li>
-                              <a href="munge-stream.html">Munge Stream</a>
-                            </li>
-                            <li>
-                              <a href="mandusi-swamp.html">Mandusi Swamp</a>
+                              <a href="/munge-stream">Munge Stream</a>
                             </li>
                             <li>
-                              <a href="gorigor-swamp.html">Gorigor Swamp</a>
+                              <a href="/mandusi-swamp">Mandusi Swamp</a>
                             </li>
                             <li>
-                              <a href="ngoitokitok-springs.html"
+                              <a href="/gorigor-swamp">Gorigor Swamp</a>
+                            </li>
+                            <li>
+                              <a href="/ngoitokitok-springs"
                                 >Ngoitokitok Springs</a
                               >
                             </li>
@@ -621,54 +591,50 @@ $body_classes = "loading";
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-header">
-                          <a href="tarangire-national-park.html"
+                          <a href="/tarangire-national-park"
                             >Tarangire
                             <span class="extended-region-name"
                               >National Park</span
                             ></a
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="tarangire-river.html">Tarangire River</a>
+                              <a href="/tarangire-river">Tarangire River</a>
                             </li>
                             <li>
-                              <a href="lemiyon-triangle.html"
+                              <a href="/lemiyon-triangle"
                                 >Lemiyon Triangle</a
                               >
                             </li>
                             <li>
-                              <a href="matete-woodlands.html"
+                              <a href="/matete-woodlands"
                                 >Matete Woodlands</a
                               >
                             </li>
                             <li>
-                              <a href="silale-swamp.html">Silale Swamp</a>
+                              <a href="/silale-swamp">Silale Swamp</a>
                             </li>
                             <li>
-                              <a href="burungi-circuit.html">Burungi Circuit</a>
+                              <a href="/burungi-circuit">Burungi Circuit</a>
                             </li>
                             <li>
-                              <a href="kitibong-hill.html">Kitibong Hill</a>
+                              <a href="/kitibong-hill">Kitibong Hill</a>
                             </li>
                           </ul>
                         </li>
-
                         <li
                           class="dropdown-region-header dropdown-region-header-lined"
                         >
-                          <a href="arusha.html">Arusha</a>
+                          <a href="/arusha">Arusha</a>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
-                            <li><a href="arusha.html">Arusha</a></li>
+                            <li><a href="/arusha">Arusha</a></li>
                           </ul>
                         </li>
                       </ul>
@@ -676,29 +642,24 @@ $body_classes = "loading";
                   </div>
                 </div>
               </li>
-
               <li class="dropdown dropdown-lodging">
-                <a href="lodging.html"
+                <a href="/lodging"
                   ><span class="valign-wrap">Lodging</span></a
                 >
-
                 <div class="dropdown-menu">
                   <div class="dropdown-menu-callout">
                     <h1>What style of lodging are you looking for?</h1>
-
-                    <a class="btn btn-primary" href="lodging.html"
+                    <a class="btn btn-primary" href="/lodging"
                       >Search by Style <i class="fa fa-chevron-right"></i
                     ></a>
-
-                    <a class="dropdown-callout-map" href="maps/tanzania.html"
+                    <a class="dropdown-callout-map" href="/maps/tanzania"
                       ><img
                         src="<?php echo $themeurl; ?>/assets/archive/scale-map-tanzania.gif"
                     /></a>
-                    <a class="btn btn-primary" href="maps/tanzania.html"
+                    <a class="btn btn-primary" href="/maps/tanzania"
                       >Search by Map <i class="fa fa-chevron-right"></i
                     ></a>
                   </div>
-
                   <div class="dropdown-list-container">
                     <div class="dropdown-list-group">
                       <ul>
@@ -713,77 +674,72 @@ $body_classes = "loading";
                         <li class="dropdown-region-subheader">
                           <span class="dropdown-list-anchor-wrap">North</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="migration-tented-lodge.html"
+                              <a href="/migration-tented-lodge"
                                 >Migration Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="lemala-mara-river-camp.html"
+                              <a href="/lemala-mara-river-camp"
                                 >Lemala Mara River Camp</a
                               >
                             </li>
                             <li>
-                              <a href="kuria-hills-lodge.html"
+                              <a href="/kuria-hills-lodge"
                                 >Kuria Hills Lodge</a
                               >
                             </li>
-                            <li><a href="river-camp.html">River Camp</a></li>
-                            <li><a href="taasa-lodge.html">Taasa Lodge</a></li>
+                            <li><a href="/river-camp">River Camp</a></li>
+                            <li><a href="/taasa-lodge">Taasa Lodge</a></li>
                             <li>
-                              <a href="serengeti-under-canvas-north.html"
+                              <a href="/serengeti-under-canvas-north"
                                 >N. Serengeti Under Canvas</a
                               >
                             </li>
                             <li>
-                              <a href="nimali-mara-lodge.html"
+                              <a href="/nimali-mara-lodge"
                                 >Nimali Mara Lodge</a
                               >
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
                           <span class="dropdown-list-anchor-wrap">West</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="mbalageti-tented-lodge.html"
+                              <a href="/mbalageti-tented-lodge"
                                 >Mbalageti Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="kirawira-tented-lodge.html"
+                              <a href="/kirawira-tented-lodge"
                                 >Kirawira Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="grumeti-river-lodge.html"
+                              <a href="/grumeti-river-lodge"
                                 >Grumeti River Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="lahia-tented-lodge.html"
+                              <a href="/lahia-tented-lodge"
                                 >Lahia Tented Lodge</a
                               >
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
                           <span class="dropdown-list-anchor-wrap">East</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
-                            <li><a href="sametu-camp.html">Sametu Camp</a></li>
+                            <li><a href="/sametu-camp">Sametu Camp</a></li>
                             <li>
-                              <a href="nanyukie-tented-lodge.html"
+                              <a href="/nanyukie-tented-lodge"
                                 >Nanyukie Tented Lodge</a
                               >
                             </li>
@@ -791,70 +747,66 @@ $body_classes = "loading";
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-subheader">
                           <span class="dropdown-list-anchor-wrap">South</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
-                            <li><a href="ndutu-lodge.html">Ndutu Lodge</a></li>
+                            <li><a href="/ndutu-lodge">Ndutu Lodge</a></li>
                             <li>
-                              <a href="lake-masek-tented-lodge.html"
+                              <a href="/lake-masek-tented-lodge"
                                 >Lake Masek Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="woodlands-camp.html">Woodlands Camp</a>
+                              <a href="/woodlands-camp">Woodlands Camp</a>
                             </li>
                             <li>
-                              <a href="serengeti-under-canvas-south.html"
+                              <a href="/serengeti-under-canvas-south"
                                 >S. Serengeti Under Canvas</a
                               >
                             </li>
                           </ul>
                         </li>
-
                         <li class="dropdown-region-subheader">
                           <span class="dropdown-list-anchor-wrap">Central</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="mbuzi-mawe-tented-lodge.html"
+                              <a href="/mbuzi-mawe-tented-lodge"
                                 >Mbuzi Mawe Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="serengeti-serena-lodge.html"
+                              <a href="/serengeti-serena-lodge"
                                 >Serengeti Serena Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="four-seasons-lodge.html"
+                              <a href="/four-seasons-lodge"
                                 >Four Seasons Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="private-mobile-camp.html"
+                              <a href="/private-mobile-camp"
                                 >Private Mobile Camp</a
                               >
                             </li>
                             <li>
-                              <a href="kubu-kubu-tented-lodge.html"
+                              <a href="/kubu-kubu-tented-lodge"
                                 >Kubu Kubu Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="serengeti-pioneer-camp.html"
+                              <a href="/serengeti-pioneer-camp"
                                 >Serengeti Pioneer Camp</a
                               >
                             </li>
                             <li>
-                              <a href="nimali-serengeti-lodge.html"
+                              <a href="/nimali-serengeti-lodge"
                                 >Nimali Serengeti Lodge</a
                               >
                             </li>
@@ -862,7 +814,6 @@ $body_classes = "loading";
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-header">
@@ -873,26 +824,24 @@ $body_classes = "loading";
                             ></span
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="plantation-lodge.html"
+                              <a href="/plantation-lodge"
                                 >Plantation Lodge</a
                               >
                             </li>
-                            <li><a href="gibbs-farm.html">Gibbs Farm</a></li>
+                            <li><a href="/gibbs-farm">Gibbs Farm</a></li>
                             <li>
-                              <a href="the-manor-at-ngorongoro.html"
+                              <a href="/the-manor-at-ngorongoro"
                                 >The Manor at Ngorongoro</a
                               >
                             </li>
                             <li>
-                              <a href="neptune-lodge.html">Neptune Lodge</a>
+                              <a href="/neptune-lodge">Neptune Lodge</a>
                             </li>
                           </ul>
                         </li>
-
                         <li
                           class="dropdown-region-header dropdown-region-header-lined"
                         >
@@ -903,31 +852,30 @@ $body_classes = "loading";
                             ></span
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="ngorongoro-crater-lodge.html"
+                              <a href="/ngorongoro-crater-lodge"
                                 >Ngorongoro Crater Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="ngorongoro-serena-lodge.html"
+                              <a href="/ngorongoro-serena-lodge"
                                 >Ngorongoro Serena Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="lions-paw-camp.html"
+                              <a href="/lions-paw-camp"
                                 >Lion&#039;s Paw Camp</a
                               >
                             </li>
                             <li>
-                              <a href="craters-edge-lodge.html"
+                              <a href="/craters-edge-lodge"
                                 >Crater&#039;s Edge Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="ngorongoro-melia-lodge.html"
+                              <a href="/ngorongoro-melia-lodge"
                                 >Ngorongoro Melia Lodge</a
                               >
                             </li>
@@ -935,7 +883,6 @@ $body_classes = "loading";
                         </li>
                       </ul>
                     </div>
-
                     <div class="dropdown-list-group">
                       <ul>
                         <li class="dropdown-region-header">
@@ -946,82 +893,79 @@ $body_classes = "loading";
                             ></span
                           >
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="swala-tented-lodge.html"
+                              <a href="/swala-tented-lodge"
                                 >Swala Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="tarangire-treetops-lodge.html"
+                              <a href="/tarangire-treetops-lodge"
                                 >Tarangire Treetops Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="kikoti-tented-lodge.html"
+                              <a href="/kikoti-tented-lodge"
                                 >Kikoti Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="mpingo-ridge-lodge.html"
+                              <a href="/mpingo-ridge-lodge"
                                 >Mpingo Ridge Lodge
                               </a>
                             </li>
                             <li>
-                              <a href="maramboi-tented-lodge.html"
+                              <a href="/maramboi-tented-lodge"
                                 >Maramboi Tented Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="elephant-springs.html"
+                              <a href="/elephant-springs"
                                 >Elephant Springs</a
                               >
                             </li>
                             <li>
-                              <a href="kuro-treetops-lodge.html"
+                              <a href="/kuro-treetops-lodge"
                                 >Kuro Treetops Lodge</a
                               >
                             </li>
                           </ul>
                         </li>
-
                         <li
                           class="dropdown-region-header dropdown-region-header-lined"
                         >
                           <span class="dropdown-list-anchor-wrap">Arusha</span>
                         </li>
-
                         <li class="dropdown-link-group">
                           <ul>
                             <li>
-                              <a href="mount-meru-resort.html"
+                              <a href="/mount-meru-resort"
                                 >Mount Meru Resort</a
                               >
                             </li>
                             <li>
-                              <a href="arusha-coffee-lodge.html"
+                              <a href="/arusha-coffee-lodge"
                                 >Arusha Coffee Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="lake-duluti-lodge.html"
+                              <a href="/lake-duluti-lodge"
                                 >Lake Duluti Lodge</a
                               >
                             </li>
                             <li>
-                              <a href="kili-seasons-hotel.html"
+                              <a href="/kili-seasons-hotel"
                                 >Kili Seasons Hotel</a
                               >
                             </li>
                             <li>
-                              <a href="kili-private-villas.html"
+                              <a href="/kili-private-villas"
                                 >Kili Private Villas</a
                               >
                             </li>
                             <li>
-                              <a href="gran-melia-arusha.html"
+                              <a href="/gran-melia-arusha"
                                 >Gran Melia Arusha</a
                               >
                             </li>
@@ -1032,16 +976,14 @@ $body_classes = "loading";
                   </div>
                 </div>
               </li>
-
               <li
                 class="dropdown dropdown-image-blocks dropdown-image-blocks-2"
               >
-                <a class="" href="media/videos.html">Galleries</a>
-
+                <a class="" href="/media/videos">Galleries</a>
                 <div class="dropdown-menu">
                   <ul class="list-unstyled">
                     <li class="menu-section first">
-                      <a href="media/videos.html">
+                      <a href="/media/videos">
                         <span class="menu-img">
                           <img
                             src="<?php echo $themeurl; ?>/assets/archive/media-videos-img-thumb.jpg"
@@ -1052,9 +994,8 @@ $body_classes = "loading";
                         <span class="menu-text">Video Archives</span>
                       </a>
                     </li>
-
                     <li class="menu-section">
-                      <a href="media/photos.html">
+                      <a href="/media/photos">
                         <span class="menu-img">
                           <img
                             src="<?php echo $themeurl; ?>/assets/archive/media-photos-img-thumb.jpg"
@@ -1069,34 +1010,33 @@ $body_classes = "loading";
                 </div>
               </li>
             </ul>
-
             <ul class="nav navbar-nav" id="navbar-secondary">
-              <li><a class="" href="awards-and-press.html">Awards</a></li>
-              <li><a class="" href="maps/tanzania.html">Map</a></li>
-              <li><a class="" href="community.html">Local Partnerships</a></li>
+              <li><a class="" href="/awards-and-press">Awards</a></li>
+              <li><a class="" href="/maps/tanzania">Map</a></li>
+              <li><a class="" href="/community">Local Partnerships</a></li>
               <li>
                 <a
                   class=""
-                  href="http://blog.africadreamsafaris.com/"
+                  href="http:
                   target="_blank"
                   >Blog</a
                 >
               </li>
-              <li><a class="" href="faq.html">FAQ</a></li>
+              <li><a class="" href="/faq">FAQ</a></li>
               <li>
-                <a href="safari-details/photographic-ambassador.html"
+                <a href="/safari-details/photographic-ambassador"
                   >Expert Photo Tips</a
                 >
               </li>
               <li id="header-search-form">
                 <form
-                  action="https://www.africadreamsafaris.com/search"
+                  action="/search"
                   method="get"
                 >
                   <div class="search-input-icon">
                     <svg viewBox="0 0 15.8 15.8">
                       <use
-                        xmlns:xlink="http://www.w3.org/1999/xlink"
+                        xmlns:xlink="http:
                         xlink:href="#icon-search"
                       ></use>
                     </svg>
@@ -1116,453 +1056,443 @@ $body_classes = "loading";
         </div>
       </div>
     </header>
-
     <!-- Mobile submenu -->
     <div id="nav-submenu" style="display: none">
       <div id="nav-submenu-content">
         <div class="container">
           <div id="nav-submenu-close"><i class="fa fa-times"></i></div>
-
           <ul class="list-unstyled" id="nav-submenu-about">
             <li class="nav-submenu-name">
-              <a href="company-overview/letter-from-the-founder.html">About</a>
+              <a href="/company-overview/letter-from-the-founder">About</a>
             </li>
             <li class="nav-submenu-header"><a>Company Overview</a></li>
             <li class="nav-submenu-link">
-              <a href="company-overview/letter-from-the-founder.html"
+              <a href="/company-overview/letter-from-the-founder"
                 >Letter from the Founder</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/why-were-different.html"
+              <a href="/company-overview/why-were-different"
                 >Why We're Different</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/tanzania-specialists.html"
+              <a href="/company-overview/tanzania-specialists"
                 >We Specialize in Tanzania</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/meet-our-safari-experts.html"
+              <a href="/company-overview/meet-our-safari-experts"
                 >Meet Our Safari Experts</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/private-safari-advantage.html"
+              <a href="/company-overview/private-safari-advantage"
                 >Private Safari Advantage</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/personalized-itineraries.html"
+              <a href="/company-overview/personalized-itineraries"
                 >Personalized Itineraries</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="company-overview/wildlife-viewing-maximized.html"
+              <a href="/company-overview/wildlife-viewing-maximized"
                 >Wildlife Viewing Maximized</a
               >
             </li>
             <li class="nav-submenu-header"><a>Safari Details</a></li>
             <li class="nav-submenu-link">
-              <a href="safari-details/driver-guides.html">Driver Guides</a>
+              <a href="/safari-details/driver-guides">Driver Guides</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/vehicle-specifications.html"
+              <a href="/safari-details/vehicle-specifications"
                 >Vehicle Specifications</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/seasonal-highlights.html"
+              <a href="/safari-details/seasonal-highlights"
                 >Seasonal Highlights</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/inclusions-and-exclusions.html"
+              <a href="/safari-details/inclusions-and-exclusions"
                 >Inclusions & Exclusions</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/itinerary-design-and-recommendations.html"
+              <a href="/safari-details/itinerary-design-and-recommendations"
                 >Itinerary Design & Recommendations
               </a>
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/safety.html">Safari Safety</a>
+              <a href="/safari-details/safety">Safari Safety</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="safari-details/photographic-ambassador.html"
+              <a href="/safari-details/photographic-ambassador"
                 >Our Photographic Ambassador</a
               >
             </li>
             <li class="nav-submenu-header"><a>Trip Enhancements</a></li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/cultural-tour.html">Cultural Tour</a>
+              <a href="/trip-enhancements/cultural-tour">Cultural Tour</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/balloon-safari.html">Balloon Safari</a>
+              <a href="/trip-enhancements/balloon-safari">Balloon Safari</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/arusha-layover.html">Arusha Layover</a>
+              <a href="/trip-enhancements/arusha-layover">Arusha Layover</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/walking-safari.html">Walking Safari</a>
+              <a href="/trip-enhancements/walking-safari">Walking Safari</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/night-game-drive.html"
+              <a href="/trip-enhancements/night-game-drive"
                 >Night Game Drive</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/junior-game-ranger-challenge.html"
+              <a href="/trip-enhancements/junior-game-ranger-challenge"
                 >Junior Game Ranger</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/charitable-visits.html"
+              <a href="/trip-enhancements/charitable-visits"
                 >Charitable Visits</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="trip-enhancements/serengeti-lion-project.html"
+              <a href="/trip-enhancements/serengeti-lion-project"
                 >Serengeti Lion Project</a
               >
             </li>
             <li class="nav-submenu-header"><a>Booking And Flights</a></li>
             <li class="nav-submenu-link">
-              <a href="booking-and-flights/booking-security.html"
+              <a href="/booking-and-flights/booking-security"
                 >Booking Security</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="booking-and-flights/flexible-travel-and-payment.html"
+              <a href="/booking-and-flights/flexible-travel-and-payment"
                 >Flexible Travel & Payment</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="booking-and-flights/booking-terms-and-conditions.html"
+              <a href="/booking-and-flights/booking-terms-and-conditions"
                 >Booking Terms & Conditions</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="booking-and-flights/international-flight-routing.html"
+              <a href="/booking-and-flights/international-flight-routing"
                 >International Flight Routing</a
               >
             </li>
           </ul>
-
           <ul class="list-unstyled" id="nav-submenu-regions">
             <li class="nav-submenu-name">
-              <a href="maps/tanzania.html">Regions</a>
+              <a href="/maps/tanzania">Regions</a>
             </li>
-
             <li class="nav-submenu-buttons">
-              <a class="btn btn-primary" href="maps/tanzania.html"
+              <a class="btn btn-primary" href="/maps/tanzania"
                 >Search by Map <i class="fa fa-chevron-right"></i
               ></a>
             </li>
-
             <li class="nav-submenu-header">
-              <a href="serengeti-national-park.html">Serengeti National Park</a>
+              <a href="/serengeti-national-park">Serengeti National Park</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="north-serengeti.html">North Serengeti</a>
+              <a href="/north-serengeti">North Serengeti</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="west-serengeti.html">West Serengeti</a>
+              <a href="/west-serengeti">West Serengeti</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="central-serengeti.html">Central Serengeti</a>
+              <a href="/central-serengeti">Central Serengeti</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="east-serengeti.html">East Serengeti</a>
+              <a href="/east-serengeti">East Serengeti</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="south-serengeti.html">South Serengeti</a>
+              <a href="/south-serengeti">South Serengeti</a>
             </li>
             <li class="nav-submenu-header">
-              <a href="ngorongoro-conservation-area.html"
+              <a href="/ngorongoro-conservation-area"
                 >Ngorongoro Conservation Area</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="lake-magadi.html">Lake Magadi</a>
+              <a href="/lake-magadi">Lake Magadi</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="central-plains.html">Central Plains</a>
+              <a href="/central-plains">Central Plains</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lerai-forest.html">Lerai Forest</a>
+              <a href="/lerai-forest">Lerai Forest</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="rumbe-hills.html">Rumbe Hills</a>
+              <a href="/rumbe-hills">Rumbe Hills</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="munge-stream.html">Munge Stream</a>
+              <a href="/munge-stream">Munge Stream</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="mandusi-swamp.html">Mandusi Swamp</a>
+              <a href="/mandusi-swamp">Mandusi Swamp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="gorigor-swamp.html">Gorigor Swamp</a>
+              <a href="/gorigor-swamp">Gorigor Swamp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="ngoitokitok-springs.html">Ngoitokitok Springs</a>
+              <a href="/ngoitokitok-springs">Ngoitokitok Springs</a>
             </li>
             <li class="nav-submenu-header">
-              <a href="lake-manyara-national-park.html"
+              <a href="/lake-manyara-national-park"
                 >Lake Manyara National Park</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="ground-water-forest.html">Ground Water Forest</a>
+              <a href="/ground-water-forest">Ground Water Forest</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="acacia-woodlands.html">Acacia Woodlands</a>
+              <a href="/acacia-woodlands">Acacia Woodlands</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="floodplains.html">Floodplains</a>
+              <a href="/floodplains">Floodplains</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lake-manyara.html">Lake Manyara</a>
+              <a href="/lake-manyara">Lake Manyara</a>
             </li>
             <li class="nav-submenu-header">
-              <a href="tarangire-national-park.html">Tarangire National Park</a>
+              <a href="/tarangire-national-park">Tarangire National Park</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="tarangire-river.html">Tarangire River</a>
+              <a href="/tarangire-river">Tarangire River</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lemiyon-triangle.html">Lemiyon Triangle</a>
+              <a href="/lemiyon-triangle">Lemiyon Triangle</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="matete-woodlands.html">Matete Woodlands</a>
+              <a href="/matete-woodlands">Matete Woodlands</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="silale-swamp.html">Silale Swamp</a>
+              <a href="/silale-swamp">Silale Swamp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="burungi-circuit.html">Burungi Circuit</a>
+              <a href="/burungi-circuit">Burungi Circuit</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kitibong-hill.html">Kitibong Hill</a>
+              <a href="/kitibong-hill">Kitibong Hill</a>
             </li>
-            <li class="nav-submenu-header"><a href="arusha.html">Arusha</a></li>
+            <li class="nav-submenu-header"><a href="/arusha">Arusha</a></li>
           </ul>
-
           <ul class="list-unstyled" id="nav-submenu-lodging">
-            <li class="nav-submenu-name"><a href="lodging.html">Lodging</a></li>
-
+            <li class="nav-submenu-name"><a href="/lodging">Lodging</a></li>
             <li class="nav-submenu-buttons">
-              <a class="btn btn-primary" href="lodging.html"
+              <a class="btn btn-primary" href="/lodging"
                 >Search by Style <i class="fa fa-chevron-right"></i
               ></a>
-              <a class="btn btn-primary" href="maps/tanzania.html"
+              <a class="btn btn-primary" href="/maps/tanzania"
                 >Search by Map <i class="fa fa-chevron-right"></i
               ></a>
             </li>
-
             <li class="nav-submenu-header"><a>North Serengeti</a></li>
             <li class="nav-submenu-link">
-              <a href="migration-tented-lodge.html">Migration Tented Lodge</a>
+              <a href="/migration-tented-lodge">Migration Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lemala-mara-river-camp.html">Lemala Mara River Camp</a>
+              <a href="/lemala-mara-river-camp">Lemala Mara River Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kuria-hills-lodge.html">Kuria Hills Lodge</a>
+              <a href="/kuria-hills-lodge">Kuria Hills Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="river-camp.html">River Camp</a>
+              <a href="/river-camp">River Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="taasa-lodge.html">Taasa Lodge</a>
+              <a href="/taasa-lodge">Taasa Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="serengeti-under-canvas-north.html"
+              <a href="/serengeti-under-canvas-north"
                 >N. Serengeti Under Canvas</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="nimali-mara-lodge.html">Nimali Mara Lodge</a>
+              <a href="/nimali-mara-lodge">Nimali Mara Lodge</a>
             </li>
             <li class="nav-submenu-header"><a>West Serengeti</a></li>
             <li class="nav-submenu-link">
-              <a href="mbalageti-tented-lodge.html">Mbalageti Tented Lodge</a>
+              <a href="/mbalageti-tented-lodge">Mbalageti Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kirawira-tented-lodge.html">Kirawira Tented Lodge</a>
+              <a href="/kirawira-tented-lodge">Kirawira Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="grumeti-river-lodge.html">Grumeti River Lodge</a>
+              <a href="/grumeti-river-lodge">Grumeti River Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lahia-tented-lodge.html">Lahia Tented Lodge</a>
+              <a href="/lahia-tented-lodge">Lahia Tented Lodge</a>
             </li>
             <li class="nav-submenu-header"><a>South Serengeti</a></li>
             <li class="nav-submenu-link">
-              <a href="ndutu-lodge.html">Ndutu Lodge</a>
+              <a href="/ndutu-lodge">Ndutu Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lake-masek-tented-lodge.html">Lake Masek Tented Lodge</a>
+              <a href="/lake-masek-tented-lodge">Lake Masek Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="woodlands-camp.html">Woodlands Camp</a>
+              <a href="/woodlands-camp">Woodlands Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="serengeti-under-canvas-south.html"
+              <a href="/serengeti-under-canvas-south"
                 >S. Serengeti Under Canvas</a
               >
             </li>
             <li class="nav-submenu-header"><a>Central Serengeti</a></li>
             <li class="nav-submenu-link">
-              <a href="mbuzi-mawe-tented-lodge.html">Mbuzi Mawe Tented Lodge</a>
+              <a href="/mbuzi-mawe-tented-lodge">Mbuzi Mawe Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="serengeti-serena-lodge.html">Serengeti Serena Lodge</a>
+              <a href="/serengeti-serena-lodge">Serengeti Serena Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="four-seasons-lodge.html">Four Seasons Lodge</a>
+              <a href="/four-seasons-lodge">Four Seasons Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="private-mobile-camp.html">Private Mobile Camp</a>
+              <a href="/private-mobile-camp">Private Mobile Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kubu-kubu-tented-lodge.html">Kubu Kubu Tented Lodge</a>
+              <a href="/kubu-kubu-tented-lodge">Kubu Kubu Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="serengeti-pioneer-camp.html">Serengeti Pioneer Camp</a>
+              <a href="/serengeti-pioneer-camp">Serengeti Pioneer Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="nimali-serengeti-lodge.html">Nimali Serengeti Lodge</a>
+              <a href="/nimali-serengeti-lodge">Nimali Serengeti Lodge</a>
             </li>
             <li class="nav-submenu-header"><a>East Serengeti</a></li>
             <li class="nav-submenu-link">
-              <a href="sametu-camp.html">Sametu Camp</a>
+              <a href="/sametu-camp">Sametu Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="nanyukie-tented-lodge.html">Nanyukie Tented Lodge</a>
+              <a href="/nanyukie-tented-lodge">Nanyukie Tented Lodge</a>
             </li>
             <li class="nav-submenu-header">
               <a>Lake Manyara National Park</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="plantation-lodge.html">Plantation Lodge</a>
+              <a href="/plantation-lodge">Plantation Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="gibbs-farm.html">Gibbs Farm</a>
+              <a href="/gibbs-farm">Gibbs Farm</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="the-manor-at-ngorongoro.html">The Manor at Ngorongoro</a>
+              <a href="/the-manor-at-ngorongoro">The Manor at Ngorongoro</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="neptune-lodge.html">Neptune Lodge</a>
+              <a href="/neptune-lodge">Neptune Lodge</a>
             </li>
             <li class="nav-submenu-header">
               <a>Ngorongoro Conservation Area</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="ngorongoro-crater-lodge.html">Ngorongoro Crater Lodge</a>
+              <a href="/ngorongoro-crater-lodge">Ngorongoro Crater Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="ngorongoro-serena-lodge.html">Ngorongoro Serena Lodge</a>
+              <a href="/ngorongoro-serena-lodge">Ngorongoro Serena Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lions-paw-camp.html">Lion's Paw Camp</a>
+              <a href="/lions-paw-camp">Lion's Paw Camp</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="craters-edge-lodge.html">Crater's Edge Lodge</a>
+              <a href="/craters-edge-lodge">Crater's Edge Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="ngorongoro-melia-lodge.html">Ngorongoro Melia Lodge</a>
+              <a href="/ngorongoro-melia-lodge">Ngorongoro Melia Lodge</a>
             </li>
             <li class="nav-submenu-header"><a>Tarangire National Park</a></li>
             <li class="nav-submenu-link">
-              <a href="swala-tented-lodge.html">Swala Tented Lodge</a>
+              <a href="/swala-tented-lodge">Swala Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="tarangire-treetops-lodge.html"
+              <a href="/tarangire-treetops-lodge"
                 >Tarangire Treetops Lodge</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="kikoti-tented-lodge.html">Kikoti Tented Lodge</a>
+              <a href="/kikoti-tented-lodge">Kikoti Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="mpingo-ridge-lodge.html">Mpingo Ridge Lodge </a>
+              <a href="/mpingo-ridge-lodge">Mpingo Ridge Lodge </a>
             </li>
             <li class="nav-submenu-link">
-              <a href="maramboi-tented-lodge.html">Maramboi Tented Lodge</a>
+              <a href="/maramboi-tented-lodge">Maramboi Tented Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="elephant-springs.html">Elephant Springs</a>
+              <a href="/elephant-springs">Elephant Springs</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kuro-treetops-lodge.html">Kuro Treetops Lodge</a>
+              <a href="/kuro-treetops-lodge">Kuro Treetops Lodge</a>
             </li>
             <li class="nav-submenu-header"><a>Arusha</a></li>
             <li class="nav-submenu-link">
-              <a href="mount-meru-resort.html">Mount Meru Resort</a>
+              <a href="/mount-meru-resort">Mount Meru Resort</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="arusha-coffee-lodge.html">Arusha Coffee Lodge</a>
+              <a href="/arusha-coffee-lodge">Arusha Coffee Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="lake-duluti-lodge.html">Lake Duluti Lodge</a>
+              <a href="/lake-duluti-lodge">Lake Duluti Lodge</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kili-seasons-hotel.html">Kili Seasons Hotel</a>
+              <a href="/kili-seasons-hotel">Kili Seasons Hotel</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="kili-private-villas.html">Kili Private Villas</a>
+              <a href="/kili-private-villas">Kili Private Villas</a>
             </li>
             <li class="nav-submenu-link">
-              <a href="gran-melia-arusha.html">Gran Melia Arusha</a>
+              <a href="/gran-melia-arusha">Gran Melia Arusha</a>
             </li>
           </ul>
-
           <ul class="list-unstyled" id="nav-submenu-local-partnerships">
             <li class="nav-submenu-name">
-              <a href="lodging.html">Local Partnerships</a>
+              <a href="/lodging">Local Partnerships</a>
             </li>
-
             <li class="nav-submenu-header"><a>Overview</a></li>
             <li class="nav-submenu-link">
               <a
-                href="community/overview/together-we-can-make-a-difference.html"
+                href="community/overview/together-we-can-make-a-difference"
                 >Together We Can Make a Difference</a
               >
             </li>
             <li class="nav-submenu-header"><a>Conservation</a></li>
             <li class="nav-submenu-link">
-              <a href="community/conservation/serengeti-lion-project.html"
+              <a href="community/conservation/serengeti-lion-project"
                 >Serengeti Lion Project</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="community/conservation/serengeti-cheetah-project.html"
+              <a href="community/conservation/serengeti-cheetah-project"
                 >Serengeti Cheetah Project</a
               >
             </li>
             <li class="nav-submenu-header"><a>Humanitarian</a></li>
             <li class="nav-submenu-link">
-              <a href="community/humanitarian/school-of-st-jude.html"
+              <a href="community/humanitarian/school-of-st-jude"
                 >School of St. Jude</a
               >
             </li>
             <li class="nav-submenu-link">
               <a
-                href="community/humanitarian/foundation-for-african-medicine-education.html"
+                href="community/humanitarian/foundation-for-african-medicine-education"
                 >Foundation for African Medicine & Education</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="community/humanitarian/peace-house-orphanage.html"
+              <a href="community/humanitarian/peace-house-orphanage"
                 >Peace House Orphanage</a
               >
             </li>
             <li class="nav-submenu-link">
-              <a href="community/humanitarian/poli-village-school.html"
+              <a href="community/humanitarian/poli-village-school"
                 >POLI Village School</a
               >
             </li>
@@ -1570,7 +1500,6 @@ $body_classes = "loading";
         </div>
       </div>
     </div>
-
     <!-- SVG Icons -->
     <svg style="display: none">
       <symbol id="icon-search" viewBox="0 0 15.8 15.8">
@@ -1579,5 +1508,4 @@ $body_classes = "loading";
         ></path>
       </symbol>
     </svg>
-
 	<main id="main" class="site-main">

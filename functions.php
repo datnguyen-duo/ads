@@ -68,7 +68,6 @@ function remove_menus_and_submenus(){
 add_action( 'admin_menu', 'remove_menus_and_submenus' );
 
 function theme_upload_mimes($mimes) {
-    // Add font file types with multiple accepted MIME types
     $mimes['woff'] = 'font/woff|application/font-woff|application/x-font-woff';
     $mimes['woff2'] = 'font/woff2|application/font-woff2';
     $mimes['otf'] = 'font/otf|application/x-font-opentype|font/opentype';
