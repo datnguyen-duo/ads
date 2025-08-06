@@ -23,6 +23,73 @@ const deviceInfo = {
   prefersReducedData: navigator.connection && navigator.connection.saveData,
 };
 gsap.registerPlugin(ScrollTrigger, SplitText);
+
+// Lightweight SplitText resize management
+
+window.SplitTextManager = {
+  // Store instances with their original configurations
+  instances: new Map(),
+
+  // Register a SplitText instance with its config for resize handling
+  register: function (element, splitTextInstance, config) {
+    this.instances.set(element, {
+      splitText: splitTextInstance,
+      config: config,
+      element: element,
+    });
+  },
+
+  // Quietly refresh line breaks without re-triggering animations
+  refreshLineBreaks: function () {
+    this.instances.forEach((instance, element) => {
+      // Check if element still exists
+      const exists = document.contains(element);
+      const isAnimated = element.classList.contains("animate-in");
+
+      // Refresh all elements that exist in DOM
+      if (exists) {
+        const { splitText, config } = instance;
+
+        // Always revert to original text first
+        splitText.revert();
+
+        // Create new SplitText with same configuration
+        const newSplitText = new SplitText(element, config);
+
+        // Update the stored instance
+        instance.splitText = newSplitText;
+
+        // Apply styles based on animation state
+        if (isAnimated) {
+          // Element was already animated - maintain animated state
+          if (newSplitText.lines) {
+            gsap.set(newSplitText.lines, {
+              opacity: 1,
+              y: 0,
+            });
+          }
+          if (newSplitText.words) {
+            gsap.set(newSplitText.words, {
+              opacity: 1,
+              filter: "blur(0px)",
+            });
+          }
+        }
+        // Element not yet animated - don't apply any styles, let original CSS handle it
+      }
+    });
+  },
+
+  // Clean up removed elements
+  cleanup: function () {
+    this.instances.forEach((instance, element) => {
+      if (!document.contains(element)) {
+        this.instances.delete(element);
+      }
+    });
+  },
+};
+
 window.ScrollTriggerComponents = {
   customResizeHandlers: new Set(),
   registerCustomHandler: function (name) {
@@ -42,6 +109,10 @@ window.ScrollTriggerComponents = {
   }
   function handleGlobalResize() {
     requestAnimationFrame(() => {
+      // Quietly refresh SplitText line breaks without re-animating
+      window.SplitTextManager.cleanup();
+      window.SplitTextManager.refreshLineBreaks();
+
       ScrollTrigger.refresh();
       window.dispatchEvent(new CustomEvent("scrolltrigger:resize"));
     });
@@ -94,11 +165,17 @@ let lenis;
   function initWordAnimations() {
     const textElements = document.querySelectorAll("[data-animate-words]");
     textElements.forEach((element) => {
-      const splitText = new SplitText(element, {
+      const config = {
         type: "words",
         wordsClass: "split-word",
         tag: "span",
-      });
+      };
+
+      const splitText = new SplitText(element, config);
+
+      // Register for resize management
+      window.SplitTextManager.register(element, splitText, config);
+
       gsap.set(splitText.words, {
         opacity: 0,
         filter: "blur(8px)",
@@ -150,26 +227,37 @@ let lenis;
     textElements.forEach((element) => {
       const paragraphs = element.querySelectorAll("p");
       const allLines = [];
+      const splitInstances = [];
+
+      // Handle each paragraph separately to preserve P tag structure
+      const lineConfig = {
+        type: "lines",
+        linesClass: "split-line",
+        tag: "div",
+      };
+
       paragraphs.forEach((paragraph) => {
-        const splitText = new SplitText(paragraph, {
-          type: "lines",
-          linesClass: "split-line",
-          tag: "div",
-        });
+        const splitText = new SplitText(paragraph, lineConfig);
+        splitInstances.push(splitText);
         allLines.push(...splitText.lines);
+
+        // Register each paragraph's SplitText for resize management
+        window.SplitTextManager.register(paragraph, splitText, lineConfig);
       });
+
+      // Fallback for elements without P tags
       if (paragraphs.length === 0) {
-        const splitText = new SplitText(element, {
-          type: "lines",
-          linesClass: "split-line",
-          tag: "div",
-        });
+        const splitText = new SplitText(element, lineConfig);
+        splitInstances.push(splitText);
         allLines.push(...splitText.lines);
+        window.SplitTextManager.register(element, splitText, lineConfig);
       }
+
       gsap.set(allLines, {
         opacity: 0,
         y: 24,
       });
+
       ScrollTrigger.create({
         trigger: element,
         start: start,
@@ -213,10 +301,12 @@ let lenis;
     });
   }
   window.addEventListener("load", () => {
-    initWordAnimations();
-    initBlockAnimations();
-    initLineAnimations();
-    initImageAnimations();
+    setTimeout(() => {
+      initWordAnimations();
+      initBlockAnimations();
+      initLineAnimations();
+      initImageAnimations();
+    }, 500);
   });
 })();
 (function () {
@@ -261,11 +351,18 @@ let lenis;
         animation: scrollTimeline,
       });
     }
-    const splitWords = new SplitText(heading, {
+    const heroConfig = {
       type: "words",
       wordsClass: "split-word",
       tag: "span",
-    });
+    };
+
+    const splitWords = new SplitText(heading, heroConfig);
+
+    // Register hero heading for resize management
+    if (heading) {
+      window.SplitTextManager.register(heading, splitWords, heroConfig);
+    }
     if (preloadImages) {
       window.scrollTo(0, 0);
       document.documentElement.scrollTop = 0;
@@ -474,6 +571,8 @@ let lenis;
       };
     }
     function initHorizontalScroll() {
+      if (window.innerWidth > 1920) return;
+
       if (horizontalScrollTrigger) {
         horizontalScrollTrigger.kill();
       }
