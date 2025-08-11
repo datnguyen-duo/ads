@@ -12,7 +12,7 @@ $images = get_sub_field('images');
             <div class="<?php echo $layout . '__media media-container swiper-slide' . (!empty($image['caption']) ? ' has-caption' : ''); ?>">
                 <?php image($image['ID'], 'full', $layout . '__media-image'); ?>
                 <?php if (!empty($image['caption'])): ?>
-                    <div class="<?php echo $layout . '__media-caption text__size-body--lg'; ?>"><?php echo $image['caption']; ?></div>
+                    <div class="<?php echo $layout . '__media-caption text__size-body--md'; ?>"><?php echo $image['caption']; ?></div>
                 <?php endif; ?>
             </div>
         <?php endforeach; ?>

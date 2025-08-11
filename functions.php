@@ -161,6 +161,7 @@ function theme_scripts() {
 
 	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), $theme_version );
     wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), $theme_version );
+	wp_enqueue_style( 'lenis', 'https://unpkg.com/lenis@1.3.8/dist/lenis.css', array(), $theme_version );
 	wp_enqueue_script('lenis', 'https://unpkg.com/lenis@1.3.8/dist/lenis.min.js', array(), $theme_version, array(
 		'strategy' => 'defer'
 	));

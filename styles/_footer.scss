@@ -98,6 +98,7 @@
       grid-template-columns: 1fr 1fr 1fr;
       grid-template-areas: "copyright privacy-policy  social-media";
       gap: var(--gap-sm);
+      text-wrap: balance;
       @media screen and (max-width: $breakpoint-mobile) {
         grid-template-columns: 1fr;
         grid-template-areas: "social-media" "copyright" "privacy-policy";

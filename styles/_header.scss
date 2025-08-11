@@ -41,6 +41,17 @@
       body.site-header-open & {
         background-color: currentColor;
       }
+
+      body.site-header-open & {
+        margin-block: -1px;
+        transition: transform var(--transition-duration-ease-in-out);
+        &:nth-child(1) {
+          transform: rotate(45deg);
+        }
+        &:nth-child(2) {
+          transform: rotate(-45deg);
+        }
+      }
     }
   }
 }
@@ -282,6 +293,7 @@
       }
       .button {
         font-size: var(--font-size-body-sm);
+        padding-inline: 1rem;
       }
     }
   }
@@ -353,6 +365,7 @@
         outline: none;
         border: none;
         border-bottom: 1px solid currentColor;
+        border-radius: 0;
         @media screen and (max-width: $breakpoint-mobile) {
           width: 100%;
         }
@@ -368,6 +381,7 @@
       svg {
         height: 100%;
         width: 100%;
+        color: var(--color-dark);
       }
     }
   }

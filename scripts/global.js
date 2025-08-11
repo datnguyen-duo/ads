@@ -1038,7 +1038,6 @@ window.ScrollTriggerComponents = {
       },
     });
   }
-  document.addEventListener("DOMContentLoaded", initButtonRipple);
   window.addEventListener("load", initButtonRipple);
 })();
 
@@ -1072,5 +1071,5 @@ window.ScrollTriggerComponents = {
       }
     });
   }
-  document.addEventListener("DOMContentLoaded", optimizeResponsiveVideos);
+  window.addEventListener("load", optimizeResponsiveVideos);
 })();
