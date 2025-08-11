@@ -2,8 +2,7 @@
 $primary_colors = get_field('primary_colors', 'option');
 $secondary_colors = get_field('secondary_colors', 'option');
 $neutral_colors = get_field('neutral_colors', 'option');
-$announcement_bar_background_color = get_field('announcement_bar_background_color', 'option');
-$announcement_bar_text_color = get_field('announcement_bar_text_color', 'option');
+
 function generate_css($colors, $color_type, $css) {
   foreach ($colors as $key => $color) {
       $css .= '--color-' . $color_type . '-' . ($key + 1) . ': ' . $color['color'] . ';';
@@ -65,8 +64,7 @@ generate_font_face('secondary_font');
     $css .= '--color-text: var(--color-dark);';
     $css .= '--color-overlay: rgba(255, 255, 255, 0.1);';
     $css .= '--color-overlay-dark: rgba(0, 0, 0, 0.5);';
-    $css .= $announcement_bar_background_color ? '--color-announcement-bar-background: ' . $announcement_bar_background_color . ';' : '';
-    $css .= $announcement_bar_text_color ? '--color-announcement-bar-text: ' . $announcement_bar_text_color . ';' : '';
+
     $css .= '--font-size-1: clamp(2.5rem, 5.4vw, 104px);';
     $css .= '--font-size-2: clamp(2.25rem, 5vw, 96px);';
     $css .= '--font-size-3: clamp(1.75rem, 1.875vw, 36px);';

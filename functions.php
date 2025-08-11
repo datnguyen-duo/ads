@@ -11,7 +11,10 @@ function theme_setup() {
 	register_nav_menus(
 		array(
 			'primary' => esc_html__( 'Primary', 'theme' ),
+			'secondary' => esc_html__( 'Secondary', 'theme' ),
 			'footer' => esc_html__( 'Footer', 'theme' ),
+			'header-buttons' => esc_html__( 'Header Buttons', 'theme' ),
+			'footer-buttons' => esc_html__( 'Footer Buttons', 'theme' ),
 		),
 	);
 	add_theme_support(
@@ -60,6 +63,27 @@ function theme_setup() {
     ) );
 }
 add_action( 'after_setup_theme', 'theme_setup' );
+
+function add_acf_class_to_menu_links($atts, $item, $args, $depth) {
+    // Check if this is a button menu
+    if ($args->theme_location === 'header-buttons' || $args->theme_location === 'footer-buttons') {
+        $menu = wp_get_nav_menu_object($args->menu);
+        if ($menu) {
+            $menu_items = wp_get_nav_menu_items($menu->term_id);
+            // Find position of current item in menu
+            $position = array_search($item->ID, array_column($menu_items, 'ID'));
+            $button_type = ($position === 0) ? 'primary' : 'secondary';
+            
+            if (isset($atts['class'])) {
+                $atts['class'] .= ' main-navigation__button button button--' . $button_type;
+            } else {
+                $atts['class'] = 'main-navigation__button button button--' . $button_type;
+            }
+        }
+    }
+    return $atts;
+}
+add_filter('nav_menu_link_attributes', 'add_acf_class_to_menu_links', 10, 4);
 
 function remove_menus_and_submenus(){
 	remove_submenu_page( 'themes.php', 'edit.php?post_type=wp_block' );
@@ -178,7 +202,7 @@ function theme_scripts() {
 	);
 	wp_enqueue_script(
 		'global-script',
-		get_stylesheet_directory_uri() . '/scripts/global.js',
+		get_stylesheet_directory_uri() . '/scripts/global.min.js',
 		array(),
 		$theme_version,
 		array(
@@ -211,9 +235,6 @@ function dequeue_scripts(){
 	wp_dequeue_style('classic-theme-styles');
 	wp_dequeue_style( 'wc-block-style' );
 	wp_dequeue_style( 'global-styles' ); 
-	wp_dequeue_style( 'bcct_custom_style' );
-    wp_dequeue_style( 'bcct_style' );
-    wp_dequeue_style( 'bctt-block-editor-css' );
 }
 add_action( 'wp_enqueue_scripts', 'dequeue_scripts', 100 );
 

@@ -797,106 +797,6 @@
             "return_format": "string"
         },
         {
-            "key": "field_66143c72dc659",
-            "label": "Show Announcement Bar",
-            "name": "show_announcement_bar",
-            "aria-label": "",
-            "type": "true_false",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": 0,
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "message": "",
-            "default_value": 0,
-            "ui": 0,
-            "ui_on_text": "",
-            "ui_off_text": ""
-        },
-        {
-            "key": "field_6614a6d378e49",
-            "label": "Announcement Bar Background Color",
-            "name": "announcement_bar_background_color",
-            "aria-label": "",
-            "type": "color_picker",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_66143c72dc659",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "25",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "enable_opacity": 0,
-            "return_format": "string"
-        },
-        {
-            "key": "field_6614a84b78e4b",
-            "label": "Announcement Bar Text Color",
-            "name": "announcement_bar_text_color",
-            "aria-label": "",
-            "type": "color_picker",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_66143c72dc659",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "25",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "enable_opacity": 0,
-            "return_format": "string"
-        },
-        {
-            "key": "field_66143c8cdc65a",
-            "label": "Announcement Bar Text",
-            "name": "announcement_bar_text",
-            "aria-label": "",
-            "type": "wysiwyg",
-            "instructions": "",
-            "required": 0,
-            "conditional_logic": [
-                [
-                    {
-                        "field": "field_66143c72dc659",
-                        "operator": "==",
-                        "value": "1"
-                    }
-                ]
-            ],
-            "wrapper": {
-                "width": "",
-                "class": "",
-                "id": ""
-            },
-            "default_value": "",
-            "tabs": "all",
-            "toolbar": "full",
-            "media_upload": 0,
-            "delay": 0
-        },
-        {
             "key": "field_66143dc81b151",
             "label": "Footer",
             "name": "",
@@ -972,8 +872,8 @@
         },
         {
             "key": "field_67e0be24801d9",
-            "label": "Disclaimer",
-            "name": "disclaimer",
+            "label": "License",
+            "name": "license",
             "aria-label": "",
             "type": "text",
             "instructions": "",
@@ -1145,7 +1045,9 @@
                         "twitter": "Twitter",
                         "x": "X",
                         "youtube": "YouTube",
+                        "google": "Google+",
                         "pinterest": "Pinterest",
+                        "vimeo": "Vimeo",
                         "tiktok": "TikTok",
                         "reddit": "Reddit",
                         "whatsapp": "WhatsApp",
@@ -1309,5 +1211,5 @@
     "active": true,
     "description": "",
     "show_in_rest": 0,
-    "modified": 1753917131
+    "modified": 1754775808
 }

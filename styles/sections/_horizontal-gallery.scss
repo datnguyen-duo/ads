@@ -24,22 +24,18 @@
   }
   &__container {
     display: flex;
-    align-items: center;
-
+    gap: var(--gap);
     @media screen and (min-width: $breakpoint-desktop) {
       justify-content: center;
     }
   }
   &__media {
-    flex-shrink: 0;
     width: 25%;
     position: relative;
     @media screen and (max-width: $breakpoint-mobile) {
       width: 70%;
     }
-    &:not(:first-child) {
-      margin-left: -1%;
-    }
+
     &:nth-child(odd) {
       transform: rotate(-4deg);
     }

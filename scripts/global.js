@@ -1,3 +1,6 @@
+/*	-----------------------------------------------------------------------------
+	GLOBAL VARIABLES
+--------------------------------------------------------------------------------- */
 const easeInOut = "power3.inOut",
   easeOut = "power1.out",
   easeIn = "power1.in",
@@ -9,6 +12,7 @@ const easeInOut = "power3.inOut",
   startScrub = "top bottom",
   startPin = "top top",
   scale = 1.5;
+
 const deviceInfo = {
   isMobile:
     window.innerWidth <= 768 ||
@@ -22,15 +26,19 @@ const deviceInfo = {
       navigator.connection.effectiveType === "slow-2g"),
   prefersReducedData: navigator.connection && navigator.connection.saveData,
 };
+
+let lenis;
+
+/*	-----------------------------------------------------------------------------
+	GSAP INITIALIZATION
+--------------------------------------------------------------------------------- */
 gsap.registerPlugin(ScrollTrigger, SplitText);
 
-// Lightweight SplitText resize management
-
+/*	-----------------------------------------------------------------------------
+	SPLITTEXT MANAGER
+--------------------------------------------------------------------------------- */
 window.SplitTextManager = {
-  // Store instances with their original configurations
   instances: new Map(),
-
-  // Register a SplitText instance with its config for resize handling
   register: function (element, splitTextInstance, config) {
     this.instances.set(element, {
       splitText: splitTextInstance,
@@ -38,30 +46,16 @@ window.SplitTextManager = {
       element: element,
     });
   },
-
-  // Quietly refresh line breaks without re-triggering animations
   refreshLineBreaks: function () {
     this.instances.forEach((instance, element) => {
-      // Check if element still exists
       const exists = document.contains(element);
       const isAnimated = element.classList.contains("animate-in");
-
-      // Refresh all elements that exist in DOM
       if (exists) {
         const { splitText, config } = instance;
-
-        // Always revert to original text first
         splitText.revert();
-
-        // Create new SplitText with same configuration
         const newSplitText = new SplitText(element, config);
-
-        // Update the stored instance
         instance.splitText = newSplitText;
-
-        // Apply styles based on animation state
         if (isAnimated) {
-          // Element was already animated - maintain animated state
           if (newSplitText.lines) {
             gsap.set(newSplitText.lines, {
               opacity: 1,
@@ -75,12 +69,9 @@ window.SplitTextManager = {
             });
           }
         }
-        // Element not yet animated - don't apply any styles, let original CSS handle it
       }
     });
   },
-
-  // Clean up removed elements
   cleanup: function () {
     this.instances.forEach((instance, element) => {
       if (!document.contains(element)) {
@@ -90,6 +81,9 @@ window.SplitTextManager = {
   },
 };
 
+/*	-----------------------------------------------------------------------------
+	SCROLLTRIGGER COMPONENTS MANAGER
+--------------------------------------------------------------------------------- */
 window.ScrollTriggerComponents = {
   customResizeHandlers: new Set(),
   registerCustomHandler: function (name) {
@@ -99,6 +93,9 @@ window.ScrollTriggerComponents = {
     return this.customResizeHandlers.has(name);
   },
 };
+/*	-----------------------------------------------------------------------------
+	RESIZE HANDLERS
+--------------------------------------------------------------------------------- */
 (function () {
   let resizeTimeout;
   function debounce(func, delay) {
@@ -109,10 +106,8 @@ window.ScrollTriggerComponents = {
   }
   function handleGlobalResize() {
     requestAnimationFrame(() => {
-      // Quietly refresh SplitText line breaks without re-animating
       window.SplitTextManager.cleanup();
       window.SplitTextManager.refreshLineBreaks();
-
       ScrollTrigger.refresh();
       window.dispatchEvent(new CustomEvent("scrolltrigger:resize"));
     });
@@ -125,6 +120,10 @@ window.ScrollTriggerComponents = {
     }, 100);
   });
 })();
+
+/*	-----------------------------------------------------------------------------
+	MENU HEIGHT CALCULATION
+--------------------------------------------------------------------------------- */
 (function () {
   document.addEventListener("DOMContentLoaded", () => {
     const menu = document.querySelector("header");
@@ -137,19 +136,32 @@ window.ScrollTriggerComponents = {
     }
   });
 })();
+
+/*	-----------------------------------------------------------------------------
+	SWIPER INITIALIZATION
+--------------------------------------------------------------------------------- */
 (function () {
-  const swiper = new Swiper(".swiper", {
-    slidesPerView: "auto",
-    loop: true,
-    centeredSlides: true,
-    speed: 600,
-    navigation: {
-      nextEl: ".swiper-button-next",
-      prevEl: ".swiper-button-prev",
-    },
+  const swipers = document.querySelectorAll(".swiper");
+  if (!swipers) return;
+  swipers.forEach((slider) => {
+    const nextButton = slider.querySelector(".swiper-button-next");
+    const prevButton = slider.querySelector(".swiper-button-prev");
+    const swiper = new Swiper(slider, {
+      slidesPerView: "auto",
+      loop: true,
+      centeredSlides: true,
+      speed: 600,
+      navigation: {
+        nextEl: nextButton,
+        prevEl: prevButton,
+      },
+    });
   });
 })();
-let lenis;
+
+/*	-----------------------------------------------------------------------------
+	LENIS SMOOTH SCROLLING
+--------------------------------------------------------------------------------- */
 (function () {
   if ("scrollRestoration" in history) {
     history.scrollRestoration = "manual";
@@ -161,6 +173,63 @@ let lenis;
   });
   gsap.ticker.lagSmoothing(0);
 })();
+
+/*	-----------------------------------------------------------------------------
+	SCROLLTRIGGER-BASED SCROLL DETECTION
+--------------------------------------------------------------------------------- */
+(function () {
+  let lastScrollY = 0;
+  let isScrollingUp = false;
+
+  function initScrollDetection() {
+    // Create a ScrollTrigger specifically for scroll detection
+    ScrollTrigger.create({
+      trigger: "body",
+      start: "top top",
+      end: "bottom bottom",
+      onUpdate: (self) => {
+        const currentScrollY = self.scroll();
+        const scrollThreshold = 10;
+        const topThreshold = 5;
+        const directionThreshold = 3; // Minimum movement to change direction
+
+        // Only update direction if scroll difference is significant
+        const scrollDiff = currentScrollY - lastScrollY;
+        if (Math.abs(scrollDiff) > directionThreshold) {
+          isScrollingUp = scrollDiff < 0;
+        }
+
+        const isAtTop = currentScrollY <= topThreshold;
+        const isScrolled = currentScrollY > scrollThreshold;
+
+        // Update body classes with smoother logic
+        document.body.classList.toggle("scrolled", isScrolled);
+        document.body.classList.toggle(
+          "scrolling-up",
+          isScrollingUp && !isAtTop
+        );
+        document.body.classList.toggle("at-top", isAtTop);
+
+        lastScrollY = currentScrollY;
+      },
+    });
+  }
+
+  // Initialize when animations are ready
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      initScrollDetection();
+      // Set initial state
+      const currentScrollY = window.scrollY;
+      document.body.classList.toggle("scrolled", currentScrollY > 10);
+      document.body.classList.toggle("at-top", currentScrollY <= 5);
+      document.body.classList.toggle("scrolling-up", false);
+    }, 600); // Wait for other animations to initialize
+  });
+})();
+/*	-----------------------------------------------------------------------------
+	ANIMATION INITIALIZATION
+--------------------------------------------------------------------------------- */
 (function () {
   function initWordAnimations() {
     const textElements = document.querySelectorAll("[data-animate-words]");
@@ -170,15 +239,12 @@ let lenis;
         wordsClass: "split-word",
         tag: "span",
       };
-
       const splitText = new SplitText(element, config);
-
-      // Register for resize management
       window.SplitTextManager.register(element, splitText, config);
-
       gsap.set(splitText.words, {
         opacity: 0,
         filter: "blur(8px)",
+        willChange: "transform, opacity, filter",
       });
       ScrollTrigger.create({
         trigger: element,
@@ -190,6 +256,7 @@ let lenis;
             duration: 0.6,
             ease: easeOut,
             stagger: 0.05,
+            force3D: true,
             onComplete: () => {
               element.classList.add("animate-in");
             },
@@ -204,6 +271,7 @@ let lenis;
       gsap.set(element, {
         opacity: 0,
         filter: "blur(8px)",
+        willChange: "transform, opacity, filter",
       });
       ScrollTrigger.create({
         trigger: element,
@@ -214,6 +282,7 @@ let lenis;
             filter: "blur(0px)",
             duration: 0.8,
             ease: easeOut,
+            force3D: true,
             onComplete: () => {
               element.classList.add("animate-in");
             },
@@ -228,36 +297,28 @@ let lenis;
       const paragraphs = element.querySelectorAll("p");
       const allLines = [];
       const splitInstances = [];
-
-      // Handle each paragraph separately to preserve P tag structure
       const lineConfig = {
         type: "lines",
         linesClass: "split-line",
         tag: "div",
       };
-
       paragraphs.forEach((paragraph) => {
         const splitText = new SplitText(paragraph, lineConfig);
         splitInstances.push(splitText);
         allLines.push(...splitText.lines);
-
-        // Register each paragraph's SplitText for resize management
         window.SplitTextManager.register(paragraph, splitText, lineConfig);
       });
-
-      // Fallback for elements without P tags
       if (paragraphs.length === 0) {
         const splitText = new SplitText(element, lineConfig);
         splitInstances.push(splitText);
         allLines.push(...splitText.lines);
         window.SplitTextManager.register(element, splitText, lineConfig);
       }
-
       gsap.set(allLines, {
         opacity: 0,
         y: 24,
+        willChange: "transform, opacity",
       });
-
       ScrollTrigger.create({
         trigger: element,
         start: start,
@@ -268,6 +329,7 @@ let lenis;
             duration: 1,
             ease: easeOut,
             stagger: 0.08,
+            force3D: true,
             onComplete: () => {
               element.classList.add("animate-in");
             },
@@ -282,6 +344,7 @@ let lenis;
       gsap.set(element, {
         clipPath: "inset(0% 0% 100% 0%)",
         scale: 1.05,
+        willChange: "transform, clip-path",
       });
       ScrollTrigger.create({
         trigger: element,
@@ -292,6 +355,7 @@ let lenis;
             scale: 1,
             duration: 1,
             ease: easeInOut,
+            force3D: true,
             onComplete: () => {
               element.classList.add("animate-in");
             },
@@ -309,41 +373,56 @@ let lenis;
     }, 500);
   });
 })();
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - HERO
+--------------------------------------------------------------------------------- */
 (function () {
   window.addEventListener("load", () => {
     const section = document.querySelector(".hero");
     if (!section) return;
-    const header = document.querySelector("header");
-    const preload = section.querySelector(".hero__preload");
-    const preloadImages = section.querySelectorAll(".hero__preload-image");
-    const background = section.querySelector(".hero__background");
-    const backgroundOverlay = section.querySelector(
-      ".hero__background-overlay"
-    );
-    const backgroundMedia = background.querySelector("img, video");
     const preHeading = section.querySelector(".hero__pre-heading");
     const heading = section.querySelector(".hero__heading");
     const description = section.querySelector(".hero__description");
     const cta = section.querySelector(".hero__cta");
-    const playButton = section.querySelector(".hero__play-button");
+    const heroConfig = {
+      type: "words",
+      wordsClass: "split-word",
+      tag: "span",
+    };
+    const splitWords = new SplitText(heading, heroConfig);
+    if (heading) {
+      window.SplitTextManager.register(heading, splitWords, heroConfig);
+    }
+    gsap.set(preHeading, {
+      opacity: 0,
+      filter: "blur(8px)",
+      willChange: "transform, opacity, filter",
+    });
+    gsap.set(splitWords.words, {
+      opacity: 0,
+      filter: "blur(8px)",
+      willChange: "transform, opacity, filter",
+    });
+    gsap.set(description, {
+      opacity: 0,
+      filter: "blur(8px)",
+      willChange: "transform, opacity, filter",
+    });
+    gsap.set(cta, {
+      opacity: 0,
+      filter: "blur(8px)",
+      willChange: "transform, opacity, filter",
+    });
     let heroScrollTrigger;
     function createHeroScrollTrigger() {
       if (heroScrollTrigger) {
         heroScrollTrigger.kill();
       }
       const scrollTimeline = gsap.timeline();
-      scrollTimeline
-        .to(background, {
-          scale: 1.5,
-        })
-        .to(
-          section,
-          {
-            filter: "blur(10px)",
-            yPercent: 25,
-          },
-          0
-        );
+      scrollTimeline.to(section, {
+        filter: "blur(10px)",
+        yPercent: 25,
+      });
       heroScrollTrigger = ScrollTrigger.create({
         trigger: section,
         scrub: true,
@@ -351,182 +430,52 @@ let lenis;
         animation: scrollTimeline,
       });
     }
-    const heroConfig = {
-      type: "words",
-      wordsClass: "split-word",
-      tag: "span",
-    };
-
-    const splitWords = new SplitText(heading, heroConfig);
-
-    // Register hero heading for resize management
-    if (heading) {
-      window.SplitTextManager.register(heading, splitWords, heroConfig);
-    }
-    if (preloadImages) {
-      window.scrollTo(0, 0);
-      document.documentElement.scrollTop = 0;
-      document.body.scrollTop = 0;
-      if (lenis) {
-        lenis.scrollTo(0, { immediate: true });
-        lenis.stop();
-      }
-      gsap.set(header, {
-        yPercent: -100,
-      });
-      gsap.set(preload, {
-        scale: 0.5,
-      });
-      gsap.set(preloadImages, {
-        scale: 1.2,
-        clipPath: "inset(0% 0% 100% 0%)",
-      });
-      gsap.set(backgroundOverlay, {
-        opacity: 0,
-      });
-      gsap.set(background, {
-        scale: 0.5,
-      });
-      gsap.set(backgroundMedia, {
-        scale: 1.2,
-        clipPath: "inset(0% 0% 100% 0%)",
-      });
-      gsap.set(preHeading, {
-        opacity: 0,
-        filter: "blur(8px)",
-      });
-      gsap.set(splitWords.words, {
-        opacity: 0,
-        filter: "blur(8px)",
-      });
-      gsap.set(description, {
-        opacity: 0,
-        filter: "blur(8px)",
-      });
-      gsap.set(cta, {
-        opacity: 0,
-        filter: "blur(8px)",
-      });
-      gsap.set(playButton, {
-        opacity: 0,
-        filter: "blur(8px)",
-      });
-      var tl = gsap.timeline({
-        onComplete: () => {
-          lenis.start();
-          createHeroScrollTrigger();
-        },
-      });
-      preloadImages.forEach((image, index) => {
-        tl.to(image, {
-          clipPath: "inset(0% 0% 0% 0%)",
-          scale: 1,
-          duration: 0.5,
-          ease: easeOut,
-          delay: index !== 0 ? 0.3 : 0,
-        });
-      });
-      tl.to(backgroundMedia, {
-        clipPath: "inset(0% 0% 0% 0%)",
-        scale: 1,
-        duration: 0.5,
-        ease: easeOut,
-        delay: 0.3,
-      });
-      tl.add(() => {
-        backgroundMedia.play();
-      }, "<50%");
-      tl.to(background, {
-        scale: 1,
-        duration: 0.8,
-        ease: easeInOut,
-        delay: 0.3,
-      });
-      tl.to(
-        header,
-        {
-          yPercent: 0,
-          duration: 0.8,
-          ease: easeInOut,
-        },
-        "<"
-      );
-      tl.to(
-        backgroundOverlay,
-        {
-          opacity: 0.6,
-          duration: 0.8,
-          ease: easeInOut,
-        },
-        "<"
-      );
-      tl.to(splitWords.words, {
+    const tl = gsap.timeline({
+      onStart: () => {
+        createHeroScrollTrigger();
+      },
+    });
+    tl.to(splitWords.words, {
+      opacity: 1,
+      filter: "blur(0px)",
+      duration: 0.6,
+      ease: easeOut,
+      stagger: 0.05,
+      force3D: true,
+    });
+    tl.to(
+      preHeading,
+      {
         opacity: 1,
         filter: "blur(0px)",
-        duration: 0.6,
+        duration: 0.8,
         ease: easeOut,
-        stagger: 0.05,
-      });
-      tl.to(
-        preHeading,
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 0.8,
-          ease: easeOut,
-        },
-        "<50%"
-      );
-      tl.to(
-        description,
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 0.8,
-          ease: easeOut,
-        },
-        "<"
-      );
-      tl.to(
-        cta,
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 0.8,
-          ease: easeOut,
-        },
-        "<"
-      );
-      tl.to(
-        playButton,
-        {
-          opacity: 1,
-          filter: "blur(0px)",
-          duration: 0.8,
-          ease: easeOut,
-        },
-        "<"
-      );
-      tl.add(() => {});
-    }
-    if (playButton) {
-      playButton.addEventListener("click", () => {
-        section.classList.add("hero--playing");
-        gsap.to(backgroundOverlay, {
-          opacity: 0,
-          duration: 0.4,
-          ease: easeOut,
-        });
-      });
-      background.addEventListener("click", () => {
-        section.classList.remove("hero--playing");
-        gsap.to(backgroundOverlay, {
-          opacity: 0.6,
-          duration: 0.4,
-          ease: easeOut,
-        });
-      });
-    }
+        force3D: true,
+      },
+      "<50%"
+    );
+    tl.to(
+      description,
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: easeOut,
+        force3D: true,
+      },
+      "<"
+    );
+    tl.to(
+      cta,
+      {
+        opacity: 1,
+        filter: "blur(0px)",
+        duration: 0.8,
+        ease: easeOut,
+        force3D: true,
+      },
+      "<"
+    );
     window.addEventListener("scrolltrigger:resize", () => {
       if (heroScrollTrigger) {
         createHeroScrollTrigger();
@@ -534,6 +483,9 @@ let lenis;
     });
   });
 })();
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - HORIZONTAL GALLERY
+--------------------------------------------------------------------------------- */
 (function () {
   window.ScrollTriggerComponents.registerCustomHandler("horizontal-gallery");
   window.addEventListener("load", () => {
@@ -544,8 +496,6 @@ let lenis;
     const background = section.querySelector(
       ".horizontal-gallery__background-image"
     );
-    let horizontalScrollTrigger;
-    let resizeTimeout;
     if (background) {
       gsap.set(background, {
         opacity: 0,
@@ -564,47 +514,11 @@ let lenis;
         },
       });
     }
-    function calculateDimensions() {
-      return {
-        containerWidth: container.scrollWidth,
-        windowWidth: Math.min(window.innerWidth, 1920),
-      };
-    }
-    function initHorizontalScroll() {
-      if (window.innerWidth > 1920) return;
-
-      if (horizontalScrollTrigger) {
-        horizontalScrollTrigger.kill();
-      }
-      gsap.set(container, { x: 0 });
-      container.offsetWidth;
-      const { containerWidth, windowWidth } = calculateDimensions();
-      horizontalScrollTrigger = ScrollTrigger.create({
-        trigger: section,
-        start: "50% bottom",
-        end: "top top",
-        scrub: 1.2,
-        animation: gsap.to(container, {
-          x: window.innerWidth > 768 ? windowWidth - containerWidth : -500,
-          ease: "none",
-        }),
-      });
-    }
-    function handleResize() {
-      clearTimeout(resizeTimeout);
-      resizeTimeout = setTimeout(() => {
-        requestAnimationFrame(() => {
-          initHorizontalScroll();
-          if (horizontalScrollTrigger) {
-            horizontalScrollTrigger.refresh();
-          }
-        });
-      }, 250);
-    }
     gsap.set(images, {
       y: "40%",
       scale: 1.1,
       opacity: 0,
+      willChange: "transform, opacity",
     });
     ScrollTrigger.create({
       trigger: container,
@@ -617,6 +531,7 @@ let lenis;
           duration: 0.3,
           ease: easeOut,
           stagger: 0.05,
+          force3D: true,
         }).to(
           images,
           {
@@ -624,15 +539,17 @@ let lenis;
             duration: 0.6,
             ease: easeInOut,
             stagger: 0.1,
+            force3D: true,
           },
-          "-=0.2"
+          "-=0.6"
         );
       },
     });
-    initHorizontalScroll();
-    window.addEventListener("resize", handleResize);
   });
 })();
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - EXPERIENCE PATHS
+--------------------------------------------------------------------------------- */
 (function () {
   window.addEventListener("load", () => {
     const section = document.querySelector(".experience-paths");
@@ -708,6 +625,10 @@ let lenis;
     }
   });
 })();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - PROCESS
+--------------------------------------------------------------------------------- */
 (function () {
   window.addEventListener("load", () => {
     const section = document.querySelector(".process");
@@ -738,6 +659,9 @@ let lenis;
     });
   });
 })();
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - PREVIEWS & VIDEO MODAL
+--------------------------------------------------------------------------------- */
 (function () {
   window.addEventListener("load", () => {
     const section = document.querySelector(".previews");
@@ -817,11 +741,16 @@ let lenis;
     let mouseX = 0;
     let mouseY = 0;
     let isMouseInside = false;
+    let mouseMoveTimer = null;
     section.addEventListener("mouseenter", () => {
       isMouseInside = true;
     });
     section.addEventListener("mouseleave", () => {
       isMouseInside = false;
+      if (mouseMoveTimer) {
+        cancelAnimationFrame(mouseMoveTimer);
+        mouseMoveTimer = null;
+      }
       gsap.to(mediaInner, {
         x: 0,
         y: 0,
@@ -829,24 +758,34 @@ let lenis;
         ease: easeOut,
       });
     });
-    section.addEventListener("mousemove", (e) => {
+    function handleMouseMove(e) {
       if (!isMouseInside) return;
       const rect = section.getBoundingClientRect();
       const centerX = rect.width / 2;
       const centerY = rect.height / 2;
       mouseX = (e.clientX - rect.left - centerX) / centerX;
       mouseY = (e.clientY - rect.top - centerY) / centerY;
-      mediaInner.forEach((item, index) => {
-        const intensity = 15;
-        const multiplier = index % 2 === 0 ? 1 : -0.8;
-        gsap.to(item, {
-          x: mouseX * intensity * multiplier,
-          y: mouseY * intensity * multiplier * 0.6,
-          duration: 0.6,
-          ease: easeOut,
+      if (mouseMoveTimer) {
+        cancelAnimationFrame(mouseMoveTimer);
+      }
+      mouseMoveTimer = requestAnimationFrame(() => {
+        mediaInner.forEach((item, index) => {
+          const intensity = 15;
+          const multiplier = index % 2 === 0 ? 1 : -0.8;
+          gsap.to(item, {
+            x: mouseX * intensity * multiplier,
+            y: mouseY * intensity * multiplier * 0.6,
+            duration: 0.6,
+            ease: easeOut,
+            overwrite: "auto",
+            willChange: "transform",
+            force3D: true,
+          });
         });
+        mouseMoveTimer = null;
       });
-    });
+    }
+    section.addEventListener("mousemove", handleMouseMove);
     const videoModal = document.getElementById("video-modal");
     const modalTitle = document.getElementById("video-modal-title");
     const modalClose = document.querySelector(".video-modal__close");
@@ -938,6 +877,9 @@ let lenis;
     }
   });
 })();
+/*	-----------------------------------------------------------------------------
+	MARQUEE ANIMATION
+--------------------------------------------------------------------------------- */
 (function () {
   window.ScrollTriggerComponents.registerCustomHandler("cta-marquee");
   let marqueeAnimation;
@@ -1005,249 +947,44 @@ let lenis;
     });
   });
 })();
+/*	-----------------------------------------------------------------------------
+	HEADER
+--------------------------------------------------------------------------------- */
+
 (function () {
-  "use strict";
-  function smoothScrollTo(target, offset = 0, duration = 700) {
-    const targetElement = document.querySelector(target);
-    if (!targetElement) return;
-    const targetPosition = targetElement.offsetTop - offset;
-    const startPosition = window.pageYOffset;
-    const distance = targetPosition - startPosition;
-    let startTime = null;
-    function animation(currentTime) {
-      if (startTime === null) startTime = currentTime;
-      const timeElapsed = currentTime - startTime;
-      const run = ease(timeElapsed, startPosition, distance, duration);
-      window.scrollTo(0, run);
-      if (timeElapsed < duration) requestAnimationFrame(animation);
-    }
-    function ease(t, b, c, d) {
-      t /= d / 2;
-      if (t < 1) return (c / 2) * t * t + b;
-      t--;
-      return (-c / 2) * (t * (t - 2) - 1) + b;
-    }
-    requestAnimationFrame(animation);
-  }
-  function hideElement(element) {
-    if (element) element.style.display = "none";
-  }
-  function showElement(element) {
-    if (element) element.style.display = "";
-  }
-  document.addEventListener("DOMContentLoaded", function () {
-    const navbarLinks = document.querySelectorAll(".navbar-nav li > a");
-    navbarLinks.forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        const parentLi = this.parentElement;
-        if (parentLi.classList.contains("dropdown")) {
-          parentLi.classList.toggle("open");
-        } else {
-          const navbarNav = document.querySelector(".navbar-nav");
-          if (navbarNav) navbarNav.classList.remove("open");
-        }
-        const href = this.getAttribute("href");
-        if (!href || href.indexOf("#") === -1) {
-          return true;
-        }
-        e.preventDefault();
-        const offset = 0;
-        smoothScrollTo(href, offset, 700);
-        return false;
-      });
-    });
-    const navSubmenus = document.querySelectorAll(".nav-has-submenu");
-    navSubmenus.forEach(function (submenu) {
-      submenu.addEventListener("click", function (e) {
-        e.preventDefault();
-        const submenuName = this.getAttribute("data-submenu-name");
-        document.body.classList.add("nav-submenu-open");
-        const navSubmenuUls = document.querySelectorAll("#nav-submenu ul");
-        navSubmenuUls.forEach(hideElement);
-        const targetSubmenu = document.querySelector(
-          "#nav-submenu-" + submenuName
-        );
-        showElement(targetSubmenu);
-        const navSubmenu = document.querySelector("#nav-submenu");
-        showElement(navSubmenu);
-        return false;
-      });
-    });
-    const navSubmenuClose = document.querySelector("#nav-submenu-close");
-    if (navSubmenuClose) {
-      navSubmenuClose.addEventListener("click", function (e) {
-        document.body.classList.remove("nav-submenu-open");
-        const navSubmenu = document.querySelector("#nav-submenu");
-        hideElement(navSubmenu);
-      });
-    }
-    const navbarButtons = document.querySelector(".navbar-buttons");
-    if (navbarButtons) {
-      navbarButtons.addEventListener("click", function (e) {
-        if (e.target.classList.contains("btn-start-new-itinerary")) {
-          const event = new CustomEvent(
-            "button.click:header-start-a-new-itinerary"
-          );
-          document.dispatchEvent(event);
-        } else if (e.target.classList.contains("btn-itinerary-get-quote")) {
-          const event = new CustomEvent("button.click:header-get-a-quote");
-          document.dispatchEvent(event);
-        } else if (e.target.classList.contains("btn-itinerary-contact")) {
-          const event = new CustomEvent("button.click:header-contact");
-          document.dispatchEvent(event);
-        }
-      });
-    }
-    const navbarToggle = document.querySelector(".navbar-toggle");
-    const navbarCollapse = document.querySelector(".navbar-collapse");
-    if (navbarToggle && navbarCollapse) {
-      navbarCollapse.classList.add("collapse");
-      navbarToggle.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (navbarCollapse.classList.contains("in")) {
-          navbarCollapse.classList.remove("in");
-        } else {
-          navbarCollapse.classList.add("in");
-        }
-        const expanded = navbarToggle.getAttribute("aria-expanded") === "true";
-        navbarToggle.setAttribute("aria-expanded", !expanded);
-        const menuLinks = navbarCollapse.querySelectorAll("a");
-        menuLinks.forEach(function (link) {
-          link.addEventListener(
-            "click",
-            function () {
-              navbarCollapse.classList.remove("in");
-              navbarToggle.setAttribute("aria-expanded", "false");
-            },
-            { once: true }
-          );
-        });
-      });
-    }
-    const searchIcon = document.querySelector(
-      "#header-search-form .search-input-icon"
-    );
-    const searchForm = document.querySelector("#header-search-form");
-    const searchInput = document.querySelector(
-      "#header-search-form input[type=text]"
-    );
-    if (searchIcon && searchForm && searchInput) {
-      searchIcon.addEventListener("click", function (e) {
-        e.preventDefault();
-        if (searchForm.classList.contains("header-search-form-open")) {
-          searchForm.classList.remove("header-search-form-open");
-          searchInput.blur();
-        } else {
-          searchForm.classList.add("header-search-form-open");
-          searchInput.focus();
-        }
-        return false;
-      });
-    }
+  const searchToggle = document.querySelector(
+    ".main-navigation__search-toggle"
+  );
+  const searchClose = document.querySelector(".main-navigation__search-close");
+  const searchInput = document.querySelector(".main-navigation__search-input");
+  const siteHeaderToggle = document.querySelector(".site-header__toggle");
+  searchToggle.addEventListener("click", () => {
+    document.body.classList.toggle("search-open");
+    setTimeout(() => {
+      searchInput.focus();
+    }, 100);
+  });
+  searchClose.addEventListener("click", () => {
+    document.body.classList.remove("search-open");
+  });
+
+  siteHeaderToggle.addEventListener("click", () => {
+    document.body.classList.toggle("site-header-open");
   });
 })();
-(function () {
-  "use strict";
-  function ready(fn) {
-    if (document.readyState != "loading") {
-      fn();
-    } else {
-      document.addEventListener("DOMContentLoaded", fn);
-    }
-  }
-  ready(function () {
-    updateCopyrightYear();
-    initSocialMediaTracking();
-    initFooterLinkTracking();
-  });
-  function updateCopyrightYear() {
-    var currentYear = new Date().getFullYear();
-    var footerLegalElements = document.querySelectorAll(
-      "#footer-legal .list-inline li"
-    );
-    if (footerLegalElements && footerLegalElements.length > 0) {
-      var copyrightText = footerLegalElements[0].textContent;
-      if (copyrightText && copyrightText.includes("©")) {
-        var updatedText = copyrightText.replace(
-          /©\s*\d{4}/,
-          "© " + currentYear
-        );
-        footerLegalElements[0].textContent = updatedText;
-      }
-    }
-  }
-  function initSocialMediaTracking() {
-    var socialLinks = document.querySelectorAll(".list-social a");
-    socialLinks.forEach(function (link) {
-      link.addEventListener("click", function (e) {
-        var href = this.getAttribute("href");
-        var platform = getSocialPlatform(href);
-        if (platform) {
-          trackEvent("social_click", {
-            event_category: "social_media",
-            event_label: platform + "_footer",
-          });
-        }
-      });
-    });
-  }
-  function getSocialPlatform(url) {
-    if (url.includes("facebook")) return "facebook";
-    if (url.includes("twitter")) return "twitter";
-    if (url.includes("instagram")) return "instagram";
-    if (url.includes("pinterest")) return "pinterest";
-    if (url.includes("vimeo")) return "vimeo";
-    if (url.includes("google")) return "google_plus";
-    return null;
-  }
-  function initFooterLinkTracking() {
-    var footerLinks = document.querySelectorAll("footer a");
-    footerLinks.forEach(function (link) {
-      link.addEventListener("click", function () {
-        var href = this.getAttribute("href");
-        var text = this.textContent.trim();
-        trackEvent("footer_link_click", {
-          event_category: "navigation",
-          event_label: text || href,
-        });
-      });
-    });
-  }
-  function trackEvent(eventName, parameters) {
-    if (typeof gtag !== "undefined") {
-      gtag("event", eventName, parameters);
-    }
-    if (typeof ga !== "undefined") {
-      ga(
-        "send",
-        "event",
-        parameters.event_category,
-        eventName,
-        parameters.event_label
-      );
-    }
-    if (
-      typeof analytics !== "undefined" &&
-      typeof analytics.track === "function"
-    ) {
-      analytics.track(eventName, parameters);
-    }
-  }
-  window.FooterComponent = {
-    init: function () {
-      updateCopyrightYear();
-      initSocialMediaTracking();
-      initFooterLinkTracking();
-    },
-    updateCopyrightYear: updateCopyrightYear,
-    trackEvent: trackEvent,
-  };
-})();
+
+/*	-----------------------------------------------------------------------------
+	PAGE LOADING STATE
+--------------------------------------------------------------------------------- */
 (function () {
   window.addEventListener("load", () => {
     document.body.classList.remove("loading");
   });
 })();
+
+/*	-----------------------------------------------------------------------------
+	BUTTON RIPPLE EFFECTS
+--------------------------------------------------------------------------------- */
 (function () {
   function initButtonRipple() {
     const buttons = document.querySelectorAll(".button");
@@ -1263,11 +1000,22 @@ let lenis;
     const rect = button.getBoundingClientRect();
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
-    const xPercent = (x / rect.width) * 100;
-    const yPercent = (y / rect.height) * 100;
+    const corners = [
+      { x: 0, y: 0 },
+      { x: rect.width, y: 0 },
+      { x: 0, y: rect.height },
+      { x: rect.width, y: rect.height },
+    ];
+    const maxDistance = Math.max(
+      ...corners.map((corner) =>
+        Math.sqrt(Math.pow(corner.x - x, 2) + Math.pow(corner.y - y, 2))
+      )
+    );
+    const diameter = maxDistance * 2;
     gsap.set(button, {
-      "--ripple-x": xPercent + "%",
-      "--ripple-y": yPercent + "%",
+      "--ripple-x": x + "px",
+      "--ripple-y": y + "px",
+      "--ripple-size": diameter + "px",
     });
     gsap.to(button, {
       "--ripple-scale": 1,
@@ -1281,11 +1029,22 @@ let lenis;
       "--ripple-scale": 0,
       duration: 0.3,
       ease: "power2.inOut",
+      onComplete: () => {
+        gsap.set(button, {
+          "--ripple-x": "50%",
+          "--ripple-y": "50%",
+          "--ripple-size": "0px",
+        });
+      },
     });
   }
   document.addEventListener("DOMContentLoaded", initButtonRipple);
   window.addEventListener("load", initButtonRipple);
 })();
+
+/*	-----------------------------------------------------------------------------
+	RESPONSIVE VIDEO OPTIMIZATION
+--------------------------------------------------------------------------------- */
 (function () {
   "use strict";
   function optimizeResponsiveVideos() {
