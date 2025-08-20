@@ -1,5 +1,7 @@
 <?php
 defined( 'ABSPATH' ) || exit;
+
+
 function theme_setup() {
 	$primary_color = get_field('primary_color', 'option');
 	$secondary_color = get_field('secondary_color', 'option');
@@ -251,3 +253,5 @@ require_once('inc/login.php');
 require_once('inc/acf.php');
 require_once('inc/icons.php');
 require_once('inc/elements.php');
+require_once('inc/mega-menu-walker.php');
+require_once('inc/mega-menu-functions.php');

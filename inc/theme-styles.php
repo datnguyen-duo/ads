@@ -64,12 +64,11 @@ generate_font_face('secondary_font');
     $css .= '--color-text: var(--color-dark);';
     $css .= '--color-overlay: rgba(255, 255, 255, 0.1);';
     $css .= '--color-overlay-dark: rgba(0, 0, 0, 0.5);';
-
     $css .= '--font-size-1: clamp(2.5rem, 5.4vw, 104px);';
     $css .= '--font-size-2: clamp(2.25rem, 5vw, 96px);';
     $css .= '--font-size-3: clamp(1.75rem, 1.875vw, 36px);';
     $css .= '--font-size-3--alt: clamp(1.75rem, 2.5vw, 48px);';
-    $css .= '--font-size-4: clamp(1.125rem, 1.25vw, 24px);';
+    $css .= '--font-size-4: clamp(1.25rem, 1.25vw, 24px);';
     $css .= '--font-size-5: 18px;';
     $css .= '--font-size-6: 1rem;';
     $css .= '--font-size-body-lg: clamp(1.3rem, 1.45vw, 28px);';
@@ -108,4 +107,4 @@ generate_font_face('secondary_font');
     $css .= '--aspect-video: 16/9;';
     $css .= '--aspect-ultrawide: 21/9;';
     echo trim($css);
-    ?>}
+    ?>

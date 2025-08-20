@@ -182,7 +182,6 @@ window.ScrollTriggerComponents = {
   let isScrollingUp = false;
 
   function initScrollDetection() {
-    // Create a ScrollTrigger specifically for scroll detection
     ScrollTrigger.create({
       trigger: "body",
       start: "top top",
@@ -191,9 +190,8 @@ window.ScrollTriggerComponents = {
         const currentScrollY = self.scroll();
         const scrollThreshold = 10;
         const topThreshold = 5;
-        const directionThreshold = 3; // Minimum movement to change direction
+        const directionThreshold = 3;
 
-        // Only update direction if scroll difference is significant
         const scrollDiff = currentScrollY - lastScrollY;
         if (Math.abs(scrollDiff) > directionThreshold) {
           isScrollingUp = scrollDiff < 0;
@@ -202,7 +200,6 @@ window.ScrollTriggerComponents = {
         const isAtTop = currentScrollY <= topThreshold;
         const isScrolled = currentScrollY > scrollThreshold;
 
-        // Update body classes with smoother logic
         document.body.classList.toggle("scrolled", isScrolled);
         document.body.classList.toggle(
           "scrolling-up",
@@ -215,16 +212,12 @@ window.ScrollTriggerComponents = {
     });
   }
 
-  // Initialize when animations are ready
   window.addEventListener("load", () => {
-    setTimeout(() => {
-      initScrollDetection();
-      // Set initial state
-      const currentScrollY = window.scrollY;
-      document.body.classList.toggle("scrolled", currentScrollY > 10);
-      document.body.classList.toggle("at-top", currentScrollY <= 5);
-      document.body.classList.toggle("scrolling-up", false);
-    }, 600); // Wait for other animations to initialize
+    initScrollDetection();
+    const currentScrollY = window.scrollY;
+    document.body.classList.toggle("scrolled", currentScrollY > 10);
+    document.body.classList.toggle("at-top", currentScrollY <= 5);
+    document.body.classList.toggle("scrolling-up", false);
   });
 })();
 /*	-----------------------------------------------------------------------------
@@ -971,6 +964,26 @@ window.ScrollTriggerComponents = {
   siteHeaderToggle.addEventListener("click", () => {
     document.body.classList.toggle("site-header-open");
   });
+})();
+
+/*	-----------------------------------------------------------------------------
+	MEGA MENU - MOBILE
+--------------------------------------------------------------------------------- */
+
+(function () {
+  if (deviceInfo.isMobile) {
+    const menuItems = document.querySelectorAll(
+      ".main-navigation .menu-item--level-0"
+    );
+    menuItems.forEach((item) => {
+      const menuItemLink = item.querySelector(".menu-item__link");
+      menuItemLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        item.classList.toggle("is-open");
+        menuItemLink.classList.toggle("is-open");
+      });
+    });
+  }
 })();
 
 /*	-----------------------------------------------------------------------------

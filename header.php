@@ -6,6 +6,9 @@ $logo = get_field('primary_logo', 'option');
 $logo_secondary = get_field('secondary_logo', 'option');
 $scripts = get_field('scripts', 'option');
 $body_classes = "loading";
+if (is_404()) {
+	$body_classes .= " site-header-open";
+}
 ?>
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>

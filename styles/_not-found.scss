@@ -1,0 +1,9 @@
+.not-found {
+  text-align: center;
+  padding: calc(var(--menu-height) + var(--spacer-lg)) var(--gutter)
+    var(--spacer-lg);
+  &__description {
+    margin: 2rem 0;
+    text-wrap: balance;
+  }
+}

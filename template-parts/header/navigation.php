@@ -45,13 +45,9 @@ $logoSecondary = get_field('secondary_logo', 'option') ? get_field('secondary_lo
 
             <div class="main-navigation__primary-menu">
                 <?php
-                wp_nav_menu(
-                    array(
-                        'theme_location' => 'primary',
-                        'menu_id'        => 'primary-menu',
-                        'container'      => false,
-                    )
-                );
+                wp_nav_menu(get_mega_menu_args('primary', array(
+                    'menu_id' => 'primary-menu'
+                )));
                 ?>
             </div>
 
