@@ -945,6 +945,7 @@ window.ScrollTriggerComponents = {
 --------------------------------------------------------------------------------- */
 
 (function () {
+  const siteHeader = document.querySelector(".site-header");
   const searchToggle = document.querySelector(
     ".main-navigation__search-toggle"
   );
