@@ -49,12 +49,20 @@ function process_font_and_append_css($css, $font_field_name, $css_var_name) {
   return $css;
 }
 generate_font_face('primary_font');
-generate_font_face('secondary_font');
 ?>
+@font-face {
+  font-family: "GeneralSans-Variable";
+  src: url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/general-sans/GeneralSans-Variable.woff2") format("woff2"),
+    url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/general-sans/GeneralSans-Variable.woff") format("woff");
+  font-weight: 100 1000;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {<?php 
     $css = '';
     $css = process_font_and_append_css($css, 'primary_font', '--font-primary');
-    $css = process_font_and_append_css($css, 'secondary_font', '--font-secondary');
+    $css .= '--font-secondary: "GeneralSans-Variable", sans-serif;';
     $css = generate_css($primary_colors, 'primary', $css);
     $css = generate_css($secondary_colors, 'secondary', $css);
     $css = generate_css($neutral_colors, 'neutral', $css);

@@ -157,9 +157,6 @@ function theme_scripts() {
 	if ($primary_font['upload_type'] == 'url') {
 		wp_enqueue_style( 'primary-font', $primary_font['url'], array(), false, 'all' );
 	}
-	if ($secondary_font['upload_type'] == 'url') {
-		wp_enqueue_style( 'secondary-font', $secondary_font['url'], array(), false, 'all' );
-	}
 
 	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), $theme_version );
     wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), $theme_version );
