@@ -9,51 +9,21 @@ function generate_css($colors, $color_type, $css) {
   }
   return $css;
 }
-function generate_font_face($font_field_name) {
-  $font = get_field($font_field_name, 'option');
-  if ($font['upload_type'] == 'local-file' && ($font['files'] || $font['url'])) {
-      $font_face_src = array_map(function($file) {
-          $url = $file['file']['url'];
-          $file_subtype = $file['file']['subtype']; 
-          $file_subtype = str_replace('font-', '', $file_subtype);
-          $format = ($file_subtype == 'ttf') ? 'truetype' : $file_subtype;
-          if (substr($url, 0, 5) === 'http:') {
-              $url = 'https:' . substr($url, 5);
-          }
-          return 'url("' . $url . '") format("' . $format . '")';
-      }, $font['files']);
-      $font_face_src = implode(', ', $font_face_src);
-      $font_family_name = $font['files'][0]['file']['title'];
+
 ?>
+
 @font-face {
-  font-family: "<?php echo $font_family_name; ?>";
-  src: <?php echo $font_face_src; ?>;
-  font-weight: <?php echo $font['font_weight']; ?>;
-  font-style: <?php echo $font['font_style']; ?>;
+  font-family: "Playfair Display";
+  src: url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/playfair-display/PlayfairDisplay-Variable.ttf") format("ttf");
+  font-weight: 100 1000;
+  font-style: normal;
   font-display: swap;
 }
-<?php 
-  }
-}
-function process_font_and_append_css($css, $font_field_name, $css_var_name) {
-  $font = get_field($font_field_name, 'option');
-  if ($font['files'] || $font['url']) {
-      if ($font['upload_type'] == 'local-file') {
-          $font_family_name = $font['files'][0]['file']['title'];
-          $font_family = '"' . $font_family_name . '", ' . $font['category'];
-      } else { 
-          $font_family = '"' . $font['font_family'] . '", ' . $font['category'];
-      }
-      $css .= "$css_var_name: $font_family;";
-  }
-  return $css;
-}
-generate_font_face('primary_font');
-?>
+
 @font-face {
-  font-family: "GeneralSans-Variable";
+  font-family: "General Sans";
   src: url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/general-sans/GeneralSans-Variable.woff2") format("woff2"),
-    url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/general-sans/GeneralSans-Variable.woff") format("woff");
+  url("<?php echo get_stylesheet_directory_uri(); ?>/assets/fonts/general-sans/GeneralSans-Variable.woff") format("woff");
   font-weight: 100 1000;
   font-style: normal;
   font-display: swap;
@@ -61,8 +31,8 @@ generate_font_face('primary_font');
 
 :root {<?php 
     $css = '';
-    $css = process_font_and_append_css($css, 'primary_font', '--font-primary');
-    $css .= '--font-secondary: "GeneralSans-Variable", sans-serif;';
+    $css .= '--font-primary: "Playfair Display", serif;';
+    $css .= '--font-secondary: "General Sans", sans-serif;';
     $css = generate_css($primary_colors, 'primary', $css);
     $css = generate_css($secondary_colors, 'secondary', $css);
     $css = generate_css($neutral_colors, 'neutral', $css);

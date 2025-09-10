@@ -1,7 +1,7 @@
 @use "variables" as *;
 
 .site-footer {
-  background: url("assets/footer__background.png") 50% 0% / cover no-repeat;
+  background: url("assets/footer__background.webp") 50% 0% / cover no-repeat;
   padding: var(--gap-lg) 0 var(--gap-sm);
   position: relative;
   color: var(--color-light);

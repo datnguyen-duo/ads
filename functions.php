@@ -151,22 +151,15 @@ function theme_scripts() {
 	$theme_version = wp_get_theme()->get('Version');
 
 	$sections = get_field('sections');
-	$primary_font = get_field('primary_font', 'option');
-	$secondary_font = get_field('secondary_font', 'option');
-	
-	if ($primary_font['upload_type'] == 'url') {
-		wp_enqueue_style( 'primary-font', $primary_font['url'], array(), false, 'all' );
-	}
 
 	wp_enqueue_style( 'variables', get_stylesheet_directory_uri() . '/theme-variables.css', array(), $theme_version );
     wp_enqueue_style( 'stylesheet', get_stylesheet_directory_uri() . '/style.css', array(), $theme_version );
-	wp_enqueue_style( 'lenis', 'https://unpkg.com/lenis@1.3.8/dist/lenis.css', array(), $theme_version );
-	wp_enqueue_script('lenis', 'https://unpkg.com/lenis@1.3.8/dist/lenis.min.js', array(), $theme_version, array(
+	wp_enqueue_script('lenis', get_stylesheet_directory_uri() . '/scripts/libs/lenis.min.js', array(), $theme_version, array(
 		'strategy' => 'defer'
 	));
 	wp_enqueue_script(
 		'swiper-js', 
-		'https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js', 
+		get_stylesheet_directory_uri() . '/scripts/libs/swiper.min.js', 
 		array(),
 		$theme_version,
 		array(
