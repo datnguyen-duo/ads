@@ -1060,11 +1060,71 @@ window.ScrollTriggerComponents = {
 --------------------------------------------------------------------------------- */
 (function () {
   "use strict";
+
+  function isMobileViewport() {
+    return window.innerWidth <= 768;
+  }
+
+  function switchVideoSource(video) {
+    const desktopSrc = video.getAttribute("data-desktop-src");
+    const desktopType = video.getAttribute("data-desktop-type");
+    const mobileSrc = video.getAttribute("data-mobile-src");
+    const mobileType = video.getAttribute("data-mobile-type");
+
+    if (!desktopSrc || !mobileSrc) {
+      console.warn(
+        "⚠️ Missing video sources - desktop or mobile src not found"
+      );
+      return;
+    }
+
+    const source = video.querySelector("source");
+    if (!source) {
+      console.warn("⚠️ No source element found in video");
+      return;
+    }
+
+    const currentTime = video.currentTime;
+    const wasPlaying = !video.paused;
+    const isMobile = isMobileViewport();
+    const currentSrc = source.src;
+
+    if (isMobile) {
+      // Switch to mobile video
+      if (source.src !== mobileSrc) {
+        source.src = mobileSrc;
+        source.type = mobileType;
+        video.load();
+        if (wasPlaying) {
+          video.currentTime = currentTime;
+          video.play().catch((error) => {});
+        }
+      }
+    } else {
+      // Switch to desktop video
+      if (source.src !== desktopSrc) {
+        source.src = desktopSrc;
+        source.type = desktopType;
+        video.load();
+        if (wasPlaying) {
+          video.currentTime = currentTime;
+          video.play().catch((error) => {});
+        }
+      } else {
+      }
+    }
+  }
+
   function optimizeResponsiveVideos() {
     const responsiveVideos = document.querySelectorAll(
       'video[data-responsive="true"]'
     );
-    responsiveVideos.forEach((video) => {
+
+    responsiveVideos.forEach((video, index) => {
+      // Set initial video source based on viewport
+      switchVideoSource(video);
+
+      // Optimize preload settings
       if (deviceInfo.prefersReducedData) {
         video.setAttribute("preload", "none");
         return;
@@ -1074,16 +1134,37 @@ window.ScrollTriggerComponents = {
       } else {
         video.setAttribute("preload", "auto");
       }
-      if (deviceInfo.isMobile) {
-        let orientationTimeout;
-        window.addEventListener("orientationchange", () => {
-          clearTimeout(orientationTimeout);
-          orientationTimeout = setTimeout(() => {
-            video.load();
-          }, 300);
-        });
-      }
     });
   }
-  window.addEventListener("load", optimizeResponsiveVideos);
+
+  function handleResponsiveVideoResize() {
+    const responsiveVideos = document.querySelectorAll(
+      'video[data-responsive="true"]'
+    );
+
+    responsiveVideos.forEach((video, index) => {
+      switchVideoSource(video);
+    });
+  }
+
+  // Initialize on load
+  window.addEventListener("load", () => {
+    optimizeResponsiveVideos();
+  });
+
+  // Handle viewport changes with debouncing
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      handleResponsiveVideoResize();
+    }, 250);
+  });
+
+  // Handle orientation changes for mobile devices
+  window.addEventListener("orientationchange", () => {
+    setTimeout(() => {
+      handleResponsiveVideoResize();
+    }, 300);
+  });
 })();

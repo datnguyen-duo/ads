@@ -45,24 +45,33 @@ function responsive_video($desktop_video, $mobile_video = null, $class = '', $se
     if (!is_array($desktop_video) || !isset($desktop_video['url']) || !isset($desktop_video['mime_type'])) {
         return; 
     }
+    
+    // If no mobile video provided, use regular video function
     if (!$mobile_video || !is_array($mobile_video) || !isset($mobile_video['url']) || !isset($mobile_video['mime_type'])) {
         video($desktop_video['url'], $desktop_video['mime_type'], $class, $settings, $poster, $captions);
         return;
     }
-    $is_mobile = function_exists('wp_is_mobile') ? wp_is_mobile() : false;
-    $selected_video = $is_mobile ? $mobile_video : $desktop_video;
+    
+    // Add responsive data attributes
     $enhanced_settings = $settings;
     if (strpos($settings, 'data-responsive') === false) {
         $enhanced_settings .= ' data-responsive="true"';
     }
+    if (strpos($settings, 'data-desktop-src') === false) {
+        $enhanced_settings .= ' data-desktop-src="' . esc_url($desktop_video['url']) . '"';
+        $enhanced_settings .= ' data-desktop-type="' . esc_attr($desktop_video['mime_type']) . '"';
+    }
+    if (strpos($settings, 'data-mobile-src') === false) {
+        $enhanced_settings .= ' data-mobile-src="' . esc_url($mobile_video['url']) . '"';
+        $enhanced_settings .= ' data-mobile-type="' . esc_attr($mobile_video['mime_type']) . '"';
+    }
+    // Choose initial source based on server-side detection for better first load
+    $is_likely_mobile = function_exists('wp_is_mobile') ? wp_is_mobile() : false;
+    $initial_video = $is_likely_mobile ? $mobile_video : $desktop_video;
     ?>
     <video class="<?php echo esc_attr($class); ?>" <?php echo $enhanced_settings; ?> poster="<?php echo esc_url($poster); ?>">
-        <?php if ($is_mobile && is_array($mobile_video) && isset($mobile_video['url']) && isset($mobile_video['mime_type'])): ?>
-            <source src="<?php echo esc_url($mobile_video['url']); ?>" type="<?php echo esc_attr($mobile_video['mime_type']); ?>" media="(max-width: 768px)">
-        <?php endif; ?>
-        <source src="<?php echo esc_url($desktop_video['url']); ?>" type="<?php echo esc_attr($desktop_video['mime_type']); ?>" media="(min-width: 769px)">
-        <!-- Fallback source for all devices -->
-        <source src="<?php echo esc_url($selected_video['url']); ?>" type="<?php echo esc_attr($selected_video['mime_type']); ?>">
+        <!-- Initial source - will be switched by JavaScript if needed -->
+        <source src="<?php echo esc_url($initial_video['url']); ?>" type="<?php echo esc_attr($initial_video['mime_type']); ?>">
         <?php if ($captions): ?>
             <track kind="captions" src="<?php echo esc_url($captions); ?>" srclang="en">
         <?php endif; ?>
