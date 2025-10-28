@@ -1,0 +1,211 @@
+@use "../variables" as *;
+
+.entry {
+  .page-container {
+    padding-inline: calc(var(--gutter) + 2rem);
+  }
+  &__header {
+    position: relative;
+    color: var(--color-light);
+    &-content {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      padding: var(--gutter);
+      width: 50%;
+      text-wrap: balance;
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      z-index: 2;
+    }
+
+    &-gallery {
+      aspect-ratio: var(--aspect-video);
+      &:before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: var(--color-gradient);
+        z-index: 1;
+      }
+      &-item {
+        width: 100%;
+        &-image {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
+      }
+      &-navigation {
+        display: flex;
+        align-items: center;
+        gap: var(--gap);
+      }
+      &-buttons {
+        width: auto;
+      }
+    }
+  }
+
+  &__content {
+    background-color: var(--color-light);
+
+    &-navigation {
+      padding-block: var(--gap-sm);
+      border-bottom: 1px solid var(--color-neutral-4);
+      margin-bottom: var(--spacer-sm);
+      &-container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: var(--gap-xs);
+      }
+      &-menu {
+        display: flex;
+        align-items: center;
+        gap: var(--gap-xs);
+      }
+      &-link {
+        font-size: 1rem;
+      }
+    }
+
+    &-container {
+      display: grid;
+      grid-template-columns: 2.5fr 1fr;
+      gap: calc(var(--gutter) + 2rem);
+    }
+
+    &-sections {
+      section {
+        padding: var(--gap) 0;
+        &:not(:last-child) {
+          border-bottom: 1px solid var(--color-neutral-4);
+        }
+      }
+    }
+
+    &-sidebar {
+      padding: var(--gap);
+      border: 1px solid var(--color-neutral-4);
+      align-self: start;
+      position: sticky;
+      top: var(--menu-main-height);
+      transition: top var(--transition-duration-ease-in-out);
+      body.scrolling-up & {
+        top: var(--menu-height);
+      }
+      &-section {
+        &:not(:last-child) {
+          margin-bottom: var(--gap-sm);
+          padding-bottom: var(--gap-sm);
+          border-bottom: 1px solid var(--color-neutral-4);
+        }
+        &-label {
+          text-transform: uppercase;
+          color: var(--color-neutral-2);
+          margin-bottom: var(--gap-xs);
+          font-size: 1rem;
+        }
+        &-content {
+          p {
+            margin-bottom: 0;
+            font-size: var(--font-size-body-sm);
+          }
+
+          ul {
+            padding-left: 1em;
+            list-style-type: disc;
+            li {
+              &:not(:last-child) {
+                margin-bottom: 0.25em;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+  &__cta {
+    background-color: var(--color-section-background);
+    color: var(--color-section-text);
+    padding: var(--spacer) 0;
+  }
+
+  &__inquiry {
+    background-color: var(--color-section-background);
+    color: var(--color-section-text);
+    padding: var(--spacer) 0;
+
+    &-container {
+      display: grid;
+      grid-template-columns: 1.5fr 1fr;
+      gap: calc(var(--gutter-lg) + 2rem);
+
+      @media screen and (max-width: $breakpoint-mobile) {
+        grid-template-columns: 1fr;
+        gap: var(--gap);
+      }
+    }
+
+    &-content {
+      display: flex;
+      flex-direction: column;
+      gap: var(--gap-sm);
+      text-wrap: balance;
+
+      &-item {
+        margin-top: auto;
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--color-neutral-4);
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-xs);
+      }
+
+      &-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: var(--gap);
+        padding-top: var(--gap-sm);
+        border-top: 1px solid var(--color-neutral-4);
+
+        @media screen and (max-width: $breakpoint-mobile) {
+          grid-template-columns: 1fr;
+        }
+
+        &-item {
+          display: flex;
+          flex-direction: column;
+          gap: var(--gap-xs);
+        }
+      }
+    }
+
+    &-wrapper {
+      padding: var(--gap);
+      border: 1px solid var(--color-neutral-4);
+
+      &-title {
+        margin-bottom: var(--gap-xs);
+      }
+
+      &-text {
+        margin-bottom: var(--gap-sm);
+        color: var(--color-neutral-2);
+      }
+    }
+
+    &-form {
+      &-fields {
+        display: flex;
+        flex-direction: column;
+        gap: var(--gap-sm);
+      }
+    }
+  }
+}

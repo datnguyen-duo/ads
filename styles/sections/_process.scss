@@ -1,1 +1,87 @@
-@use "../variables" as *;.process {  &__background {    position: absolute;    top: 0;    left: 0;    width: 100%;    height: 100%;    z-index: -1;    mix-blend-mode: luminosity;    &-image {      width: 100%;      height: 101%;      object-fit: cover;    }  }  &__header {    display: grid;    grid-template-columns: repeat(4, 1fr);    grid-template-areas:      "pre-heading heading heading heading"      "pre-heading description description description"      "pre-heading cta cta cta";    gap: 0 var(--gap);    margin-bottom: var(--spacer);    @media screen and (max-width: $breakpoint-mobile) {      grid-template-columns: 1fr;      grid-template-areas: "pre-heading" "heading" "cta";      gap: var(--gap);    }  }  &__pre-heading {    grid-area: pre-heading;    color: var(--color-light);    padding-top: 0.7em;    @media screen and (max-width: $breakpoint-mobile) {    }  }  &__heading {    grid-area: heading;    margin-bottom: var(--gap);    color: var(--color-light);    @media screen and (max-width: $breakpoint-mobile) {      margin-bottom: 0;    }    em,    i {      color: inherit;    }  }  &__description {    grid-area: description;    margin-bottom: var(--gap);    color: var(--color-light);  }  &__cta {    grid-area: cta;  }  &__steps {    display: grid;    grid-template-columns: repeat(4, 1fr);    @media screen and (max-width: $breakpoint-mobile) {      display: flex;      overflow-x: auto;      padding-bottom: var(--gap-sm);    }  }  &__step {    display: flex;    flex-direction: column;    gap: var(--gap-sm);    padding-inline: var(--gap-sm);    border-left: 1px solid rgba(235, 234, 228, 0.2);    text-wrap: balance;    @media screen and (max-width: $breakpoint-mobile) {      width: 70%;      flex-shrink: 0;    }    &-number,    &-title,    &-description {      color: var(--color-light);    }    &-number {      margin-bottom: var(--gap-lg);    }  }}
+@use "../variables" as *;
+.process {
+  &__background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    mix-blend-mode: luminosity;
+    &-image {
+      width: 100%;
+      height: 101%;
+      object-fit: cover;
+    }
+  }
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-areas:
+      "pre-heading heading heading heading"
+      "pre-heading description description description"
+      "pre-heading cta cta cta";
+    gap: 0 var(--gap);
+    margin-bottom: var(--spacer);
+    @media screen and (max-width: $breakpoint-mobile) {
+      grid-template-columns: 1fr;
+      grid-template-areas: "pre-heading" "heading" "cta";
+      gap: var(--gap);
+    }
+  }
+  &__pre-heading {
+    grid-area: pre-heading;
+    color: var(--color-light);
+    padding-top: 0.7em;
+    @media screen and (max-width: $breakpoint-mobile) {
+    }
+  }
+  &__heading {
+    grid-area: heading;
+    margin-bottom: var(--gap);
+    color: var(--color-light);
+    @media screen and (max-width: $breakpoint-mobile) {
+      margin-bottom: 0;
+    }
+    em,
+    i {
+      color: inherit;
+    }
+  }
+  &__description {
+    grid-area: description;
+    margin-bottom: var(--gap);
+    color: var(--color-light);
+  }
+  &__cta {
+    grid-area: cta;
+  }
+  &__steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    @media screen and (max-width: $breakpoint-mobile) {
+      display: flex;
+      overflow-x: auto;
+      padding-bottom: var(--gap-sm);
+    }
+  }
+  &__step {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-sm);
+    padding-inline: var(--gap-sm);
+    border-left: 1px solid rgba(235, 234, 228, 0.2);
+    text-wrap: balance;
+    @media screen and (max-width: $breakpoint-mobile) {
+      width: 70%;
+      flex-shrink: 0;
+    }
+    &-number,
+    &-title,
+    &-description {
+      color: var(--color-light);
+    }
+    &-number {
+      margin-bottom: var(--gap-lg);
+    }
+  }
+}

@@ -1,0 +1,125 @@
+@use "../variables" as *;
+@use "../marquee";
+
+.card-slider {
+  &.--autoplay {
+    padding-inline: 0;
+    padding-bottom: var(--spacer-sm);
+    .page-container {
+      padding-inline: 0;
+    }
+  }
+  &__header {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  &__heading {
+    grid-column: span 2;
+  }
+
+  &__description {
+    grid-column-start: 3;
+    font-size: var(--font-size-body-md);
+  }
+
+  &__cards {
+    overflow: hidden;
+    &-wrapper {
+      display: flex;
+      flex-wrap: nowrap;
+      margin: var(--gap) 0;
+    }
+
+    // Marquee mode for autoplay
+    &--marquee {
+      @extend .marquee__container;
+      white-space: normal;
+      padding-block: var(--gap-xs);
+    }
+  }
+
+  &__cards-track {
+    @extend .marquee__track;
+    width: 100%;
+    // Marquee item wrapper contains all cards
+    .marquee__item {
+      display: flex;
+      .card-slider__card {
+        width: min(33.333vw, 640px);
+      }
+    }
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--gap-sm);
+    width: calc(100% / 3);
+    padding: var(--gap-sm);
+    background-color: var(--color-light);
+    margin-right: var(--gap-sm);
+    flex-shrink: 0;
+
+    &-image {
+      aspect-ratio: var(--aspect-video);
+      width: 100%;
+      max-width: 300px;
+      object-fit: cover;
+
+      .marquee__item & {
+        max-width: 100%;
+      }
+    }
+
+    &-content {
+      &-text {
+        margin: var(--gap-xs) 0 var(--gap-sm);
+        p,
+        li {
+          font-size: var(--font-size-body-md);
+          color: var(--color-neutral-1);
+        }
+
+        li {
+          &:not(:last-child) {
+            margin-bottom: 0;
+          }
+        }
+
+        p {
+          &:not(:last-child) {
+            margin-bottom: var(--gap-xs);
+          }
+        }
+      }
+    }
+
+    // Reference card styles (clickable card)
+    &--reference {
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
+      transition: box-shadow var(--transition-duration-ease-in-out),
+        transform var(--transition-duration-ease-in-out);
+      .card-slider__card-content {
+        p {
+          color: var(--color-neutral-1);
+        }
+        &-text {
+          &--author {
+            margin-top: var(--gap);
+            margin-bottom: var(--gap-xs);
+          }
+        }
+      }
+
+      &:hover {
+        box-shadow: var(--box-shadow-sm);
+        transform: translateY(-4px);
+      }
+    }
+  }
+}

@@ -203,6 +203,15 @@ function theme_scripts() {
 		)
 	);
 
+	// Localize script for AJAX
+	wp_localize_script(
+		'global-script',
+		'ajax_object',
+		array(
+			'ajax_url' => admin_url('admin-ajax.php'),
+			'nonce' => wp_create_nonce('ajax-nonce')
+		)
+	);
 	
 }
 add_action( 'wp_enqueue_scripts', 'theme_scripts' );
@@ -232,10 +241,7 @@ function dequeue_scripts(){
 add_action( 'wp_enqueue_scripts', 'dequeue_scripts', 100 );
 
 function disable_gutenberg( $is_enabled, $post_type ) {
-	if ($post_type == 'page') {
-		return false;
-	}
-	return $is_enabled;
+	return false;
 }
 add_filter( 'use_block_editor_for_post_type', 'disable_gutenberg', 10, 2 );
 add_filter('wpcf7_autop_or_not', '__return_false');
@@ -245,3 +251,4 @@ require_once('inc/icons.php');
 require_once('inc/elements.php');
 require_once('inc/mega-menu-walker.php');
 require_once('inc/mega-menu-functions.php');
+require_once('inc/load-more-posts.php');

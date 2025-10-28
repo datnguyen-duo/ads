@@ -1,0 +1,22 @@
+.cards {
+  margin-block: var(--spacer-sm);
+  &__container {
+    max-width: var(--container-width-sm);
+    margin: 0 auto;
+  }
+
+  &__cards {
+    margin-top: var(--gap-xs);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--gap-sm);
+  }
+
+  &__card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap-xs);
+    background-color: var(--color-light);
+    padding: var(--gap-sm);
+  }
+}

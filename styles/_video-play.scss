@@ -1,0 +1,53 @@
+@use "variables" as *;
+
+// Universal Video Play Button Styles
+// Can be used anywhere in the theme
+
+.video-play {
+  &__button {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-color: var(--color-primary-1);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--transition-duration-ease-in-out);
+    z-index: 2;
+
+    &:hover {
+      background-color: var(--color-primary-2);
+    }
+
+    &-icon {
+      width: 70%;
+      display: flex;
+      align-items: center;
+    }
+  }
+
+  // Optional: Add different sizes
+  &__button--sm {
+    width: 2rem;
+    height: 2rem;
+  }
+
+  &__button--lg {
+    width: 4rem;
+    height: 4rem;
+  }
+}
+
+// Video container should have relative positioning
+.video-play-container {
+  position: relative;
+
+  video {
+    cursor: pointer;
+  }
+}

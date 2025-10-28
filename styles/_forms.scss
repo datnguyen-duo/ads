@@ -1,1 +1,173 @@
-@use "variables" as *;input,textarea {  &::placeholder {    opacity: 1 !important;    color: inherit !important;  }}.search {  &-container {    display: flex;    align-items: center;  }  &-form {    display: inline-flex;    border: 1px solid var(--color-text);    border-radius: 5px;    align-items: center;    margin-bottom: 0.5rem;  }  &-title {    @media screen and (max-width: $breakpoint-mobile) {      text-align: center;    }  }  &-label {    width: 100%;  }  &-field {    outline: none;    border: none;    background-color: transparent;    text-transform: unset;    border-radius: 5px;    padding: 0.5rem;    min-width: 325px;    &::placeholder {      text-transform: uppercase;    }    @media screen and (max-width: $breakpoint-mobile) {      min-width: calc(100vw - 4rem - 38px);    }  }  &-submit {    background-color: transparent;    padding: 8px;    cursor: pointer;    color: var(--color-dark);  }  &-reset {    width: 38px;    height: 38px;    display: flex;    align-items: center;    padding: 2px;    cursor: pointer;    opacity: 0;    transition: opacity var(--transition-duration-ease-in-out);    @media screen and (max-width: $breakpoint-mobile) {      opacity: 1;    }  }  &-response {    height: 1em;    opacity: 0;    transition: opacity var(--transition-duration-ease-in-out);  }  &.init__search {    .search {      &-reset {        opacity: 1;      }      &-response {        opacity: 1;      }    }  }}body {  .wpcf7 {    &-form {      display: grid;      grid-template-areas:        "name name"        "email email"        "message message"        "submit submit";      gap: 1rem;      @media screen and (max-width: $breakpoint-mobile) {        grid-template-areas:          "name"          "email"          "message"          "submit";      }      input[type="text"],      input[type="email"],      textarea {        border: none;        outline: none;        padding: 0.5em 0;        border-bottom: 1px solid currentColor;        width: 100%;        background-color: transparent;        color: currentColor;        font: inherit;        font-size: 18px;        &::placeholder {          opacity: 1;        }      }      textarea {        border: 1px solid currentColor;        padding: 1em;      }      input[type="submit"] {        grid-area: submit;        @extend .button;        border: none;        outline: none;        width: 100%;        cursor: pointer;      }      &-control-wrap {        display: flex;        flex-wrap: wrap;        &[data-name="your-name"] {          grid-area: name;        }        &[data-name="your-email"] {          grid-area: email;        }        &[data-name="your-subject"] {          grid-area: subject;        }        &[data-name="your-message"] {          grid-area: message;        }      }    }    &-spinner {      display: none;    }    &-not-valid-tip {      margin-top: 0.5rem;      color: var(--color-secondary-1);    }    &-response-output {      border: none !important;      margin: 0 !important;      padding: 0 !important;      text-align: left !important;    }  }}
+@use "variables" as *;
+input,
+textarea {
+  &::placeholder {
+    opacity: 1 !important;
+    color: inherit !important;
+  }
+}
+
+.form {
+  label {
+    @extend .text__size-body--sm;
+    display: block;
+    margin-bottom: var(--gap-xs);
+  }
+  input,
+  textarea {
+    @extend .text__size-body--sm;
+    border: 1px solid var(--color-neutral-4);
+    border-radius: 5px;
+    padding: 0.75rem;
+    width: 100%;
+    background-color: transparent;
+    color: inherit;
+  }
+}
+.search {
+  &-container {
+    display: flex;
+    align-items: center;
+  }
+  &-form {
+    display: inline-flex;
+    border: 1px solid var(--color-text);
+    border-radius: 5px;
+    align-items: center;
+    margin-bottom: 0.5rem;
+  }
+  &-title {
+    @media screen and (max-width: $breakpoint-mobile) {
+      text-align: center;
+    }
+  }
+  &-label {
+    width: 100%;
+  }
+  &-field {
+    outline: none;
+    border: none;
+    background-color: transparent;
+    text-transform: unset;
+    border-radius: 5px;
+    padding: 0.5rem;
+    min-width: 325px;
+    &::placeholder {
+      text-transform: uppercase;
+    }
+    @media screen and (max-width: $breakpoint-mobile) {
+      min-width: calc(100vw - 4rem - 38px);
+    }
+  }
+  &-submit {
+    background-color: transparent;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--color-dark);
+  }
+  &-reset {
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    padding: 2px;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity var(--transition-duration-ease-in-out);
+    @media screen and (max-width: $breakpoint-mobile) {
+      opacity: 1;
+    }
+  }
+  &-response {
+    height: 1em;
+    opacity: 0;
+    transition: opacity var(--transition-duration-ease-in-out);
+  }
+  &.init__search {
+    .search {
+      &-reset {
+        opacity: 1;
+      }
+      &-response {
+        opacity: 1;
+      }
+    }
+  }
+}
+body {
+  .wpcf7 {
+    &-form {
+      display: grid;
+      grid-template-areas:
+        "name name"
+        "email email"
+        "message message"
+        "submit submit";
+      gap: 1rem;
+      @media screen and (max-width: $breakpoint-mobile) {
+        grid-template-areas:
+          "name"
+          "email"
+          "message"
+          "submit";
+      }
+      input[type="text"],
+      input[type="email"],
+      textarea {
+        border: none;
+        outline: none;
+        padding: 0.5em 0;
+        border-bottom: 1px solid currentColor;
+        width: 100%;
+        background-color: transparent;
+        color: currentColor;
+        font: inherit;
+        font-size: 18px;
+        &::placeholder {
+          opacity: 1;
+        }
+      }
+      textarea {
+        border: 1px solid currentColor;
+        padding: 1em;
+      }
+      input[type="submit"] {
+        grid-area: submit;
+        @extend .button;
+        border: none;
+        outline: none;
+        width: 100%;
+        cursor: pointer;
+      }
+      &-control-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        &[data-name="your-name"] {
+          grid-area: name;
+        }
+        &[data-name="your-email"] {
+          grid-area: email;
+        }
+        &[data-name="your-subject"] {
+          grid-area: subject;
+        }
+        &[data-name="your-message"] {
+          grid-area: message;
+        }
+      }
+    }
+    &-spinner {
+      display: none;
+    }
+    &-not-valid-tip {
+      margin-top: 0.5rem;
+      color: var(--color-secondary-1);
+    }
+    &-response-output {
+      border: none !important;
+      margin: 0 !important;
+      padding: 0 !important;
+      text-align: left !important;
+    }
+  }
+}

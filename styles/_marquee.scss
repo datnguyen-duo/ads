@@ -1,0 +1,27 @@
+@use "variables" as *;
+
+// Generic marquee component styles
+.marquee {
+  &__container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    justify-content: flex-start;
+  }
+
+  &__track {
+    display: flex;
+    will-change: transform;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+  }
+
+  &__item {
+    display: inline-flex;
+    align-items: center;
+    flex-shrink: 0;
+  }
+}

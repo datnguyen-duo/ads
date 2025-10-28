@@ -1,0 +1,65 @@
+@use "variables" as *;
+
+// Reusable tabs/toggles component
+.tabs {
+  &__navigation {
+    position: relative;
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: 1fr;
+    border-bottom: 1px solid var(--color-neutral-4);
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+
+  &__tab {
+    @extend .text__body--bold;
+    font-size: var(--font-size-body-md);
+    position: relative;
+    padding: var(--gap-sm) 0;
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: var(--color-neutral-2);
+    white-space: nowrap;
+    transition: color var(--transition-duration-ease-in-out);
+    z-index: 1;
+
+    &:hover {
+      color: var(--color-dark);
+    }
+
+    &.active {
+      color: var(--color-dark);
+    }
+  }
+
+  &__indicator {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 2px;
+    background-color: var(--color-primary-1);
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+      width 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2;
+  }
+
+  &__content {
+    position: relative;
+    min-height: 200px;
+  }
+
+  &__panel {
+    display: none;
+
+    &.active {
+      display: block;
+    }
+  }
+}

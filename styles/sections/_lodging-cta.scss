@@ -1,0 +1,13 @@
+@use "../variables" as *;
+
+// Reusable Lodging CTA styles
+// Wraps the regular CTA section with specific styling
+.lodging-cta {
+  background-color: var(--color-section-background);
+  color: var(--color-section-text);
+  padding: var(--spacer) 0;
+
+  .page-container {
+    padding-inline: calc(var(--gutter) + 2rem);
+  }
+}

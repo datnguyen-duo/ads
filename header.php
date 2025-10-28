@@ -1,11 +1,13 @@
 <?php
 defined( 'ABSPATH' ) || exit;
 $themeurl = get_template_directory_uri();
-
+$ID = get_the_ID();
 $logo = get_field('primary_logo', 'option');
 $logo_secondary = get_field('secondary_logo', 'option');
 $scripts = get_field('scripts', 'option');
-$body_classes = "loading";
+$navigation_theme = get_field('navigation_theme', $ID);
+$body_classes = "loading --navigation-theme-" . $navigation_theme;
+
 if (is_404()) {
 	$body_classes .= " site-header-open";
 }
@@ -36,15 +38,13 @@ if (is_404()) {
 } ?>
 <div id="page" class="site">
 	<a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'theme' ); ?></a>
-	<header id="masthead" class="site-header">
-
+	<header id="masthead" class="site-header" data>
 		<div class="site-header__navigation">
-			<?php get_template_part( 'template-parts/header/navigation' ); ?>
+			<?php get_template_part( 'template-parts/header/navigation' ) ; ?>
 			<div class="site-header__toggle">
 				<div class="site-header__toggle-line"></div>
 				<div class="site-header__toggle-line"></div>
 			</div>
 		</div>
-
 	</header>
 	<main id="main" class="site-main">

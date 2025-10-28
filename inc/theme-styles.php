@@ -42,6 +42,9 @@ function generate_css($colors, $color_type, $css) {
     $css .= '--color-text: var(--color-dark);';
     $css .= '--color-overlay: rgba(255, 255, 255, 0.1);';
     $css .= '--color-overlay-dark: rgba(0, 0, 0, 0.5);';
+    $css .= '--color-transparent-light: rgba(255, 255, 255, .4);';
+    $css .= '--color-transparent-dark: rgba(0, 0, 0, .4);';
+    $css .= '--color-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 70.57%, rgba(0, 0, 0, 0.80) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%);';
     $css .= '--font-size-1: clamp(2.5rem, 5.4vw, 104px);';
     $css .= '--font-size-2: clamp(2.25rem, 5vw, 96px);';
     $css .= '--font-size-3: clamp(1.75rem, 1.875vw, 36px);';
@@ -60,19 +63,21 @@ function generate_css($colors, $color_type, $css) {
     $css .= '--spacer: clamp(3rem, 6.667vw, 8rem);';
     $css .= '--spacer-sm: calc(var(--spacer) / 2);';
     $css .= '--spacer-lg: calc(var(--spacer) * 2);';
-    $css .= '--spacer-xl: calc(var(--spacer) * 3);';
+    $css .= '--spacer-xl: calc(var(--spacer) * 4);';
     $css .= '--gutter: clamp(1rem, 3vw, 52px);';
     $css .= '--gutter-sm: calc(var(--gutter) / 2);';
     $css .= '--gutter-lg: calc(var(--gutter) * 2);';
-    $css .= '--gutter-xl: calc(var(--gutter) * 3);';
+    $css .= '--gutter-xl: calc(var(--gutter) * 4);';
     $css .= '--gap: 2rem;';
     $css .= '--gap-xxs: calc(var(--gap) / 8);';
     $css .= '--gap-xs: calc(var(--gap) / 4);';
     $css .= '--gap-sm: calc(var(--gap) / 2);';
     $css .= '--gap-lg: calc(var(--gap) * 2);';
+    $css .= '--gap-xl: calc(var(--gap) * 4);';
     $css .= '--border-radius: 9999em;';
     $css .= '--border-radius-sm: 10px;';
     $css .= '--box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);';
+    $css .= '--box-shadow-sm: 0 8px 8px 0 rgba(69, 61, 55, 0.12);';
     $css .= '--transition-ease-in-out: cubic-bezier(0.7, 0, 0.3, 1);';
     $css .= '--transition-duration: 0.2s;';
     $css .= '--transition-duration-long: .4s;';
@@ -84,5 +89,8 @@ function generate_css($colors, $color_type, $css) {
     $css .= '--aspect-film: 3/2;';
     $css .= '--aspect-video: 16/9;';
     $css .= '--aspect-ultrawide: 21/9;';
+    $css .= '--menu-main-height: 70px;';
+    $css .= '--menu-top-bar-height: 33px;';
+    $css .= '--menu-height: calc(var(--menu-main-height) + var(--menu-top-bar-height));';
     echo trim($css);
     ?>

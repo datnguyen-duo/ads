@@ -24,7 +24,7 @@ $header_args = array(
 </div>
 <div class="<?php echo $layout . '__bottom'; ?>">
     <?php if ($testimonials): ?>
-        <div class="<?php echo $layout . '__testimonials swiper'; ?>">
+        <div class="<?php echo $layout . '__testimonials swiper'; ?>" data-centered-slides="true">
             <div class="<?php echo $layout . '__testimonials-wrapper'; ?> swiper-wrapper">
                 <?php foreach ($testimonials as $testimonial):
                     $image = $testimonial['image'];
@@ -60,10 +60,10 @@ $header_args = array(
             </div>
             <div class="<?php echo $layout . '__testimonials-buttons swiper-buttons'; ?>">
                 <button class="<?php echo $layout . '__testimonials-button swiper-button-prev button__icon'; ?>">
-                    <img class="<?php echo $layout . '__testimonials-button-icon-image button__icon-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrow.svg" alt="Previous Testimonial" loading="lazy">
+                    <?php icon_arrow(); ?>
                 </button>
                 <button class="<?php echo $layout . '__testimonials-button swiper-button-next button__icon'; ?>">
-                    <img class="<?php echo $layout . '__testimonials-button-icon-image button__icon-image'; ?>" src="<?php echo get_template_directory_uri(); ?>/assets/icons/arrow.svg" alt="Next Testimonial" loading="lazy">
+                    <?php icon_arrow(); ?>
                 </button>
             </div>
         </div>

@@ -1,0 +1,51 @@
+.seasonal-highlights {
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: var(--gap);
+    text-wrap: balance;
+
+    th,
+    td {
+      border: 1px solid var(--color-neutral-4);
+      padding: 1rem;
+      text-align: left;
+    }
+
+    th {
+      &:nth-child(1) {
+        width: 15%;
+      }
+      &:nth-child(2) {
+        width: 15%;
+      }
+      &:nth-child(3) {
+        width: 25%;
+      }
+      &:nth-child(4) {
+        width: 35%;
+      }
+      &:nth-child(5) {
+        width: 10%;
+      }
+    }
+
+    thead {
+      th {
+        font-weight: 700;
+        background-color: var(--color-neutral-3);
+      }
+    }
+
+    tbody {
+      tr.--recommended {
+        border-left: 4px solid var(--color-primary-2);
+
+        td.--recommended {
+          background-color: var(--color-primary-2);
+          color: var(--color-light);
+        }
+      }
+    }
+  }
+}

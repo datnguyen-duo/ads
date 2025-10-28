@@ -1,1 +1,38 @@
-<?phpdefined( 'ABSPATH' ) || exit; ?><div class="entry__header">    <?php if (has_post_thumbnail()) : ?>        <div class="entry__thumbnail">            <?php image(get_post_thumbnail_id(), 'full', 'entry__thumbnail-image', get_the_title()); ?>        </div>    <?php endif; ?>    <div class="entry__header-content">        <h1 class="entry__title text__size-3"><?php the_title(); ?></h1>        <div class="entry__header-grid">            <p class="entry__date text__size-body--lg"><?php echo get_the_date('m.d.Y'); ?></p>            <p class="entry__share-on text__size-body--lg">Share On</p>            <p class="entry__categories text__size-body--lg"><?php echo (get_the_category_list() ? get_the_category_list(', ') : '')?></p>            <?php get_template_part('template-parts/content/entry-share'); ?>        </div>    </div></div>
+<?php
+defined( 'ABSPATH' ) || exit;
+$ID = get_the_ID();
+$title = get_the_title();
+$description = get_field('description', $ID);
+$gallery = get_field('gallery', $ID);
+
+?>
+<div class="entry__header">
+    <?php if ($gallery) : ?>
+        <div class="entry__header-gallery swiper" data-centered-slides="true" data-fade="true">
+            <div class="entry__header-gallery-wrapper swiper-wrapper">
+                <?php foreach ($gallery as $key => $image) : ?>
+                    <div class="entry__header-gallery-item swiper-slide">
+                        <?php image($image['ID'], 'full', 'entry__header-gallery-item-image'); ?>
+                    </div>
+                <?php endforeach; ?>
+            </div>
+            <div class="entry__header-content">
+                <h1 class="entry__title" data-animate-words data-play-immediately><?php echo $title; ?></h1>
+                <?php if ($description) : ?>
+                    <p class="entry__description" data-animate-block><?php echo $description; ?></p>
+                <?php endif; ?>
+                <div class="entry__header-gallery-navigation">
+                    <div class="entry__header-gallery-dots swiper-pagination"></div>
+                    <div class="entry__header-gallery-buttons swiper-buttons">
+                        <button class="entry__header-gallery-navigation-button swiper-button-prev button__icon --ghost">
+                            <?php icon_arrow(); ?>
+                        </button>
+                        <button class="entry__header-gallery-navigation-button swiper-button-next button__icon --ghost">
+                            <?php icon_arrow(); ?>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+</div>

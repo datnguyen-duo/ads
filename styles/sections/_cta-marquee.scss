@@ -1,1 +1,55 @@
-@use "../variables" as *;.cta-marquee {  padding: 0;  overflow: hidden;  background-color: var(--color-primary-1);  color: var(--color-light);  transition: background-color var(--transition-duration-ease-in-out);  &:hover {    background-color: var(--color-primary-2);  }  .page-container {    padding: 0;    max-width: none;  }  &__container {    position: relative;    width: 100%;    overflow: hidden;    white-space: nowrap;    display: flex;    justify-content: flex-start;  }  &__track {    display: flex;    will-change: transform;    transform: translateZ(0);    backface-visibility: hidden;    perspective: 1000px;  }  &__item {    display: inline-flex;    align-items: center;    white-space: nowrap;    padding: var(--spacer-sm) 0;    text-decoration: none;    color: inherit;    flex-shrink: 0;    @media screen and (max-width: $breakpoint-mobile) {      padding: var(--spacer) 0;    }    &::after {      content: "•";      margin: 0 0.75rem;      opacity: 0.5;      font-size: 0.8em;    }    em,    i {      margin-inline: 0.1em;      font-style: italic;    }  }}
+@use "../variables" as *;
+@use "../marquee";
+
+// CTA Marquee - extends generic marquee with CTA-specific styles
+.cta-marquee {
+  padding: 0;
+  overflow: hidden;
+  background-color: var(--color-primary-1);
+  color: var(--color-light);
+  transition: background-color var(--transition-duration-ease-in-out);
+
+  &:hover {
+    background-color: var(--color-primary-2);
+  }
+
+  .page-container {
+    padding: 0;
+    max-width: none;
+  }
+
+  // Use generic marquee structure
+  &__container {
+    @extend .marquee__container;
+  }
+
+  &__track {
+    @extend .marquee__track;
+  }
+
+  &__item {
+    @extend .marquee__item;
+    white-space: nowrap;
+    padding: var(--spacer-sm) 0;
+    text-decoration: none;
+    color: inherit;
+
+    @media screen and (max-width: $breakpoint-mobile) {
+      padding: var(--spacer) 0;
+    }
+
+    &::after {
+      content: "•";
+      margin: 0 0.75rem;
+      opacity: 0.5;
+      font-size: 0.8em;
+    }
+
+    em,
+    i {
+      margin-inline: 0.1em;
+      color: inherit;
+      font-style: italic;
+    }
+  }
+}

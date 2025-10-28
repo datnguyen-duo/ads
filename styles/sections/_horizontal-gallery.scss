@@ -2,6 +2,7 @@
 .horizontal-gallery {
   padding: 0;
   padding-top: min(7%, 134.4px);
+  overflow-x: hidden;
   @media screen and (max-width: $breakpoint-mobile) {
     padding-top: 15%;
   }
@@ -25,6 +26,7 @@
   &__container {
     display: flex;
     gap: var(--gap);
+    overflow: visible;
     @media screen and (min-width: $breakpoint-desktop) {
       justify-content: center;
     }

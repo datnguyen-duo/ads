@@ -18,7 +18,7 @@ $header_args = array(
 </div>
 <?php get_template_part('template-parts/sections/section', 'header', $header_args); ?>
 <?php if ($paths): ?>
-    <div class="<?php echo $layout . '__paths'; ?>">
+    <div class="<?php echo $layout . '__paths'; ?>" data-path-count="<?php echo count($paths); ?>">
         <?php foreach ($paths as $path): 
             $images = $path['images'];
             $title = $path['title'];

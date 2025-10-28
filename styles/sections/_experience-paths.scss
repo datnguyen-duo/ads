@@ -48,6 +48,18 @@
       padding-top: var(--gap);
       padding-bottom: var(--gap-sm);
     }
+
+    &[data-path-count="1"] {
+      grid-template-columns: 1fr;
+      max-width: 720px;
+      margin-inline: auto;
+      margin-bottom: -10vw;
+      .experience-paths {
+        &__line {
+          display: none;
+        }
+      }
+    }
   }
   &__line {
     position: absolute;

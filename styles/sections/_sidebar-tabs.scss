@@ -1,0 +1,99 @@
+@use "../variables" as *;
+
+.sidebar-tabs {
+  background-color: var(--color-light);
+  &__container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: var(--gutter-lg);
+  }
+
+  &__tabs {
+    width: 100%;
+    align-self: start;
+    position: sticky;
+    top: calc(var(--menu-main-height) + var(--gap));
+    transition: top var(--transition-duration-ease-in-out);
+    max-height: calc(95vh - var(--menu-main-height) - var(--gap));
+    overflow-y: auto;
+    body.scrolling-up & {
+      max-height: calc(95vh - var(--menu-height) - var(--gap));
+      top: calc(var(--menu-height) + var(--gap));
+    }
+  }
+
+  &__tab {
+    position: relative;
+    width: 100%;
+    display: block;
+
+    padding: var(--gap-sm);
+    border: 1px solid var(--color-neutral-4);
+    &:not(:last-child) {
+      border-bottom: none;
+    }
+
+    &:after {
+      content: "";
+      position: absolute;
+      top: var(--gap-sm);
+      right: var(--gap-sm);
+      width: 4px;
+      height: calc(100% - var(--gap-sm) * 2);
+      background-color: var(--color-primary-1);
+      opacity: 0;
+    }
+
+    &-content {
+      display: flex;
+      align-items: center;
+      gap: var(--gap);
+      opacity: 0.6;
+    }
+
+    &.active {
+      &:after {
+        opacity: 1;
+      }
+      .sidebar-tabs__tab-content {
+        opacity: 1;
+      }
+    }
+  }
+
+  &__content {
+    display: grid;
+    grid-template-areas: "content" "navigation";
+    gap: var(--gap);
+    &-item {
+      grid-area: content;
+      display: none;
+      &.active {
+        display: block;
+      }
+
+      h1 {
+        @extend .text__size-2;
+      }
+    }
+  }
+
+  &__navigation {
+    grid-area: navigation;
+    display: flex;
+    gap: var(--gap-xs);
+    flex-shrink: 0;
+    width: auto;
+    &-button {
+      background-color: var(--color-neutral-4);
+
+      &.--next {
+        transform: rotate(180deg);
+      }
+
+      &:hover {
+        background-color: var(--color-neutral-3);
+      }
+    }
+  }
+}

@@ -1,1 +1,70 @@
-<?phpdefined('ABSPATH') || exit;add_action('wp_ajax_load_more_posts', 'load_more_posts');add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');function load_more_posts() {    ob_start();    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;    $posts_per_page = isset($_POST['posts_per_page']) ? intval($_POST['posts_per_page']) : 1;     $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';    $filter_term = isset($_POST['filter_term']) ? sanitize_text_field($_POST['filter_term']) : '';    $term_id = isset($_POST['term_id']) ? sanitize_text_field($_POST['term_id']) : '';    $search_value = isset($_POST['search_value']) ? sanitize_text_field($_POST['search_value']) : '';    $settings = array(        'post_type' => $post_type,    );    set_query_var('settings', $settings);    $args = array(        'post_type' => $post_type,        'posts_per_page' => $posts_per_page,        'paged' => $paged,         'post_status' => 'publish',        'no_found_rows' => false,     );    if ($term_id) {        $args['tax_query'] = array(            array(                'taxonomy' => $filter_term,                'field' => 'term_id',                'terms' => $term_id,            ),        );    }    if ($search_value) {        $args['s'] = $search_value;    }    $query = new WP_Query($args);    if ($query->have_posts()) {        $counter = 0;        while ($query->have_posts()) {            $query->the_post();            $counter++;            set_query_var('counter', $counter);            get_template_part('template-parts/content/content', 'card');        }    }    $total_posts = $query->found_posts;    $posts_per_page = $query->query_vars['posts_per_page'];    $current_page = $query->query_vars['paged'];    $total_pages = ceil($total_posts / $posts_per_page);    $has_more_posts = ($current_page < $total_pages);    $next_page = $current_page + 1;    wp_reset_postdata();    $posts_html = ob_get_clean();    $response = array(        'posts_html' => $posts_html,        'has_more_posts' => $has_more_posts,        'next_page' => $next_page,        'total_posts' => $total_posts,        'current_page' => $current_page,        'total_pages' => $total_pages,        'debug' => array(            'paged' => $paged,            'posts_per_page' => $posts_per_page,            'current_page' => $current_page,            'total_pages' => $total_pages        )    );    wp_send_json($response);    wp_die();}
+<?php
+defined('ABSPATH') || exit;
+add_action('wp_ajax_load_more_posts', 'load_more_posts');
+add_action('wp_ajax_nopriv_load_more_posts', 'load_more_posts');
+function load_more_posts() {
+    ob_start();
+    $paged = isset($_POST['page']) ? intval($_POST['page']) : 1;
+    $posts_per_page = isset($_POST['posts_per_page']) ? intval($_POST['posts_per_page']) : 1; 
+    $post_type = isset($_POST['post_type']) ? sanitize_text_field($_POST['post_type']) : 'post';
+    $filter_term = isset($_POST['filter_term']) ? sanitize_text_field($_POST['filter_term']) : '';
+    $term_id = isset($_POST['term_id']) ? sanitize_text_field($_POST['term_id']) : '';
+    $search_value = isset($_POST['search_value']) ? sanitize_text_field($_POST['search_value']) : '';
+    $settings = array(
+        'post_type' => $post_type,
+    );
+    set_query_var('settings', $settings);
+    $args = array(
+        'post_type' => $post_type,
+        'posts_per_page' => $posts_per_page,
+        'paged' => $paged, 
+        'post_status' => 'publish',
+        'no_found_rows' => false, 
+    );
+    if ($term_id) {
+        $args['tax_query'] = array(
+            array(
+                'taxonomy' => $filter_term,
+                'field' => 'term_id',
+                'terms' => $term_id,
+            ),
+        );
+    }
+    if ($search_value) {
+        $args['s'] = $search_value;
+    }
+    $query = new WP_Query($args);
+    if ($query->have_posts()) {
+        $counter = 0;
+        while ($query->have_posts()) {
+            $query->the_post();
+            $counter++;
+            set_query_var('counter', $counter);
+            get_template_part('template-parts/content/content', 'card', array('layout' => 'posts'));
+        }
+    }
+    $total_posts = $query->found_posts;
+    $posts_per_page = $query->query_vars['posts_per_page'];
+    $current_page = $query->query_vars['paged'];
+    $total_pages = ceil($total_posts / $posts_per_page);
+    $has_more_posts = ($current_page < $total_pages);
+    $next_page = $current_page + 1;
+    wp_reset_postdata();
+    $posts_html = ob_get_clean();
+    $response = array(
+        'posts_html' => $posts_html,
+        'has_more_posts' => $has_more_posts,
+        'next_page' => $next_page,
+        'total_posts' => $total_posts,
+        'current_page' => $current_page,
+        'total_pages' => $total_pages,
+        'debug' => array(
+            'paged' => $paged,
+            'posts_per_page' => $posts_per_page,
+            'current_page' => $current_page,
+            'total_pages' => $total_pages
+        )
+    );
+    wp_send_json($response);
+    wp_die();
+}

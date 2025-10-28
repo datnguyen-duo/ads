@@ -1,6 +1,7 @@
 <?php 
 function image($ID, $size, $class = '', $alt = 'Feature Image', $loading = 'lazy') {
-    if (is_admin() && (wp_doing_ajax() || (isset($_POST) && !empty($_POST)))) {
+    // Only prevent output in true admin context, not during frontend AJAX
+    if (is_admin() && !wp_doing_ajax()) {
         return;
     }
     if (is_array($size) && isset($size[0]) && isset($size[1]) && $size[0] === 'auto') {

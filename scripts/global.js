@@ -146,16 +146,74 @@ window.ScrollTriggerComponents = {
   swipers.forEach((slider) => {
     const nextButton = slider.querySelector(".swiper-button-next");
     const prevButton = slider.querySelector(".swiper-button-prev");
-    const swiper = new Swiper(slider, {
-      slidesPerView: "auto",
-      loop: true,
-      centeredSlides: true,
+    const paginationEl = slider.querySelector(".swiper-pagination");
+    const centeredSlides = slider.dataset.centeredSlides === "true";
+    const useFade = slider.dataset.fade === "true";
+    const variation = slider.dataset.variation;
+    const slides = slider.querySelectorAll(".swiper-slide");
+    const slideCount = slides.length;
+
+    // Hide navigation if only one slide
+    if (slideCount <= 1) {
+      if (nextButton) nextButton.style.display = "none";
+      if (prevButton) prevButton.style.display = "none";
+      if (paginationEl) paginationEl.style.display = "none";
+    }
+
+    const swiperConfig = {
+      slidesPerView: useFade ? 1 : "auto", // Fade requires slidesPerView: 1
+      loop: slideCount > 1, // Only enable loop if more than 1 slide
+      centeredSlides: centeredSlides || false,
       speed: 600,
-      navigation: {
-        nextEl: nextButton,
-        prevEl: prevButton,
+      watchOverflow: true, // Disable swiper when slides <= slidesPerView
+      on: {
+        init: function () {
+          // Check if swiper is actually needed after initialization
+          if (this.isBeginning && this.isEnd && slideCount > 1) {
+            // All slides are visible, hide navigation
+            if (nextButton) nextButton.style.display = "none";
+            if (prevButton) prevButton.style.display = "none";
+            if (paginationEl) paginationEl.style.display = "none";
+          }
+        },
+        resize: function () {
+          // Re-check on resize in case viewport changes
+          if (this.isBeginning && this.isEnd && slideCount > 1) {
+            if (nextButton) nextButton.style.display = "none";
+            if (prevButton) prevButton.style.display = "none";
+            if (paginationEl) paginationEl.style.display = "none";
+          } else if (slideCount > 1) {
+            if (nextButton) nextButton.style.display = "";
+            if (prevButton) prevButton.style.display = "";
+            if (paginationEl) paginationEl.style.display = "";
+          }
+        },
       },
-    });
+    };
+
+    // Add navigation (autoplay uses marquee instead of swiper)
+    swiperConfig.navigation = {
+      nextEl: nextButton,
+      prevEl: prevButton,
+    };
+
+    // Add pagination if pagination element exists
+    if (paginationEl) {
+      swiperConfig.pagination = {
+        el: paginationEl,
+        clickable: true,
+      };
+    }
+
+    // Add fade effect if enabled
+    if (useFade) {
+      swiperConfig.effect = "fade";
+      swiperConfig.fadeEffect = {
+        crossFade: true,
+      };
+    }
+
+    const swiper = new Swiper(slider, swiperConfig);
   });
 })();
 
@@ -227,6 +285,7 @@ window.ScrollTriggerComponents = {
   function initWordAnimations() {
     const textElements = document.querySelectorAll("[data-animate-words]");
     textElements.forEach((element) => {
+      const playImmediately = element.hasAttribute("data-play-immediately");
       const config = {
         type: "words",
         wordsClass: "split-word",
@@ -239,23 +298,34 @@ window.ScrollTriggerComponents = {
         filter: "blur(8px)",
         willChange: "transform, opacity, filter",
       });
-      ScrollTrigger.create({
-        trigger: element,
-        start: start,
-        onEnter: () => {
-          gsap.to(splitText.words, {
-            opacity: 1,
-            filter: "blur(0px)",
-            duration: 0.6,
-            ease: easeOut,
-            stagger: 0.05,
-            force3D: true,
-            onComplete: () => {
-              element.classList.add("animate-in");
-            },
-          });
-        },
-      });
+      if (playImmediately) {
+        gsap.to(splitText.words, {
+          opacity: 1,
+          filter: "blur(0px)",
+          duration: 0.6,
+          ease: easeOut,
+          stagger: 0.05,
+          force3D: true,
+        });
+      } else {
+        ScrollTrigger.create({
+          trigger: element,
+          start: start,
+          onEnter: () => {
+            gsap.to(splitText.words, {
+              opacity: 1,
+              filter: "blur(0px)",
+              duration: 0.6,
+              ease: easeOut,
+              stagger: 0.05,
+              force3D: true,
+              onComplete: () => {
+                element.classList.add("animate-in");
+              },
+            });
+          },
+        });
+      }
     });
   }
   function initBlockAnimations() {
@@ -363,7 +433,7 @@ window.ScrollTriggerComponents = {
       initBlockAnimations();
       initLineAnimations();
       initImageAnimations();
-    }, 500);
+    }, 100);
   });
 })();
 /*	-----------------------------------------------------------------------------
@@ -425,7 +495,9 @@ window.ScrollTriggerComponents = {
     }
     const tl = gsap.timeline({
       onStart: () => {
-        createHeroScrollTrigger();
+        if (section.classList.contains(".--high-impact")) {
+          createHeroScrollTrigger();
+        }
       },
     });
     tl.to(splitWords.words, {
@@ -476,6 +548,151 @@ window.ScrollTriggerComponents = {
     });
   });
 })();
+
+/*	-----------------------------------------------------------------------------
+	UNIVERSAL VIDEO PLAY BUTTON
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    // Look for video play buttons anywhere on the page
+    const playButtons = document.querySelectorAll(".js-video-play");
+
+    if (playButtons.length === 0) return;
+
+    playButtons.forEach((playButton) => {
+      const videoContainer = playButton.closest(".video-play-container");
+      if (!videoContainer) return;
+
+      const video = videoContainer.querySelector("video");
+      if (!video) return;
+
+      // Play button click handler
+      playButton.addEventListener("click", () => {
+        video.muted = false; // Unmute the video
+        video.play();
+        playButton.style.display = "none"; // Hide play button
+      });
+
+      // Click video to pause/play
+      video.addEventListener("click", () => {
+        if (video.paused) {
+          video.play();
+        } else {
+          video.pause();
+        }
+      });
+
+      // Show play button again when video ends
+      video.addEventListener("ended", () => {
+        playButton.style.display = "flex"; // Show play button
+      });
+
+      // Also hide play button if video starts playing (e.g., via native controls)
+      video.addEventListener("play", () => {
+        playButton.style.display = "none";
+      });
+
+      // Show play button if video is paused
+      video.addEventListener("pause", () => {
+        if (video.currentTime < video.duration) {
+          playButton.style.display = "flex";
+        }
+      });
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SHOW MORE FUNCTIONALITY - GLOBAL
+--------------------------------------------------------------------------------- */
+
+(function () {
+  function initShowMore() {
+    const containers = document.querySelectorAll(".show-more-container");
+    if (!containers.length) return;
+
+    containers.forEach((container) => {
+      const button = container.querySelector(".show-more-button");
+      if (!button) return;
+
+      // Get height threshold from data attribute, default to 700
+      const heightThreshold = parseInt(
+        container.getAttribute("data-content-height") || "700"
+      );
+
+      // For hidden elements (like inactive tabs), temporarily show to measure
+      const wasHidden = container.offsetParent === null;
+      let actualHeight = container.scrollHeight;
+
+      if (wasHidden) {
+        // Temporarily make visible to measure
+        const originalDisplay = container.style.display;
+        const originalVisibility = container.style.visibility;
+        const originalPosition = container.style.position;
+
+        container.style.display = "block";
+        container.style.visibility = "hidden";
+        container.style.position = "absolute";
+
+        actualHeight = container.scrollHeight;
+
+        // Restore original state
+        container.style.display = originalDisplay;
+        container.style.visibility = originalVisibility;
+        container.style.position = originalPosition;
+      }
+
+      // Check if content height exceeds threshold
+      if (actualHeight > heightThreshold) {
+        container.classList.add("has-more");
+
+        // Set max-height when has-more
+        if (!container.classList.contains("expanded")) {
+          container.style.maxHeight = `${heightThreshold}px`;
+        }
+
+        // Remove existing listener to avoid duplicates
+        button.removeEventListener("click", button._showMoreHandler);
+
+        // Store handler for removal later
+        button._showMoreHandler = () => {
+          container.classList.toggle("expanded");
+
+          // Toggle max-height
+          if (container.classList.contains("expanded")) {
+            container.style.maxHeight = "none";
+          } else {
+            container.style.maxHeight = `${heightThreshold}px`;
+          }
+
+          const buttonText = button.querySelector(".show-more-button-text");
+          if (buttonText) {
+            buttonText.textContent = container.classList.contains("expanded")
+              ? "Show less"
+              : "Show more";
+          }
+        };
+
+        button.addEventListener("click", button._showMoreHandler);
+      } else {
+        // Remove has-more if content is shorter than threshold
+        container.classList.remove("has-more");
+        container.style.maxHeight = "none";
+      }
+    });
+  }
+
+  window.addEventListener("load", initShowMore);
+
+  // Re-initialize when tabs are switched (for details section)
+  document.addEventListener("click", (e) => {
+    if (e.target.matches(".details__tab")) {
+      // Small delay to allow tab content to be visible
+      setTimeout(initShowMore, 50);
+    }
+  });
+})();
+
 /*	-----------------------------------------------------------------------------
 	SECTION ANIMATIONS - HORIZONTAL GALLERY
 --------------------------------------------------------------------------------- */
@@ -870,75 +1087,653 @@ window.ScrollTriggerComponents = {
     }
   });
 })();
+
 /*	-----------------------------------------------------------------------------
-	MARQUEE ANIMATION
+	SECTION ANIMATIONS - FLIP SLIDER
 --------------------------------------------------------------------------------- */
 (function () {
-  window.ScrollTriggerComponents.registerCustomHandler("cta-marquee");
-  let marqueeAnimation;
+  class FlipSlider {
+    constructor(element) {
+      this.container = element;
+      this.slides = [];
+      this.slideContents = [];
+      this.prevBtn = null;
+      this.nextBtn = null;
+      this.timeline = null;
+      this.deltaObject = { delta: 0 };
+      this.incr = 0;
+
+      this.init();
+    }
+
+    init() {
+      // Get all elements
+      this.slides = gsap.utils.toArray(".js-flip-item");
+      this.slideContents = gsap.utils.toArray(".js-flip-content");
+      this.prevBtn = this.container.querySelector("[data-flip-prev]");
+      this.nextBtn = this.container.querySelector("[data-flip-next]");
+
+      if (this.slides.length === 0) {
+        console.warn("No flip slider items found");
+        return;
+      }
+
+      this.setupAnimation();
+      this.bindEvents();
+    }
+
+    setupAnimation() {
+      // Animation timing configuration
+      const baseDuration = this.slides.length / 2; // e.g., 4 slides = 2 seconds
+      const staggerEach = 0.5; // 0.5 seconds between each slide animation
+      const repeatDelay = baseDuration - staggerEach;
+
+      // Quick-to function for smooth scrubbing
+      this.deltaTo = gsap.quickTo(this.deltaObject, "delta", {
+        duration: 0.8,
+        ease: "power1",
+        onUpdate: () => {
+          this.timeline.time(this.deltaObject.delta);
+        },
+      });
+
+      // Create main timeline (paused, we'll control it manually)
+      this.timeline = gsap.timeline({ paused: true });
+
+      // ANIMATION 1: Slide Items - Move from back to front in 3D space
+      // Starting position: far away (negative z) and lower (positive y)
+      // Ending position: at origin (center, front)
+      this.timeline.from(this.slides, {
+        y: "15vw", // Start 15vw below
+        z: "-90vw", // Start 90vw back in z-space
+        ease: "none",
+        duration: baseDuration,
+        stagger: {
+          each: staggerEach,
+          repeat: -1, // Infinite loop
+        },
+      });
+
+      // ANIMATION 2: Content - Entry animation (slides in from top)
+      // Each slide's content animates in with a bounce effect
+      this.timeline.fromTo(
+        this.slideContents,
+        {
+          y: "-20vh", // Start above viewport
+        },
+        {
+          y: 0, // End at natural position
+          ease: "back.out(1.05)", // Slight overshoot for dynamic feel
+          duration: staggerEach,
+          stagger: {
+            each: staggerEach,
+            repeat: -1,
+            repeatDelay: repeatDelay,
+            onRepeat() {
+              // Reset position on loop for seamless infinite animation
+              this.targets()[0].style.transform = "translateY(100vh)";
+            },
+          },
+        },
+        "<" // Start at same time as previous animation
+      );
+
+      // ANIMATION 3: Content - Exit animation (slides out to top)
+      // After being visible, content exits upward
+      this.timeline.fromTo(
+        this.slideContents,
+        {
+          y: 0, // Start at natural position
+        },
+        {
+          y: "-200vh", // Exit way above viewport
+          ease: "power3.in",
+          duration: staggerEach,
+          delay: repeatDelay,
+          stagger: {
+            each: staggerEach,
+            repeat: -1,
+            repeatDelay: repeatDelay,
+            onRepeat() {
+              // Reset position on loop
+              this.targets()[0].style.transform = "translateY(0vh)";
+            },
+          },
+        },
+        "<" // Start at same time as previous animation
+      );
+
+      // Calculate starting point (show slides from middle of timeline)
+      const beginDistance = this.slides.length * 100;
+      this.timeline.time(beginDistance);
+      this.deltaTo(beginDistance + 0.01, beginDistance);
+
+      // Snap helper for clean slide transitions
+      this.snap = gsap.utils.snap(baseDuration / this.slides.length);
+    }
+
+    bindEvents() {
+      if (this.prevBtn) {
+        this.prevBtn.addEventListener("click", () => this.prev());
+      }
+
+      if (this.nextBtn) {
+        this.nextBtn.addEventListener("click", () => this.next());
+      }
+    }
+
+    prev() {
+      this.incr -= 0.5;
+      const beginDistance = this.slides.length * 100;
+      this.deltaTo(this.snap(beginDistance + this.incr));
+    }
+
+    next() {
+      this.incr += 0.5;
+      const beginDistance = this.slides.length * 100;
+      this.deltaTo(this.snap(beginDistance + this.incr));
+    }
+
+    destroy() {
+      if (this.timeline) {
+        this.timeline.kill();
+      }
+      if (this.prevBtn) {
+        this.prevBtn.removeEventListener("click", this.prev);
+      }
+      if (this.nextBtn) {
+        this.nextBtn.removeEventListener("click", this.next);
+      }
+    }
+  }
+
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".flip-slider");
+    if (!section) return;
+
+    const sliderElement = section.querySelector("[data-flip-slider]");
+    if (sliderElement) {
+      new FlipSlider(sliderElement);
+    }
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - CTA
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".cta");
+    if (!section) return;
+    const lineActive = section.querySelectorAll(".cta__line.--active");
+
+    gsap.set(lineActive, { clipPath: "inset(0% 100% 0% 0%)" });
+    gsap.to(lineActive, {
+      clipPath: "inset(0% 0% 0% 0%)",
+      duration: 2,
+      scrollTrigger: {
+        trigger: section,
+        start: "top 70%",
+      },
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - MEDIA
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".media");
+    if (!section) return;
+    const backgrounds = section.querySelectorAll(".media__background-image");
+    if (backgrounds) {
+      backgrounds.forEach((background, index) => {
+        gsap.set(background, {
+          opacity: 0,
+          xPercent: index % 2 === 0 ? -100 : 100,
+        });
+        ScrollTrigger.create({
+          trigger: background,
+          start: "top 60%",
+          onEnter: () => {
+            gsap.to(background, {
+              opacity: 1,
+              xPercent: 0,
+              duration: 0.6,
+              ease: easeOut,
+            });
+          },
+        });
+      });
+    }
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - ACCORDIONS
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelectorAll(".accordions__accordions");
+    if (!section.length) return;
+    section.forEach((section) => {
+      const accordions = section.querySelectorAll(".accordions__accordion");
+      if (accordions) {
+        accordions.forEach((accordion) => {
+          accordion.addEventListener("click", () => {
+            accordion.classList.toggle("active");
+          });
+        });
+      }
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - DETAILS
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".details");
+    if (!section) return;
+
+    const tabs = section.querySelectorAll(".details__tab");
+    const tabContents = section.querySelectorAll(".details__tab-content");
+    const indicator = section.querySelector(".details__tab-indicator");
+
+    if (!tabs.length || !tabContents.length || !indicator) return;
+
+    // Function to update indicator position
+    function updateIndicator(activeTab) {
+      const tabRect = activeTab.getBoundingClientRect();
+      const navRect = activeTab.parentElement.getBoundingClientRect();
+      const scrollLeft = activeTab.parentElement.scrollLeft;
+
+      const left = tabRect.left - navRect.left + scrollLeft;
+      const width = tabRect.width;
+
+      indicator.style.transform = `translateX(${left}px)`;
+      indicator.style.width = `${width}px`;
+    }
+
+    // Initialize indicator position on first tab
+    const activeTab = section.querySelector(".details__tab.active");
+    if (activeTab) {
+      updateIndicator(activeTab);
+    }
+
+    // Tab click handlers
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tabIndex = tab.getAttribute("data-tab");
+
+        // Remove active class from all tabs and contents
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add("active");
+        const activeContent = section.querySelector(
+          `.details__tab-content[data-tab-content="${tabIndex}"]`
+        );
+        if (activeContent) {
+          activeContent.classList.add("active");
+        }
+
+        // Update indicator position
+        updateIndicator(tab);
+      });
+    });
+
+    // Update indicator on window resize
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const currentActive = section.querySelector(".details__tab.active");
+        if (currentActive) {
+          updateIndicator(currentActive);
+        }
+      }, 100);
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - TOGGLE SLIDER
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".toggle-slider");
+    if (!section) return;
+
+    const tabs = section.querySelectorAll(".toggle-slider__tab");
+    const tabContents = section.querySelectorAll(
+      ".toggle-slider__slider-wrapper"
+    );
+    const indicator = section.querySelector(".toggle-slider__tab-indicator");
+    const heading = section.querySelector("[data-active-tab-name]");
+    const globalNextButton = section.querySelector(
+      ".toggle-slider__header .swiper-button-next"
+    );
+    const globalPrevButton = section.querySelector(
+      ".toggle-slider__header .swiper-button-prev"
+    );
+
+    if (!tabs.length || !tabContents.length || !indicator) return;
+
+    // Store swiper instances
+    const swiperInstances = new Map();
+
+    // Initialize swipers for each slider
+    tabContents.forEach((wrapper) => {
+      const slider = wrapper.querySelector(".toggle-slider__slider");
+      if (!slider) return;
+
+      const slides = slider.querySelectorAll(".swiper-slide");
+      const slideCount = slides.length;
+
+      const swiper = new Swiper(slider, {
+        slidesPerView: "auto",
+        spaceBetween: 0,
+        loop: slideCount > 3,
+        speed: 600,
+        navigation: {
+          nextEl: globalNextButton,
+          prevEl: globalPrevButton,
+        },
+      });
+
+      swiperInstances.set(wrapper, { swiper, slideCount });
+    });
+
+    // Function to update navigation visibility based on slide count
+    function updateNavigationVisibility(slideCount) {
+      if (globalNextButton && globalPrevButton) {
+        if (slideCount <= 3) {
+          globalNextButton.style.display = "none";
+          globalPrevButton.style.display = "none";
+        } else {
+          globalNextButton.style.display = "";
+          globalPrevButton.style.display = "";
+        }
+      }
+    }
+
+    // Function to update indicator position
+    function updateIndicator(activeTab) {
+      const tabRect = activeTab.getBoundingClientRect();
+      const navRect = activeTab.parentElement.getBoundingClientRect();
+      const scrollLeft = activeTab.parentElement.scrollLeft;
+
+      const left = tabRect.left - navRect.left + scrollLeft;
+      const width = tabRect.width;
+
+      indicator.style.transform = `translateX(${left}px)`;
+      indicator.style.width = `${width}px`;
+    }
+
+    // Initialize indicator position and navigation visibility
+    const activeTab = section.querySelector(".toggle-slider__tab.active");
+    if (activeTab) {
+      updateIndicator(activeTab);
+      const activeWrapper = section.querySelector(
+        `.toggle-slider__slider-wrapper[data-tab-content="${activeTab.getAttribute(
+          "data-tab"
+        )}"]`
+      );
+      if (activeWrapper && swiperInstances.has(activeWrapper)) {
+        const { slideCount } = swiperInstances.get(activeWrapper);
+        updateNavigationVisibility(slideCount);
+      }
+    }
+
+    // Tab click handlers
+    tabs.forEach((tab) => {
+      tab.addEventListener("click", () => {
+        const tabId = tab.getAttribute("data-tab");
+        const tabName = tab.getAttribute("data-tab-name");
+
+        // Update heading text
+        if (heading && tabName) {
+          heading.textContent = tabName;
+        }
+
+        // Remove active class from all tabs and contents
+        tabs.forEach((t) => t.classList.remove("active"));
+        tabContents.forEach((content) => content.classList.remove("active"));
+
+        // Add active class to clicked tab and corresponding content
+        tab.classList.add("active");
+        const activeContent = section.querySelector(
+          `.toggle-slider__slider-wrapper[data-tab-content="${tabId}"]`
+        );
+        if (activeContent) {
+          activeContent.classList.add("active");
+
+          // Update swiper for active content and navigation visibility
+          if (swiperInstances.has(activeContent)) {
+            const { swiper, slideCount } = swiperInstances.get(activeContent);
+            swiper.update();
+            updateNavigationVisibility(slideCount);
+          }
+        }
+
+        // Update indicator position
+        updateIndicator(tab);
+      });
+    });
+
+    // Update indicator on window resize
+    let resizeTimeout;
+    window.addEventListener("resize", () => {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        const currentActive = section.querySelector(
+          ".toggle-slider__tab.active"
+        );
+        if (currentActive) {
+          updateIndicator(currentActive);
+        }
+      }, 100);
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - SIDEBAR TABS
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".sidebar-tabs");
+    if (!section) return;
+    const tabs = section.querySelectorAll(".sidebar-tabs__tab");
+    const tabContents = section.querySelectorAll(".sidebar-tabs__content-item");
+
+    if (!tabs.length || !tabContents.length) return;
+
+    function resetTabs() {
+      tabs.forEach((tab) => {
+        tab.classList.remove("active");
+      });
+      tabContents.forEach((content) => {
+        content.classList.remove("active");
+      });
+    }
+
+    function activateTab(index) {
+      resetTabs();
+      tabs[index].classList.add("active");
+      tabContents[index].classList.add("active");
+    }
+
+    function getCurrentActiveIndex() {
+      return Array.from(tabs).findIndex((tab) =>
+        tab.classList.contains("active")
+      );
+    }
+
+    // Tab click handlers
+    tabs.forEach((tab, index) => {
+      tab.addEventListener("click", () => {
+        activateTab(index);
+      });
+    });
+
+    // Navigation button handlers
+    const navigationButtons = section.querySelectorAll(
+      ".sidebar-tabs__navigation-button"
+    );
+    navigationButtons.forEach((button) => {
+      button.addEventListener("click", () => {
+        const isPrev = button.classList.contains("--prev");
+        const isNext = button.classList.contains("--next");
+        const currentIndex = getCurrentActiveIndex();
+        const totalTabs = tabs.length;
+
+        let newIndex = currentIndex;
+
+        if (isNext) {
+          // Move to next tab, wrap to first if at end
+          newIndex = (currentIndex + 1) % totalTabs;
+        } else if (isPrev) {
+          // Move to previous tab, wrap to last if at beginning
+          newIndex = (currentIndex - 1 + totalTabs) % totalTabs;
+        }
+
+        activateTab(newIndex);
+      });
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - FAQ
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const section = document.querySelector(".faq");
+    if (!section) return;
+    const groups = section.querySelectorAll(".faq__group");
+    const tabs = section.querySelectorAll(".faq__tab");
+    if (!groups.length) return;
+
+    groups.forEach((group, index) => {
+      ScrollTrigger.create({
+        trigger: group,
+        start: "top 50%",
+        end: "bottom 50%",
+        onToggle: (self) => {
+          if (self.isActive) {
+            tabs[index].classList.add("active");
+          } else {
+            tabs[index].classList.remove("active");
+          }
+        },
+      });
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	MARQUEE ANIMATION - REUSABLE
+--------------------------------------------------------------------------------- */
+(function () {
+  window.ScrollTriggerComponents.registerCustomHandler("marquee");
+  const marqueeInstances = new Map();
   let resizeTimeout;
+
   function initMarquee() {
     const marqueeElements = document.querySelectorAll("[data-marquee]");
+
     marqueeElements.forEach((track) => {
-      if (marqueeAnimation) {
-        marqueeAnimation.kill();
+      // Kill existing animation for this track
+      if (marqueeInstances.has(track)) {
+        marqueeInstances.get(track).animation.kill();
       }
-      const item = track.querySelector(".cta-marquee__item");
+
+      const item = track.querySelector(".marquee__item");
       if (!item) return;
+
+      // Get speed from data attribute or use default
+      const speed =
+        parseInt(track.dataset.marqueeSpeed) ||
+        (deviceInfo.isMobile ? 100 : 200);
+      const container = track.closest("[data-marquee-container]");
+
       setTimeout(() => {
+        // Remove existing clones
         const existingClones = track.querySelectorAll(
-          ".cta-marquee__item:not(:first-child)"
+          ".marquee__item:not(:first-child)"
         );
         existingClones.forEach((clone) => clone.remove());
+
+        // Calculate how many clones we need
         const containerWidth = track.parentElement.offsetWidth;
         const itemWidth = item.offsetWidth;
         const clonesNeeded = Math.ceil(containerWidth / itemWidth) + 3;
+
+        // Clone items
         for (let i = 0; i < clonesNeeded; i++) {
           const clone = item.cloneNode(true);
           track.appendChild(clone);
         }
+
+        // Reset position
         gsap.set(track, { x: 0 });
+
+        // Calculate animation
         const animationDistance = itemWidth;
-        const speed = deviceInfo.isMobile ? 100 : 200;
         const tl = gsap.timeline({ repeat: -1 });
         tl.to(track, {
           x: -animationDistance,
           duration: animationDistance / speed,
           ease: "none",
         }).set(track, { x: 0 });
-        marqueeAnimation = tl;
+
+        // Store animation instance
+        marqueeInstances.set(track, {
+          animation: tl,
+          speed: speed,
+        });
+
+        // Enable GPU acceleration
         gsap.set(track, {
           force3D: true,
           willChange: "transform",
         });
+
+        // Add hover handlers if container exists
+        if (container) {
+          const pauseOnHover = container.dataset.marqueePause !== "false";
+
+          if (pauseOnHover) {
+            container.addEventListener("mouseenter", () => {
+              gsap.to(tl, { timeScale: 0.3, duration: 0.3 });
+            });
+
+            container.addEventListener("mouseleave", () => {
+              gsap.to(tl, { timeScale: 1, duration: 0.3 });
+            });
+          }
+        }
       }, 50);
     });
   }
+
   function handleResize() {
     clearTimeout(resizeTimeout);
     resizeTimeout = setTimeout(() => {
       initMarquee();
     }, 250);
   }
+
   document.addEventListener("DOMContentLoaded", () => {
     setTimeout(initMarquee, 100);
   });
+
   window.addEventListener("resize", handleResize);
-  document.addEventListener("DOMContentLoaded", () => {
-    const marqueeContainers = document.querySelectorAll(".cta-marquee");
-    marqueeContainers.forEach((container) => {
-      container.addEventListener("mouseenter", () => {
-        if (marqueeAnimation) {
-          gsap.to(marqueeAnimation, { timeScale: 0.3, duration: 0.3 });
-        }
-      });
-      container.addEventListener("mouseleave", () => {
-        if (marqueeAnimation) {
-          gsap.to(marqueeAnimation, { timeScale: 1, duration: 0.3 });
-        }
-      });
-    });
-  });
 })();
 /*	-----------------------------------------------------------------------------
 	HEADER
@@ -985,15 +1780,6 @@ window.ScrollTriggerComponents = {
       });
     });
   }
-})();
-
-/*	-----------------------------------------------------------------------------
-	PAGE LOADING STATE
---------------------------------------------------------------------------------- */
-(function () {
-  window.addEventListener("load", () => {
-    document.body.classList.remove("loading");
-  });
 })();
 
 /*	-----------------------------------------------------------------------------
@@ -1167,4 +1953,198 @@ window.ScrollTriggerComponents = {
       handleResponsiveVideoResize();
     }, 300);
   });
+})();
+
+/*	-----------------------------------------------------------------------------
+	PAGE LOADING STATE
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    setTimeout(() => {
+      document.body.classList.remove("loading");
+    }, 100);
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
+	SECTION ANIMATIONS - POSTS (Filter & Load More)
+--------------------------------------------------------------------------------- */
+(function () {
+  const postsSection = document.querySelector(".posts");
+  if (!postsSection) return;
+
+  const postsContainer = postsSection.querySelector(".posts__posts");
+  const filters = postsSection.querySelectorAll(".posts__filter");
+  const resultsCount = postsSection.querySelector(".posts__results-count");
+  const loadMoreButton = postsSection.querySelector(".posts__load-more-button");
+  const loadMoreContainer = postsSection.querySelector(".posts__load-more");
+  const loadingOverlay = postsSection.querySelector(".posts__loading-overlay");
+
+  if (!postsContainer) return;
+
+  const postType = postsContainer.dataset.postType;
+  const taxonomy = postsContainer.dataset.taxonomy;
+  const postsPerPage = parseInt(postsContainer.dataset.postsPerPage) || 8;
+  let currentPage = 1;
+  let currentTermId = "all";
+  let isLoading = false;
+
+  // Tooltip functionality for mobile
+  const isTouchDevice =
+    "ontouchstart" in window || navigator.maxTouchPoints > 0;
+
+  if (isTouchDevice) {
+    // Handle tooltip toggling on mobile
+    filters.forEach((filter) => {
+      const tooltip = filter.querySelector(".posts__tooltip");
+      if (!tooltip) return;
+
+      // Prevent default filter action when clicking tooltip icon
+      const icon = filter.querySelector(".posts__filter-icon");
+      if (icon) {
+        icon.addEventListener("click", function (e) {
+          e.stopPropagation(); // Prevent filter click
+
+          // Close all other tooltips
+          document.querySelectorAll(".posts__tooltip.active").forEach((t) => {
+            if (t !== tooltip) t.classList.remove("active");
+          });
+
+          // Toggle this tooltip
+          tooltip.classList.toggle("active");
+        });
+      }
+    });
+
+    // Close tooltips when clicking outside
+    document.addEventListener("click", function (e) {
+      if (!e.target.closest(".posts__filter")) {
+        document.querySelectorAll(".posts__tooltip.active").forEach((t) => {
+          t.classList.remove("active");
+        });
+      }
+    });
+  }
+
+  // Filter click handler
+  filters.forEach((filter) => {
+    filter.addEventListener("click", function (e) {
+      // Don't trigger filter if clicking tooltip icon on mobile
+      if (isTouchDevice && e.target.closest(".posts__filter-icon")) {
+        return;
+      }
+
+      if (isLoading) return;
+
+      // Close any open tooltips
+      if (isTouchDevice) {
+        document.querySelectorAll(".posts__tooltip.active").forEach((t) => {
+          t.classList.remove("active");
+        });
+      }
+
+      // Update active state
+      filters.forEach((f) => f.classList.remove("active"));
+      this.classList.add("active");
+
+      // Get filter data
+      currentTermId = this.dataset.termId;
+      currentPage = 1;
+
+      // Load filtered posts
+      loadPosts(true);
+    });
+  });
+
+  // Load more click handler
+  if (loadMoreButton) {
+    loadMoreButton.addEventListener("click", function () {
+      if (isLoading) return;
+      currentPage++;
+      loadPosts(false);
+    });
+  }
+
+  // Load posts function
+  function loadPosts(replaceContent = false) {
+    if (isLoading) return;
+    isLoading = true;
+
+    // Show loading overlay for filter changes
+    if (replaceContent && loadingOverlay) {
+      loadingOverlay.classList.add("active");
+    }
+
+    // Show loading state for load more button
+    if (!replaceContent && loadMoreButton) {
+      loadMoreButton.textContent = "Loading...";
+      loadMoreButton.disabled = true;
+    }
+
+    const formData = new FormData();
+    formData.append("action", "load_more_posts");
+    formData.append("post_type", postType);
+    formData.append("posts_per_page", postsPerPage);
+    formData.append("page", currentPage);
+
+    if (currentTermId !== "all" && taxonomy) {
+      formData.append("filter_term", taxonomy);
+      formData.append("term_id", currentTermId);
+    }
+
+    fetch(ajax_object.ajax_url, {
+      method: "POST",
+      body: formData,
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.posts_html) {
+          if (replaceContent) {
+            postsContainer.innerHTML = data.posts_html;
+          } else {
+            postsContainer.insertAdjacentHTML("beforeend", data.posts_html);
+          }
+
+          // Update results count
+          if (resultsCount) {
+            resultsCount.textContent = data.total_posts;
+          }
+
+          // Update load more button visibility
+          if (loadMoreContainer) {
+            if (data.has_more_posts) {
+              loadMoreContainer.style.display = "";
+            } else {
+              loadMoreContainer.style.display = "none";
+            }
+          }
+
+          // Update current page in dataset
+          postsContainer.dataset.currentPage = data.current_page;
+        }
+
+        // Hide loading states
+        isLoading = false;
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove("active");
+        }
+        if (loadMoreButton) {
+          loadMoreButton.textContent = "Load More";
+          loadMoreButton.disabled = false;
+        }
+      })
+      .catch((error) => {
+        console.error("Error loading posts:", error);
+
+        // Hide loading states on error
+        isLoading = false;
+        if (loadingOverlay) {
+          loadingOverlay.classList.remove("active");
+        }
+        if (loadMoreButton) {
+          loadMoreButton.textContent = "Load More";
+          loadMoreButton.disabled = false;
+        }
+      });
+  }
 })();

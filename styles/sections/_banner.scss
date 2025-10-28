@@ -1,0 +1,39 @@
+@use "../_variables" as *;
+
+.banner {
+  padding: 0;
+  .page-container {
+    padding-inline: var(--gap-sm);
+  }
+
+  &__heading {
+    @extend .text__size-2;
+  }
+
+  &__content {
+    position: absolute;
+    top: 0;
+    right: var(--gap-sm);
+    width: 45%;
+    height: 100%;
+    padding: var(--gap-sm);
+    &-inner {
+      position: relative;
+      height: 100%;
+      background-color: var(--color-light);
+      padding: var(--gap);
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  &__text {
+    margin-top: var(--gap);
+    height: 100%;
+    overflow-y: auto;
+    p,
+    li {
+      font-size: var(--font-size-body-md);
+    }
+  }
+}

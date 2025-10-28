@@ -1,10 +1,16 @@
 @use "../variables" as *;
 .text-media {
-  background-color: var(--color-neutral-4);
+  background-color: var(--color-section-background, var(--color-neutral-4));
+  color: var(--color-section-text, var(--color-text));
+  margin: 0;
+  padding-block: var(--spacer);
   .page-container {
+    position: relative;
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-areas: "header header" "media content";
+    grid-template-areas:
+      "header header"
+      "media content";
     gap: var(--gutter-lg);
 
     @media screen and (max-width: $breakpoint-mobile) {
@@ -14,7 +20,9 @@
   }
   &.--text-left {
     .page-container {
-      grid-template-areas: "header header" "content media";
+      grid-template-areas:
+        "header header"
+        "content media";
       @media screen and (max-width: $breakpoint-mobile) {
         grid-template-areas: "header" "content" "media";
       }
@@ -23,16 +31,55 @@
   &__header {
     grid-area: header;
   }
+
+  &__pre-heading,
+  &__heading,
+  &__description {
+    color: var(--color-section-text, var(--color-text));
+  }
+
   &__media {
     grid-area: media;
-    overflow: hidden;
-    border-radius: var(--border-radius-sm);
-    object-fit: cover;
+    display: grid;
+    grid-template-areas: "a";
+    align-self: start;
+    position: sticky;
+    top: calc(var(--menu-main-height) + var(--gap));
+    transition: top var(--transition-duration-ease-in-out);
+
+    body.scrolling-up & {
+      top: calc(var(--menu-height) + var(--gap));
+    }
+    .media-container {
+      grid-area: a;
+    }
+    &-image {
+      aspect-ratio: var(--aspect-portrait);
+      max-height: calc(100svh - var(--gap-xl));
+    }
+
+    &-video {
+      aspect-ratio: var(--aspect-video);
+      // Video play button styles now use universal .video-play classes
+    }
+
     img,
     video {
-      height: 100%;
       width: 100%;
       object-fit: cover;
+    }
+
+    &--multiple {
+      > * {
+        width: 85%;
+        margin: auto;
+        &:nth-child(1) {
+          transform: rotate(-5deg);
+        }
+        &:nth-child(2) {
+          transform: rotate(5deg);
+        }
+      }
     }
   }
   &__content {
@@ -41,13 +88,16 @@
     flex-direction: column;
     gap: var(--gap-sm);
     align-items: flex-start;
-    justify-content: center;
+    margin-block: auto;
+
+    &-pre-heading,
+    &-heading,
     &-description {
-      p {
-        @extend .text__size-body--lg;
-        &:not(:last-child) {
-          margin-bottom: var(--gap-sm);
-        }
+      color: var(--color-section-text, var(--color-text));
+    }
+    &-description {
+      * {
+        color: var(--color-section-text, var(--color-neutral-2)) !important;
       }
     }
   }
