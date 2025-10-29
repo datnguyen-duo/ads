@@ -1,3 +1,4 @@
+@use "../variables" as *;
 .accordions {
   &__container {
     display: grid;
@@ -23,14 +24,14 @@
   }
 
   &__accordion {
-    padding: var(--gap-sm);
     background-color: var(--color-light);
-    cursor: pointer;
 
     &-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
+      padding: var(--gap-sm);
+      cursor: pointer;
     }
     &-icon {
       position: relative;
@@ -61,10 +62,15 @@
 
     &-text {
       max-height: 0;
-      transition: max-height var(--transition-duration-ease-in-out);
       overflow: hidden;
+      padding: 0 var(--gap-sm);
       &-inner {
-        padding-top: var(--gap-sm);
+        padding-bottom: var(--gap-sm);
+
+        p {
+          font-size: var(--font-size-body-md);
+          line-height: 1.2;
+        }
       }
     }
 
@@ -83,7 +89,7 @@
       .accordions {
         &__accordion {
           &-text {
-            max-height: 400px;
+            max-height: 100%;
           }
           &-icon {
             transform: rotate(45deg);

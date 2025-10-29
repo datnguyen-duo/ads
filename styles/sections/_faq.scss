@@ -48,6 +48,12 @@
       opacity: 0.6;
     }
 
+    &:hover {
+      .faq__tab-content {
+        opacity: 1;
+      }
+    }
+
     &.active {
       &:after {
         opacity: 1;

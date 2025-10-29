@@ -26,7 +26,7 @@ $header_args = array(
                     </div>
                 </div>
                 <div class="<?php echo $layout . '__accordion-text'; ?>">
-                    <div class="<?php echo $layout . '__accordion-text-inner'; ?>">
+                    <div class="<?php echo $layout . '__accordion-text-inner rte'; ?>">
                         <?php echo $accordion['text']; ?>
                     </div>
                 </div>

@@ -1311,26 +1311,6 @@ window.ScrollTriggerComponents = {
 })();
 
 /*	-----------------------------------------------------------------------------
-	SECTION ANIMATIONS - ACCORDIONS
---------------------------------------------------------------------------------- */
-(function () {
-  window.addEventListener("load", () => {
-    const section = document.querySelectorAll(".accordions__accordions");
-    if (!section.length) return;
-    section.forEach((section) => {
-      const accordions = section.querySelectorAll(".accordions__accordion");
-      if (accordions) {
-        accordions.forEach((accordion) => {
-          accordion.addEventListener("click", () => {
-            accordion.classList.toggle("active");
-          });
-        });
-      }
-    });
-  });
-})();
-
-/*	-----------------------------------------------------------------------------
 	SECTION ANIMATIONS - DETAILS
 --------------------------------------------------------------------------------- */
 (function () {
@@ -1609,33 +1589,92 @@ window.ScrollTriggerComponents = {
 })();
 
 /*	-----------------------------------------------------------------------------
-	SECTION ANIMATIONS - FAQ
+	SECTION ANIMATIONS - FAQ & ACCORDIONS
 --------------------------------------------------------------------------------- */
 (function () {
-  window.addEventListener("load", () => {
-    const section = document.querySelector(".faq");
-    if (!section) return;
-    const groups = section.querySelectorAll(".faq__group");
-    const tabs = section.querySelectorAll(".faq__tab");
-    if (!groups.length) return;
+  let faqScrollTriggers = [];
 
-    groups.forEach((group, index) => {
-      ScrollTrigger.create({
-        trigger: group,
-        start: "top 50%",
-        end: "bottom 50%",
-        onToggle: (self) => {
-          if (self.isActive) {
-            tabs[index].classList.add("active");
-          } else {
-            tabs[index].classList.remove("active");
+  window.addEventListener("load", () => {
+    // Initialize FAQ section if it exists
+    const faqSection = document.querySelector(".faq");
+    if (faqSection) {
+      const groups = faqSection.querySelectorAll(".faq__group");
+      const tabs = faqSection.querySelectorAll(".faq__tab");
+
+      if (groups.length && tabs.length) {
+        groups.forEach((group, index) => {
+          const trigger = ScrollTrigger.create({
+            trigger: group,
+            start: "top 50%",
+            end: "bottom 50%",
+            onToggle: (self) => {
+              if (self.isActive) {
+                tabs[index].classList.add("active");
+              } else {
+                tabs[index].classList.remove("active");
+              }
+            },
+          });
+          faqScrollTriggers.push(trigger);
+        });
+      }
+    }
+
+    // Initialize ALL accordions (FAQ and standalone)
+    const accordionSections = document.querySelectorAll(
+      ".accordions__accordions"
+    );
+    if (accordionSections.length) {
+      accordionSections.forEach((section) => {
+        const accordions = section.querySelectorAll(".accordions__accordion");
+        accordions.forEach((accordion) => {
+          const header = accordion.querySelector(
+            ".accordions__accordion-header"
+          );
+          if (header) {
+            header.addEventListener("click", () => {
+              accordion.classList.toggle("active");
+
+              // Check if this accordion is inside a FAQ section
+              const isInsideFAQ = accordion.closest(".faq");
+
+              if (isInsideFAQ && faqScrollTriggers.length) {
+                // For FAQ accordions: kill and recreate ScrollTriggers
+                faqScrollTriggers.forEach((trigger) => trigger.kill());
+                faqScrollTriggers = [];
+
+                // Recreate ScrollTriggers after DOM settles
+                setTimeout(() => {
+                  const groups = faqSection.querySelectorAll(".faq__group");
+                  const tabs = faqSection.querySelectorAll(".faq__tab");
+
+                  groups.forEach((group, index) => {
+                    const trigger = ScrollTrigger.create({
+                      trigger: group,
+                      start: "top 50%",
+                      end: "bottom 50%",
+                      onToggle: (self) => {
+                        if (self.isActive) {
+                          tabs[index].classList.add("active");
+                        } else {
+                          tabs[index].classList.remove("active");
+                        }
+                      },
+                    });
+                    faqScrollTriggers.push(trigger);
+                  });
+                }, 0);
+              } else {
+                // For standalone accordions: simple refresh
+                ScrollTrigger.refresh();
+              }
+            });
           }
-        },
+        });
       });
-    });
+    }
   });
 })();
-
 /*	-----------------------------------------------------------------------------
 	MARQUEE ANIMATION - REUSABLE
 --------------------------------------------------------------------------------- */
