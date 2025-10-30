@@ -10,6 +10,8 @@ $most_known_for = get_field('most_known_for', $ID);
 $activities = get_field('activities', $ID);
 $wildlife = get_field('wildlife', $ID);
 $video = get_field('video', $ID);
+$video_title = get_field('video_title', $ID);
+$video_poster = get_field('video_poster', $ID);
 
 $best_known_for = get_field('best_known_for', $ID);
 $size = get_field('size', $ID);
@@ -74,7 +76,7 @@ endif;
                 <?php 
                 endwhile; ?>
             </div>
-            <div class="entry__content-sidebar">
+            <div class="entry__content-sidebar" data-lenis-prevent>
                 <?php 
                 // Define sidebar sections with their labels and fields
                 $sidebar_sections = array(
@@ -89,7 +91,9 @@ endif;
                     array(
                         'label' => 'Video',
                         'content' => $video,
-                        'type' => 'video'
+                        'type' => 'video',
+                        'video_title' => $video_title,
+                        'video_poster' => $video_poster
                     ),
                     array(
                         'label' => 'Most Known For',
@@ -125,23 +129,43 @@ endif;
                 foreach ($sidebar_sections as $section) :
                     if (empty($section['content'])) continue;
                     $type = isset($section['type']) ? $section['type'] : 'default';
+                    
+                    // For video sections, check if we have valid data before showing anything
+                    if ($type === 'video') {
+                        $video_title = isset($section['video_title']) ? $section['video_title'] : '';
+                        $video_poster = isset($section['video_poster']) ? $section['video_poster'] : null;
+                        $video_embed = $section['content']; // This is the oEmbed HTML
+                        
+                        // Extract embed src
+                        $embed_src = '';
+                        if ($video_embed) {
+                            preg_match('/src="([^"]+)"/', $video_embed, $matches);
+                            $embed_src = $matches[1] ?? '';
+                            // Add autoplay parameter for modal
+                            if ($embed_src && strpos($embed_src, 'autoplay=') === false) {
+                                $separator = strpos($embed_src, '?') !== false ? '&' : '?';
+                                $embed_src .= $separator . 'autoplay=1';
+                            }
+                        }
+                        
+                        // Skip if no valid video data
+                        if (!$embed_src || !$video_poster) continue;
+                    }
                     ?>
                     <div class="entry__content-sidebar-section">
                         <p class="entry__content-sidebar-section-label text__body--bold"><?php echo esc_html($section['label']); ?></p>
-                        <?php if ($type === 'video' && !empty($section['content']) && is_array($section['content'])) : 
-                            $video_url = isset($section['content']['url']) ? $section['content']['url'] : '';
-                            $video_thumb = isset($section['content']['sizes']['medium']) ? $section['content']['sizes']['medium'] : '';
-                            ?>
-                            <?php if ($video_url) : ?>
-                            <div class="entry__content-sidebar-section-video">
-                                <a href="<?php echo esc_url($video_url); ?>" class="entry__content-sidebar-section-video-link" target="_blank">
-                                    <?php if ($video_thumb) : ?>
-                                        <img src="<?php echo esc_url($video_thumb); ?>" alt="Watch Video" class="entry__content-sidebar-section-video-thumb">
-                                    <?php endif; ?>
-                                    <span class="entry__content-sidebar-section-video-play">▶ Watch Video</span>
-                                </a>
+                        <?php if ($type === 'video') : ?>
+                            <div class="entry__content-sidebar-section-video"
+                                 data-video-trigger 
+                                 data-video-src="<?php echo esc_attr($embed_src); ?>"
+                                 data-video-title="<?php echo esc_attr($video_title ? $video_title : 'Watch Video'); ?>">
+                                <img src="<?php echo esc_url($video_poster['sizes']['medium']); ?>" alt="<?php echo esc_attr($video_title ? $video_title : 'Watch Video'); ?>" class="entry__content-sidebar-section-video-thumb">
+                                <div class="video-play__button">
+                                    <div class="video-play__button-icon">
+                                        <?php icon_play('var(--color-light)'); ?>
+                                    </div>
+                                </div>
                             </div>
-                            <?php endif; ?>
                         <?php else : ?>
                             <div class="entry__content-sidebar-section-content text__size-body--sm"><?php echo $section['content']; ?></div>
                         <?php endif; ?>

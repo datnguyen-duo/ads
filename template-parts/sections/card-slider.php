@@ -49,7 +49,7 @@ $is_autoplay = ($variation === 'autoplay');
                     ?>
                     <a href="<?php echo esc_url($url); ?>" class="<?php echo $layout . '__card'; ?> <?php echo $layout . '__card--reference'; ?>" target="_blank" rel="noopener noreferrer">
                         <?php if ($featured_image_id): ?>
-                            <?php image($featured_image_id, 'medium', $layout . '__card-image'); ?>
+                            <?php image($featured_image_id, 'large', $layout . '__card-image'); ?>
                         <?php endif; ?>
                         <div class="<?php echo $layout . '__card-content'; ?>">
                             <?php if ($excerpt): ?>

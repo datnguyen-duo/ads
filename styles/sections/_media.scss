@@ -31,4 +31,14 @@
       width: 100%;
     }
   }
+
+  &__image {
+    aspect-ratio: var(--aspect-portrait);
+    object-fit: cover;
+  }
+
+  &__video {
+    aspect-ratio: var(--aspect-video);
+    object-fit: cover;
+  }
 }

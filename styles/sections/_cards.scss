@@ -18,5 +18,10 @@
     gap: var(--gap-xs);
     background-color: var(--color-light);
     padding: var(--gap-sm);
+
+    &-icon {
+      width: 40px;
+      height: 40px;
+    }
   }
 }

@@ -1,5 +1,9 @@
 @use "./variables" as *;
 .rte {
+  h1,
+  h2 {
+    font-size: 48px;
+  }
   > h1,
   > h2,
   > h3,

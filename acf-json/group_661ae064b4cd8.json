@@ -524,13 +524,21 @@
                                 },
                                 {
                                     "key": "field_68f035dbaeb72",
-                                    "label": "File",
+                                    "label": "File (for autoplay)",
                                     "name": "file",
                                     "aria-label": "",
                                     "type": "file",
-                                    "instructions": "",
+                                    "instructions": "Used when autoplay is enabled. Supports video and image files.",
                                     "required": 0,
-                                    "conditional_logic": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_68f68eb6e0147",
+                                                "operator": "==",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
                                     "wrapper": {
                                         "width": "80",
                                         "class": "",
@@ -541,6 +549,98 @@
                                     "min_size": "",
                                     "max_size": "",
                                     "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "parent_repeater": "field_68f035c7aeb71"
+                                },
+                                {
+                                    "key": "field_6801a1b2c3d4e",
+                                    "label": "Video Title",
+                                    "name": "video_title",
+                                    "aria-label": "",
+                                    "type": "text",
+                                    "instructions": "Title that will appear in the video modal",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_68f68eb6e0147",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "maxlength": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "prepend": "",
+                                    "append": "",
+                                    "parent_repeater": "field_68f035c7aeb71"
+                                },
+                                {
+                                    "key": "field_6801a2c3d4e5f",
+                                    "label": "Poster Image",
+                                    "name": "poster_image",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "Thumbnail image shown before video plays",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_68f68eb6e0147",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "preview_size": "medium",
+                                    "parent_repeater": "field_68f035c7aeb71"
+                                },
+                                {
+                                    "key": "field_6801a3d4e5f60",
+                                    "label": "Video Embed",
+                                    "name": "video_embed",
+                                    "aria-label": "",
+                                    "type": "oembed",
+                                    "instructions": "YouTube, Vimeo, or other video embed URL",
+                                    "required": 0,
+                                    "conditional_logic": [
+                                        [
+                                            {
+                                                "field": "field_68f68eb6e0147",
+                                                "operator": "!=",
+                                                "value": "1"
+                                            }
+                                        ]
+                                    ],
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "width": "",
+                                    "height": "",
                                     "allow_in_bindings": 0,
                                     "parent_repeater": "field_68f035c7aeb71"
                                 }
@@ -2931,16 +3031,45 @@
                     "display": "block",
                     "sub_fields": [
                         {
-                            "key": "field_68f6c4b41e38b",
-                            "label": "Media",
-                            "name": "media",
+                            "key": "field_6801a4e5f6071",
+                            "label": "Autoplay (video only)",
+                            "name": "autoplay",
                             "aria-label": "",
-                            "type": "file",
-                            "instructions": "",
+                            "type": "true_false",
+                            "instructions": "If enabled, video will play automatically (requires HTML5 video file). If disabled, video will open in a modal when clicked (requires embed URL).",
                             "required": 0,
                             "conditional_logic": 0,
                             "wrapper": {
-                                "width": "",
+                                "width": "20",
+                                "class": "",
+                                "id": ""
+                            },
+                            "message": "",
+                            "default_value": 1,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ui_on_text": "",
+                            "ui_off_text": ""
+                        },
+                        {
+                            "key": "field_68f6c4b41e38b",
+                            "label": "Media File (for autoplay or images)",
+                            "name": "media",
+                            "aria-label": "",
+                            "type": "file",
+                            "instructions": "Used when autoplay is enabled or for static images. Supports video and image files.",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6801a4e5f6071",
+                                        "operator": "==",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "80",
                                 "class": "",
                                 "id": ""
                             },
@@ -2949,6 +3078,95 @@
                             "min_size": "",
                             "max_size": "",
                             "mime_types": "",
+                            "allow_in_bindings": 0
+                        },
+                        {
+                            "key": "field_6801a5f60718",
+                            "label": "Video Title",
+                            "name": "video_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "Title that will appear in the video modal",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6801a4e5f6071",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6801a607182a",
+                            "label": "Poster Image",
+                            "name": "poster_image",
+                            "aria-label": "",
+                            "type": "image",
+                            "instructions": "Thumbnail image shown before video plays",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6801a4e5f6071",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "return_format": "array",
+                            "library": "all",
+                            "min_width": "",
+                            "min_height": "",
+                            "min_size": "",
+                            "max_width": "",
+                            "max_height": "",
+                            "max_size": "",
+                            "mime_types": "",
+                            "allow_in_bindings": 0,
+                            "preview_size": "medium"
+                        },
+                        {
+                            "key": "field_6801a71829b",
+                            "label": "Video Embed",
+                            "name": "video_embed",
+                            "aria-label": "",
+                            "type": "oembed",
+                            "instructions": "YouTube, Vimeo, or other video embed URL",
+                            "required": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6801a4e5f6071",
+                                        "operator": "!=",
+                                        "value": "1"
+                                    }
+                                ]
+                            ],
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "width": "",
+                            "height": "",
                             "allow_in_bindings": 0
                         }
                     ],

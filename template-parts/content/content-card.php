@@ -39,7 +39,7 @@ if ($post_type === 'review') {
 <a href="<?php echo esc_url($url); ?>" class="<?php echo $layout . '__card'; ?>">
     <div class="<?php echo $layout . '__card-media'; ?>">
         <?php if ($image_id): ?>
-            <?php image($image_id, 'medium', $layout . '__card-image'); ?>
+            <?php image($image_id, 'large', $layout . '__card-image'); ?>
         <?php else: ?>
             <div class="<?php echo $layout . '__card-placeholder'; ?>" style="width: 100%; height: 100%; background-color: #e5e7eb; display: flex; align-items: center; justify-content: center; color: #9ca3af;">
                 No Image

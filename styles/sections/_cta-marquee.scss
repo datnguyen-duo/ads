@@ -30,13 +30,9 @@
   &__item {
     @extend .marquee__item;
     white-space: nowrap;
-    padding: var(--spacer-sm) 0;
+    padding: var(--gutter-sm) 0;
     text-decoration: none;
     color: inherit;
-
-    @media screen and (max-width: $breakpoint-mobile) {
-      padding: var(--spacer) 0;
-    }
 
     &::after {
       content: "•";

@@ -19,7 +19,7 @@ $cards = get_sub_field('cards');
                     <?php image($icon['ID'], 'full', $layout . '__card-icon'); ?>
                 <?php endif; ?>
                 <?php if ($title): ?>
-                    <h3 class="<?php echo $layout . '__card-title'; ?>"><?php echo $title; ?></h3>
+                    <h3 class="<?php echo $layout . '__card-title text__size-body--md text__body--bold'; ?>"><?php echo $title; ?></h3>
                 <?php endif; ?>
                 <?php if ($description): ?>
                     <p class="<?php echo $layout . '__card-description'; ?>"><?php echo $description; ?></p>

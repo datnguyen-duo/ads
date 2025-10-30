@@ -21,30 +21,54 @@ $header_args = array(
 <?php if ($media): ?>
     <div class="<?php echo $layout . '__media'; ?> <?php echo $layout . '__media--' . $count_class; ?>">
         <?php foreach ($media as $key => $item):
-            $file = $item['file'];
-            $type = $file['type'];
             // ACF true/false field - default to true if not set
             $autoplay = isset($item['autoplay']) ? $item['autoplay'] : true;
-            if ($type == 'image') { ?>
-                <div class="media-container"  data-animate-image>
-                    <?php image($file['ID'], 'full', $layout . '__media-image'); ?>
-                </div>
-            <?php } else if ($type == 'video') { ?>
-                <div class="media-container video-play-container" data-animate-image>
-                    <?php 
-                    // If autoplay: add autoplay, loop, muted, playsinline
-                    // If NOT autoplay: add only playsinline
-                    $video_attrs = $autoplay ? 'autoplay loop muted playsinline' : 'playsinline';
-                    responsive_video($file, null, $layout . '__media-video', $video_attrs, ''); 
-                    ?>
-                    <?php if (!$autoplay): ?>
-                        <div class="video-play__button js-video-play">
+            
+            if ($autoplay) {
+                // Autoplay mode: use HTML5 video or image file
+                $file = $item['file'];
+                $type = $file['type'];
+                
+                if ($type == 'image') { ?>
+                    <div class="media-container"  data-animate-image>
+                        <?php image($file['ID'], 'full', $layout . '__media-image'); ?>
+                    </div>
+                <?php } else if ($type == 'video') { ?>
+                    <div class="media-container video-play-container" data-animate-image>
+                        <?php responsive_video($file, null, $layout . '__media-video', 'autoplay loop muted playsinline', ''); ?>
+                    </div>
+                <?php }
+            } else {
+                // Non-autoplay mode: use embed with modal
+                $video_title = isset($item['video_title']) ? $item['video_title'] : '';
+                $poster_image = isset($item['poster_image']) ? $item['poster_image'] : null;
+                $video_embed = isset($item['video_embed']) ? $item['video_embed'] : '';
+                
+                // Extract embed src
+                $embed_src = '';
+                if ($video_embed) {
+                    preg_match('/src="([^"]+)"/', $video_embed, $matches);
+                    $embed_src = $matches[1] ?? '';
+                    // Add autoplay parameter for modal
+                    if ($embed_src && strpos($embed_src, 'autoplay=') === false) {
+                        $separator = strpos($embed_src, '?') !== false ? '&' : '?';
+                        $embed_src .= $separator . 'autoplay=1';
+                    }
+                }
+                ?>
+                <?php if ($embed_src && $poster_image): ?>
+                    <div class="media-container" data-animate-image 
+                         data-video-trigger 
+                         data-video-src="<?php echo esc_attr($embed_src); ?>"
+                         data-video-title="<?php echo esc_attr($video_title); ?>">
+                        <?php image($poster_image['ID'], 'full', $layout . '__media-video'); ?>
+                        <div class="video-play__button">
                             <div class="video-play__button-icon">
                                 <?php icon_play('var(--color-light)'); ?>
                             </div>
                         </div>
-                    <?php endif; ?>
-                </div>
+                    </div>
+                <?php endif; ?>
             <?php } ?>
         <?php endforeach; ?>
     </div>

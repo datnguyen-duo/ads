@@ -603,6 +603,123 @@ window.ScrollTriggerComponents = {
 })();
 
 /*	-----------------------------------------------------------------------------
+	UNIVERSAL VIDEO MODAL
+--------------------------------------------------------------------------------- */
+(function () {
+  window.addEventListener("load", () => {
+    const videoModal = document.getElementById("video-modal");
+    if (!videoModal) return;
+
+    const modalTitle = document.getElementById("video-modal-title");
+    const modalClose = document.querySelector(".video-modal__close");
+    const modalOverlay = document.querySelector(".video-modal__overlay");
+    const iframeContainer = document.querySelector(
+      ".video-modal__iframe-container"
+    );
+
+    // Global video modal API
+    window.videoModal = {
+      open: function (embedSrc, title) {
+        if (!embedSrc) return;
+
+        modalTitle.textContent = title || "Video";
+        const iframe = document.createElement("iframe");
+        iframe.src = embedSrc;
+        iframe.width = "100%";
+        iframe.height = "100%";
+        iframe.frameBorder = "0";
+        iframe.allow =
+          "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share";
+        iframe.referrerPolicy = "strict-origin-when-cross-origin";
+        iframe.title = title || "Video";
+        iframeContainer.innerHTML = "";
+        iframeContainer.appendChild(iframe);
+        videoModal.setAttribute("aria-hidden", "false");
+        document.body.style.overflow = "hidden";
+        gsap.set(videoModal, { display: "flex", opacity: 0 });
+        gsap
+          .timeline()
+          .to(videoModal, {
+            opacity: 1,
+            duration: 0.3,
+            ease: easeOut,
+          })
+          .to(
+            modalOverlay,
+            {
+              duration: 0.4,
+              ease: easeInOut,
+            },
+            "<0.1"
+          );
+        modalClose.focus();
+      },
+      close: function () {
+        gsap
+          .timeline()
+          .to(modalOverlay, {
+            duration: 0.3,
+            ease: easeInOut,
+          })
+          .to(
+            videoModal,
+            {
+              opacity: 0,
+              duration: 0.2,
+              ease: easeOut,
+              onComplete: () => {
+                videoModal.style.display = "none";
+                videoModal.setAttribute("aria-hidden", "true");
+                document.body.style.overflow = "";
+                iframeContainer.innerHTML = "";
+              },
+            },
+            "<0.1"
+          );
+      },
+    };
+
+    // Close button click
+    if (modalClose) {
+      modalClose.addEventListener("click", window.videoModal.close);
+    }
+
+    // Overlay click to close
+    if (modalOverlay) {
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) {
+          window.videoModal.close();
+        }
+      });
+    }
+
+    // Escape key to close
+    document.addEventListener("keydown", (e) => {
+      if (
+        videoModal.getAttribute("aria-hidden") === "false" &&
+        e.key === "Escape"
+      ) {
+        window.videoModal.close();
+      }
+    });
+
+    // Auto-initialize video triggers with data attributes
+    // Supports: data-video-trigger, data-video-src, data-video-title
+    const videoTriggers = document.querySelectorAll("[data-video-trigger]");
+    videoTriggers.forEach((trigger) => {
+      trigger.addEventListener("click", (e) => {
+        e.preventDefault();
+        const src = trigger.dataset.videoSrc || trigger.dataset.embedSrc;
+        const title = trigger.dataset.videoTitle || trigger.dataset.caption;
+        if (src) {
+          window.videoModal.open(src, title);
+        }
+      });
+    });
+  });
+})();
+
+/*	-----------------------------------------------------------------------------
 	SHOW MORE FUNCTIONALITY - GLOBAL
 --------------------------------------------------------------------------------- */
 
@@ -769,7 +886,7 @@ window.ScrollTriggerComponents = {
     const backgrounds = section.querySelectorAll(
       ".experience-paths__background-image"
     );
-    paths.forEach((path) => {
+    paths.forEach((path, index) => {
       gsap.set(path, {
         opacity: 0,
       });
@@ -811,6 +928,16 @@ window.ScrollTriggerComponents = {
               duration: 0.6,
               ease: easeOut,
             });
+          },
+        });
+
+        gsap.to(background, {
+          yPercent: index % 2 === 0 ? -20 : 20,
+          ease: easeOut,
+          scrollTrigger: {
+            trigger: background,
+            start: "top 60%",
+            scrub: true,
           },
         });
       });
@@ -996,93 +1123,17 @@ window.ScrollTriggerComponents = {
       });
     }
     section.addEventListener("mousemove", handleMouseMove);
-    const videoModal = document.getElementById("video-modal");
-    const modalTitle = document.getElementById("video-modal-title");
-    const modalClose = document.querySelector(".video-modal__close");
-    const modalOverlay = document.querySelector(".video-modal__overlay");
-    const iframeContainer = document.querySelector(
-      ".video-modal__iframe-container"
-    );
-    if (videoModal && media.length > 0) {
+    // Use the global video modal for Previews media items
+    if (media.length > 0) {
       media.forEach((item) => {
         item.addEventListener("click", (e) => {
           e.preventDefault();
           const embedSrc = item.dataset.embedSrc;
           const caption = item.dataset.caption;
-          if (embedSrc) {
-            openVideoModal(embedSrc, caption);
+          if (embedSrc && window.videoModal) {
+            window.videoModal.open(embedSrc, caption);
           }
         });
-      });
-      function openVideoModal(embedSrc, caption) {
-        modalTitle.textContent = caption || "Video";
-        const iframe = document.createElement("iframe");
-        iframe.src = embedSrc;
-        iframe.width = "100%";
-        iframe.height = "100%";
-        iframe.frameBorder = "0";
-        iframe.allow =
-          "autoplay; fullscreen; picture-in-picture; clipboard-write; encrypted-media; web-share";
-        iframe.referrerPolicy = "strict-origin-when-cross-origin";
-        iframe.title = caption || "Video";
-        iframeContainer.innerHTML = "";
-        iframeContainer.appendChild(iframe);
-        videoModal.setAttribute("aria-hidden", "false");
-        document.body.style.overflow = "hidden";
-        gsap.set(videoModal, { display: "flex", opacity: 0 });
-        gsap
-          .timeline()
-          .to(videoModal, {
-            opacity: 1,
-            duration: 0.3,
-            ease: easeOut,
-          })
-          .to(
-            modalOverlay,
-            {
-              duration: 0.4,
-              ease: easeInOut,
-            },
-            "<0.1"
-          );
-        modalClose.focus();
-      }
-      function closeVideoModal() {
-        gsap
-          .timeline()
-          .to(modalOverlay, {
-            duration: 0.3,
-            ease: easeInOut,
-          })
-          .to(
-            videoModal,
-            {
-              opacity: 0,
-              duration: 0.2,
-              ease: easeOut,
-              onComplete: () => {
-                videoModal.style.display = "none";
-                videoModal.setAttribute("aria-hidden", "true");
-                document.body.style.overflow = "";
-                iframeContainer.innerHTML = "";
-              },
-            },
-            "<0.1"
-          );
-      }
-      modalClose.addEventListener("click", closeVideoModal);
-      modalOverlay.addEventListener("click", (e) => {
-        if (e.target === modalOverlay) {
-          closeVideoModal();
-        }
-      });
-      document.addEventListener("keydown", (e) => {
-        if (
-          videoModal.getAttribute("aria-hidden") === "false" &&
-          e.key === "Escape"
-        ) {
-          closeVideoModal();
-        }
       });
     }
   });
@@ -1780,6 +1831,9 @@ window.ScrollTriggerComponents = {
 
 (function () {
   const siteHeader = document.querySelector(".site-header");
+  const menuItemWithChildren = document.querySelectorAll(
+    ".menu-item--level-0.has-mega-menu"
+  );
   const searchToggle = document.querySelector(
     ".main-navigation__search-toggle"
   );
@@ -1798,6 +1852,15 @@ window.ScrollTriggerComponents = {
 
   siteHeaderToggle.addEventListener("click", () => {
     document.body.classList.toggle("site-header-open");
+  });
+
+  menuItemWithChildren.forEach((item) => {
+    item.addEventListener("mouseenter", () => {
+      document.body.classList.add("site-header-open");
+    });
+    item.addEventListener("mouseleave", () => {
+      document.body.classList.remove("site-header-open");
+    });
   });
 })();
 

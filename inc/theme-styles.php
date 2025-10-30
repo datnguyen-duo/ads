@@ -46,7 +46,7 @@ function generate_css($colors, $color_type, $css) {
     $css .= '--color-transparent-dark: rgba(0, 0, 0, .4);';
     $css .= '--color-gradient: linear-gradient(180deg, rgba(0, 0, 0, 0.00) 70.57%, rgba(0, 0, 0, 0.80) 100%), linear-gradient(0deg, rgba(0, 0, 0, 0.30) 0%, rgba(0, 0, 0, 0.30) 100%);';
     $css .= '--font-size-1: clamp(2.5rem, 5.4vw, 104px);';
-    $css .= '--font-size-2: clamp(2.25rem, 5vw, 96px);';
+    $css .= '--font-size-2: clamp(2.25rem, 3.75vw, 72px);';
     $css .= '--font-size-3: clamp(1.75rem, 1.875vw, 36px);';
     $css .= '--font-size-3--alt: clamp(1.75rem, 2.5vw, 48px);';
     $css .= '--font-size-4: clamp(1.25rem, 1.25vw, 24px);';
@@ -89,7 +89,7 @@ function generate_css($colors, $color_type, $css) {
     $css .= '--aspect-film: 3/2;';
     $css .= '--aspect-video: 16/9;';
     $css .= '--aspect-ultrawide: 21/9;';
-    $css .= '--menu-main-height: 70px;';
+    $css .= '--menu-main-height: 63px;';
     $css .= '--menu-top-bar-height: 33px;';
     $css .= '--menu-height: calc(var(--menu-main-height) + var(--menu-top-bar-height));';
     echo trim($css);

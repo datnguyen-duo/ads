@@ -6,10 +6,13 @@ $tabs = get_sub_field('tabs');
 
 <h2 class="<?php echo $layout . '__heading text__size-3'; ?>">Details</h2>
 
-<?php if ($tabs): ?>
+<?php if ($tabs):
+    $single_tab = count($tabs) === 1;
+    ?>
     <div class="<?php echo $layout . '__tabs'; ?>">
-        <div class="<?php echo $layout . '__tabs-navigation'; ?>">
-            <?php foreach ($tabs as $index => $tab): ?>
+        <div class="<?php echo $layout . '__tabs-navigation'; ?><?php echo $single_tab ? ' --single-tab' : ''; ?>">
+            <?php foreach ($tabs as $index => $tab):
+                ?>
                 <button 
                     class="<?php echo $layout . '__tab'; ?><?php echo $index === 0 ? ' active' : ''; ?>" 
                     data-tab="<?php echo $index; ?>"

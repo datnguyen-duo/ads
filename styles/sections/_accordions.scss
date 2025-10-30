@@ -17,6 +17,10 @@
     }
   }
 
+  &__heading {
+    @extend .text__size-2;
+  }
+
   &__accordions {
     display: flex;
     flex-direction: column;
